@@ -7,6 +7,49 @@ import { getDictionary } from '../../../dictionaries';
 import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
 
+// ⚡ 递归工具函数一：获取目录下所有（包括子文件夹内） .md 文件的路径列表
+function getMdFilesRecursive(dirPath: string): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  let results: string[] = [];
+  const list = fs.readdirSync(dirPath);
+  
+  list.forEach((file) => {
+    const fullPath = path.join(dirPath, file);
+    const stat = fs.statSync(fullPath);
+    
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getMdFilesRecursive(fullPath));
+    } else if (file.endsWith('.md')) {
+      results.push(fullPath);
+    }
+  });
+  
+  return results;
+}
+
+// ⚡ 递归工具函数二：深度查找文件名匹配目标 slug 的 .md 文件路径
+function findMdFileRecursive(dirPath: string, targetSlug: string): string | null {
+  if (!fs.existsSync(dirPath)) return null;
+
+  const list = fs.readdirSync(dirPath);
+  for (const file of list) {
+    const fullPath = path.join(dirPath, file);
+    const stat = fs.statSync(fullPath);
+    
+    if (stat && stat.isDirectory()) {
+      const found = findMdFileRecursive(fullPath, targetSlug);
+      if (found) return found;
+    } else if (file.endsWith('.md')) {
+      const slug = path.basename(file, '.md');
+      if (slug === targetSlug) {
+        return fullPath;
+      }
+    }
+  }
+  return null;
+}
+
+// 🔥 核心修正：让 Next.js 构建和运行时能够识别所有子夹子里文章的路由
 export async function generateStaticParams() {
   const languages = ['en', 'zh'];
   const paths: { lang: string; slug: string }[] = [];
@@ -14,11 +57,11 @@ export async function generateStaticParams() {
   languages.forEach((lang) => {
     const dirPath = path.join(process.cwd(), 'content', lang);
     if (fs.existsSync(dirPath)) {
-      const files = fs.readdirSync(dirPath);
-      files.forEach((file) => {
-        if (file.endsWith('.md')) {
-          paths.push({ lang, slug: file.replace('.md', '') });
-        }
+      // 深度递归扫描子夹子里面的所有 .md 文件
+      const allFilePaths = getMdFilesRecursive(dirPath);
+      allFilePaths.forEach((filePath) => {
+        const slug = path.basename(filePath, '.md');
+        paths.push({ lang, slug });
       });
     }
   });
@@ -33,9 +76,11 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   const dict = await getDictionary(lang);
   
-  const filePath = path.join(process.cwd(), 'content', lang, `${slug}.md`);
+  // 🔥 核心重构：不再死绑根目录，深度去所有子文件夹探险查找该文章
+  const baseContentDir = path.join(process.cwd(), 'content', lang);
+  const filePath = findMdFileRecursive(baseContentDir, slug);
   
-  if (!fs.existsSync(filePath)) {
+  if (!filePath || !fs.existsSync(filePath)) {
     return (
       <div className="p-10 text-center min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <p className="text-gray-500 mb-4">{dict.articleNotFound}</p>
@@ -66,7 +111,6 @@ export default async function BlogPostPage({
                 sizes="100vw"
                 className="w-full h-auto object-contain block"
                 priority
-                // ⚡ 核心提速：不对远程图片做本地代理压缩，直接拉取，杜绝 upstream timed out 报错！
                 unoptimized
               />
             </span>

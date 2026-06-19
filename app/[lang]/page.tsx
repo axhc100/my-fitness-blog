@@ -5,6 +5,27 @@ import matter from 'gray-matter';
 import { getDictionary } from '../dictionaries';
 import FlagCountdown from '@/components/FlagCountdown'; 
 
+// ⚡ 工业级终极递归武器：扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
+function getMdFilesRecursive(dirPath: string): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  let results: string[] = [];
+  const list = fs.readdirSync(dirPath);
+  
+  list.forEach((file) => {
+    const fullPath = path.join(dirPath, file);
+    const stat = fs.statSync(fullPath);
+    
+    if (stat && stat.isDirectory()) {
+      // 遇到年份/月份夹子，继续钻进去找
+      results = results.concat(getMdFilesRecursive(fullPath));
+    } else if (file.endsWith('.md')) {
+      results.push(fullPath);
+    }
+  });
+  
+  return results;
+}
+
 export default async function HomePage({
   params,
   searchParams,
@@ -25,33 +46,39 @@ export default async function HomePage({
   const contentDir = path.join(process.cwd(), 'content', lang);
   let allArticles: { slug: string; title: string; description: string; date: string }[] = [];
 
+  // 🔥 核心重构：使用全新的递归深度读取，不管文章在根目录还是 2026-06 文件夹，通通拿下
   if (fs.existsSync(contentDir)) {
-    const files = fs.readdirSync(contentDir);
-    allArticles = files
-      .filter((file) => file.endsWith('.md'))
-      .map((file) => {
-        const filePath = path.join(contentDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const { data } = matter(fileContent);
-        return {
-          slug: file.replace('.md', ''),
-          title: data.title || file,
-          description: data.description || '',
-          date: data.date || '',
-        };
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const allFilePaths = getMdFilesRecursive(contentDir);
+    
+    allArticles = allFilePaths.map((filePath) => {
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      const { data } = matter(fileContent);
+      
+      // 极其关键：剥离前面的路径，只留文件名作为 URL 路由 slug
+      const slug = path.basename(filePath, '.md');
+      
+      return {
+        slug: slug,
+        title: data.title || path.basename(filePath),
+        description: data.description || '',
+        date: data.date || '',
+      };
+    });
+
+    // 依然维持你原本帅气的文章按日期倒序排列
+    allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
   const totalPosts = allArticles.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  // 完美切片分页
   const articles = allArticles.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
     <main className="min-h-screen bg-slate-50/50 text-gray-900 pb-24 relative">
       
-      {/* 🌐 悬浮毛玻璃导航条 */}
+      {/* 🌐 原汁原味的悬浮毛玻璃导航条 */}
       <header className="sticky top-0 z-50 w-full bg-white/75 backdrop-blur-md border-b border-gray-100 transition-all">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href={`/${lang}`} className="flex items-center gap-2 group">
@@ -82,7 +109,7 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* 🛠️ 工具箱头部标题 */}
+      {/* 🛠️ 原本帅气的头部大标题 */}
       <div className="max-w-5xl mx-auto px-6 text-center mb-16 mt-16">
         <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-gray-900 bg-gradient-to-b from-gray-900 to-gray-700 bg-clip-text text-transparent">
           {dict.title || "Fitness & Health Toolkit"}
@@ -93,81 +120,81 @@ export default async function HomePage({
       </div>
 
       <div className="max-w-5xl mx-auto px-6">
-        {/* 🎛️ 统一网格：全卡片字典动态国际化（中英文丝滑切换） */}
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
-  
-  {/* 1. 🤸‍♂️ 一字马进度打卡 */}
-  <Link href={`/${lang}/tools/splits`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🤸‍♂️</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.splitsTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.splitsDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+        {/* 🎛️ 你的全部 8 张核心计算器卡片 UI，一个都不能少！ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
+          
+          {/* 1. 一字马进度打卡 */}
+          <Link href={`/${lang}/tools/splits`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🤸‍♂️</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.splitsTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.splitsDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 2. 🍳 三大宏量营养素计算器 */}
-  <Link href={`/${lang}/tools/macro`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🍳</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.macroTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.macroDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 2. 三大宏量营养素计算器 */}
+          <Link href={`/${lang}/tools/macro`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🍳</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.macroTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.macroDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 3. 🎯 “立个 Flag” 目标倒计时（组件内部已自适应 lang 属性） */}
-  <FlagCountdown lang={lang} />
+          {/* 3. “立个 Flag” 目标倒计时 */}
+          <FlagCountdown lang={lang} />
 
-  {/* 4. 🔥 体脂率计算器 */}
-  <Link href={`/${lang}/tools/bfp`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🔥</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.bfpTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.bfpDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 4. 体脂率计算器 */}
+          <Link href={`/${lang}/tools/bfp`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🔥</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.bfpTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.bfpDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 5. ⚡ 基础代谢计算 */}
-  <Link href={`/${lang}/tools/bmr`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">⚡</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.bmrTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.bmrDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 5. 基础代谢计算 */}
+          <Link href={`/${lang}/tools/bmr`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">⚡</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.bmrTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.bmrDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 6. 💧 每日饮水量计算 */}
-  <Link href={`/${lang}/tools/water`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">💧</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.waterTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.waterDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 6. 每日饮水量计算 */}
+          <Link href={`/${lang}/tools/water`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">💧</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.waterTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.waterDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 7. ⚖️ 标准体重计算 */}
-  <Link href={`/${lang}/tools/ibw`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">⚖️</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.ibwTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.ibwDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 7. 标准体重计算 */}
+          <Link href={`/${lang}/tools/ibw`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">⚖️</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.ibwTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.ibwDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
-  {/* 8. ❤️ 燃脂心率区间 */}
-  <Link href={`/${lang}/tools/hr`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
-    <div>
-      <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">❤️</span>
-      <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.hrTool}</h3>
-      <p className="text-xs text-gray-400 leading-relaxed">{dict.hrDesc}</p>
-    </div>
-    <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
-  </Link>
+          {/* 8. 燃脂心率区间 */}
+          <Link href={`/${lang}/tools/hr`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">❤️</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.hrTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.hrDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
 
         </div>
 
@@ -182,7 +209,7 @@ export default async function HomePage({
           
           {articles.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-2xl border border-dashed text-sm text-gray-400">
-              💡 更多硬核健身拉伸干货文章正在火速撰写中...
+              💡 {lang === 'zh' ? '更多硬核健身拉伸干货文章正在火速撰写中...' : 'More core fitness articles are on the way...'}
             </div>
           ) : (
             <div className="space-y-4">
@@ -201,7 +228,7 @@ export default async function HomePage({
             </div>
           )}
 
-          {/* 翻页组件 */}
+          {/* 🎯 精美分页导航组件 */}
           {totalPages > 1 && (
             <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-100">
               {currentPage > 1 ? (

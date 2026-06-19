@@ -20,16 +20,35 @@ git push origin main
 
 ⚠️ 硬核细节：文件名必须全小写、不留空格，多单词之间使用连字符 - 连接（例如：fasted-cardio.md）。
 
-2. 生成并发布图片（白嫖 CDN 链接）
-将你用 AI 工具生成好的高清图片，拖拽进你 GitHub 仓库里的任何一个 Issue（议题） 输入框中。
+2. 🚀 第一步：利用 GitHub 网页端上传图片（秒拿 CDN 链接）
+当你写文章需要插入高清健身拉伸图、对比图时，直接使用你建好的 my-blog-images 仓库：
 
-最关键的一步：给 Issue 随便写个标题，然后点击 Submit new issue（提交新议题）。
+拖拽上传： 浏览器打开你的 my-blog-images 仓库，点击 Upload files，把图片直接拖进去，点击 Commit changes 提交。
 
-提交成功后，直接在页面里对那张图片右键 -> 复制图片地址。
+直链公式： 记住你的专属 jsDelivr 加速公式（把最后的 图片名.jpg 换成你刚传的图即可）：
 
-3. 填入并同步
-将复制出来的、以 https://github.com/... 或者亚马逊 S3 开头的终极网络链接，直接粘贴到你的 Markdown 语法括号中：
+Plaintext
+https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/你的图片名.jpg
+
+📝 第二步：本地或任意地方写 Markdown（规范 Front Matter 头）
+在你的本地项目 content/zh/ 或 content/en/ 下面，你可以直接建单文件，也可以建子文件夹（如 2026-06/）来归类管理。
+
+新建一个 .md 文件（例如 abs-training-guide.md），文章顶部必须严格包含如下的 Front Matter 格式（这是给代码解析标题和日期用的）：
 
 Markdown
-![图片描述](你复制的纯网址链接)
-运行 git add .、git commit 并 git push。你的个人博客就会自动完成云端部署，全球用户都能在几毫秒内流畅阅读你图文并茂的最新硬核文章！
+---
+title: "2026硬核腹肌撕裂者指南：如何降低体脂露出腹肌"
+date: "2026-06-19"
+description: "结合三大宏量营养素计算器，通过科学有氧与抗阻训练，在两周内打造清晰腹肌线条。"
+---
+
+这里开始写你的正文...
+
+![腹肌训练机制](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/your-abs-image.jpg)
+
+Markdown 的其余硬核干货内容...
+🏁 第三步：热键三连 Git 提交（Vercel 自动流水线发布）
+文章写好并保存后，在 VS Code 底部终端（Terminal）里，依次输入经典的 Git 三驾马车命令：
+git add .
+git commit -m "feat: 发表全新硬核腹肌指南文章"
+git push
