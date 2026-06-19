@@ -12,3 +12,24 @@ git commit -m "content: add summer fat loss article for zh and en"
 
 # 3. 开启推进！把本地代码和文章一并推送到云端仓库
 git push origin main
+
+
+📝 Next.js 博客高效发文流三步法
+1. 生产 Markdown
+在 content/zh/ 和 content/en/ 下创建相对应的博文文件。
+
+⚠️ 硬核细节：文件名必须全小写、不留空格，多单词之间使用连字符 - 连接（例如：fasted-cardio.md）。
+
+2. 生成并发布图片（白嫖 CDN 链接）
+将你用 AI 工具生成好的高清图片，拖拽进你 GitHub 仓库里的任何一个 Issue（议题） 输入框中。
+
+最关键的一步：给 Issue 随便写个标题，然后点击 Submit new issue（提交新议题）。
+
+提交成功后，直接在页面里对那张图片右键 -> 复制图片地址。
+
+3. 填入并同步
+将复制出来的、以 https://github.com/... 或者亚马逊 S3 开头的终极网络链接，直接粘贴到你的 Markdown 语法括号中：
+
+Markdown
+![图片描述](你复制的纯网址链接)
+运行 git add .、git commit 并 git push。你的个人博客就会自动完成云端部署，全球用户都能在几毫秒内流畅阅读你图文并茂的最新硬核文章！
