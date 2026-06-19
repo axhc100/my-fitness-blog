@@ -6,8 +6,10 @@ import { marked } from 'marked';
 import { getDictionary } from '../../../dictionaries';
 import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
+// 如果用 @/ 报错，就直接换成下面这种无敌的相对路径：
+import AdSenseWidget from '../../../../components/AdSenseWidget';
 
-// ⚡ 递归工具函数一：获取目录下所有（包括子文件夹内） .md 文件的路径列表
+// ⚡ 递归工具函数一：深度扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
 function getMdFilesRecursive(dirPath: string): string[] {
   if (!fs.existsSync(dirPath)) return [];
   let results: string[] = [];
@@ -27,7 +29,7 @@ function getMdFilesRecursive(dirPath: string): string[] {
   return results;
 }
 
-// ⚡ 递归工具函数二：深度查找文件名匹配目标 slug 的 .md 文件路径
+// ⚡ 递归工具函数二：深度查找文件名匹配目标 slug 的 .md 文件绝对路径
 function findMdFileRecursive(dirPath: string, targetSlug: string): string | null {
   if (!fs.existsSync(dirPath)) return null;
 
@@ -49,7 +51,7 @@ function findMdFileRecursive(dirPath: string, targetSlug: string): string | null
   return null;
 }
 
-// 🔥 核心修正：让 Next.js 构建和运行时能够识别所有子夹子里文章的路由
+// 🔥 核心修正：让 Next.js 能够精准识别所有藏在子夹子（如 2026-06）里的文章路由
 export async function generateStaticParams() {
   const languages = ['en', 'zh'];
   const paths: { lang: string; slug: string }[] = [];
@@ -57,7 +59,6 @@ export async function generateStaticParams() {
   languages.forEach((lang) => {
     const dirPath = path.join(process.cwd(), 'content', lang);
     if (fs.existsSync(dirPath)) {
-      // 深度递归扫描子夹子里面的所有 .md 文件
       const allFilePaths = getMdFilesRecursive(dirPath);
       allFilePaths.forEach((filePath) => {
         const slug = path.basename(filePath, '.md');
@@ -76,7 +77,7 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   const dict = await getDictionary(lang);
   
-  // 🔥 核心重构：不再死绑根目录，深度去所有子文件夹探险查找该文章
+  // 🔥 核心重构：去所有子文件夹深度探险查找该文章，防止 404
   const baseContentDir = path.join(process.cwd(), 'content', lang);
   const filePath = findMdFileRecursive(baseContentDir, slug);
   
@@ -175,6 +176,10 @@ export default async function BlogPostPage({
             {reactContent}
           </div>
         </article>
+
+        {/* 💰 变现位：插在硬核干货正文的最底部，看完顺手点一波，收益率最高！ */}
+        <AdSenseWidget slot="你的文章页底部广告位ID" />
+
       </div>
     </main>
   );

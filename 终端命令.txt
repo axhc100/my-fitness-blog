@@ -52,3 +52,5 @@ Markdown 的其余硬核干货内容...
 git add .
 git commit -m "feat: 发表全新硬核腹肌指南文章"
 git push
+
+安心等待你的域名通过 Google AdSense 审核。一旦审核通过，你只需要把 \app\[lang]\layout.tsx 和 \components\AdSenseWidget.tsx 里的 ca-pub-XXXXXXXXXXXXXXXX 换成你真正的广告商 ID，广告就会在线上严丝合缝地自动展示出来，正式开启你的被动收入之旅！
