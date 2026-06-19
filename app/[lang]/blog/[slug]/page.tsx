@@ -74,13 +74,14 @@ export default async function BlogPostPage({
             </div>
           </header>
           
-          {/* 渲染正文：引入自定义微调样式，使其长文章排版极其舒适 */}
+          {/* 渲染正文：引入自定义微调样式与 Tailwind Typography，使其长文章、图片排版极其舒适 */}
           <div 
             className="prose prose-gray max-w-none leading-relaxed 
                        prose-headings:font-bold prose-headings:text-gray-800
                        prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
                        prose-p:text-gray-600 prose-p:mb-4 prose-p:text-base md:prose-p:text-lg
-                       prose-strong:text-blue-600 prose-strong:font-bold"
+                       prose-strong:text-blue-600 prose-strong:font-bold
+                       prose-img:max-w-full prose-img:h-auto prose-img:rounded-2xl prose-img:shadow-md prose-img:mx-auto prose-img:my-8"
             dangerouslySetInnerHTML={{ __html: htmlContent }} 
           />
         </article>

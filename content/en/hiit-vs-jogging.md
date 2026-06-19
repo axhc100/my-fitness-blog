@@ -1,5 +1,5 @@
 ---
-title: "Summer Fat Loss Guide: How to Maintain Muscle While Shedding Fat"
+title: "How to Maintain Muscle While Shedding Fat"
 date: "2026-06-18"
 description: "A scientific approach to summer fat loss: strategies for preserving muscle mass while achieving a healthy reduction in body fat percentage."
 ---

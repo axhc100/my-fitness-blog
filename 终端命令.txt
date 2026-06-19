@@ -1,0 +1,14 @@
+本地测试和一键上线两套指令，你直接在 VS Code 的终端里复制运行即可：
+💻 1. 本地预览指令
+npm run dev
+
+🚀 2. 上传云端指令（Git 提交 + 自动部署）
+本地预览觉得完美无误后，按 Ctrl + C 退出预览，然后依次轰入以下三行标准 Git 命令。只要你一推上去，线上的 Vercel/Netlify 就会自动捕捉并帮你更新网站，完全不需要手动去网站后台操作！
+# 1. 把刚刚新建的两篇 .md 文章文件添加到暂存区
+git add .
+
+# 2. 提交文件，并附带一条更新日志（告诉自己今天加了新文章）
+git commit -m "content: add summer fat loss article for zh and en"
+
+# 3. 开启推进！把本地代码和文章一并推送到云端仓库
+git push origin main
