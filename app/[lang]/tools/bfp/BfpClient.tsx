@@ -65,7 +65,7 @@ const uiDict = {
     desc2: "穿衣显瘦，脱衣有肉，马甲线随时待命！",
     tag3: "💪 持续燃脂中",
     desc3: "科学控好皮质醇，好身材正在加速出关！",
-    shareBtn: "✨ 复制成就去社交平台/朋友圈炫耀",
+    shareBtn: "✨ 复制成就去小红书/朋友圈",
     shareBtnSuccess: "✅ 复制成功！快去群里炫耀",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
       `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`,
@@ -77,13 +77,9 @@ const uiDict = {
   }
 };
 
-interface BfpClientProps {
-  paramsPromise: Promise<{ lang: 'en' | 'zh' }>;
-}
-
-export default function BfpClient({ paramsPromise }: BfpClientProps) {
-  // 解构多语言参数
-  const unwrappedParams = use(paramsPromise);
+export default function BfpClient({ paramsPromise }: { paramsPromise: any }) {
+  // 解构多语言参数并进行安全的 fallback 兜底
+  const unwrappedParams = use<{ lang?: string }>(paramsPromise);
   const lang = unwrappedParams?.lang === 'zh' ? 'zh' : 'en';
   const t = uiDict[lang];
 
@@ -148,7 +144,7 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
     setCopied(false);
   };
 
-  // 根据基准标准图表进行医学级解读
+  // 解读面板
   const getDetailedInterpretation = (bfpVal: number) => {
     const isMale = gender === '1';
     const currentAge = parseInt(age) || 25;
@@ -179,88 +175,68 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
         return {
           category: t.cat1,
           color: "text-red-600 bg-red-50 border-red-200",
-          desc: lang === 'zh' 
-            ? `处于维持生命最基本的【必需脂肪】临界线（2%-5%）。对于当前 ${currentAge} 岁男性，虽具备赛级线条，但请务必注意免疫与荷尔蒙健康。`
-            : `At essential fat levels (2%-5%). Extremely lean. Monitor your recovery carefully.`
+          desc: `处于维持生命最基本的【必需脂肪】临界线（2%-5%）。对于当前 ${currentAge} 岁男性，虽具备赛级线条，但请务必注意免疫与荷尔蒙健康。`
         };
       }
       if (bfpVal > 5 && bfpVal <= 13) {
         return {
           category: t.cat2,
           color: "text-orange-600 bg-orange-50 border-orange-200",
-          desc: lang === 'zh' 
-            ? `处于完美的【运动员】级别（6%-13%）。当前年龄理想参考值为 ${idealText}，您的体脂状态非常拔尖，皮下脂肪极薄！`
-            : `Athletic range (6%-13%). Highly optimized. Your age reference benchmark is ${idealText}.`
+          desc: `处于完美的【运动员】级别（6%-13%）。当前年龄理想参考值为 ${idealText}，您的体脂状态非常拔尖，皮下脂肪极薄！`
         };
       }
       if (bfpVal > 13 && bfpVal <= 17) {
         return {
           category: t.cat3,
           color: "text-green-600 bg-green-50 border-green-200",
-          desc: lang === 'zh' 
-            ? `处于极其优秀的【健壮】级别（14%-17%）。腹肌轮廓可见，肌肉饱满。对比当前年龄参考值 ${idealText}，处于黄金健身区间。`
-            : `Fit and strong condition (14%-17%). Excellent lean muscle mass layout.`
+          desc: `处于极其优秀的【健壮】级别（14%-17%）。腹肌轮廓可见，肌肉饱满。对比当前年龄参考值 ${idealText}，处于黄金健身区间。`
         };
       }
       if (bfpVal > 17 && bfpVal <= 24) {
         return {
           category: t.cat4,
           color: "text-blue-600 bg-blue-50 border-blue-200",
-          desc: lang === 'zh' 
-            ? `处于健康的【正常】标准区间（18%-24%）。对比当前年龄理想参考值 ${idealText}，建议搭配适当的抗阻与热量调控。`
-            : `Normal and stable health profile (18%-24%). Age standard target is ${idealText}.`
+          desc: `处于健康的【正常】标准区间（18%-24%）。对比当前年龄理想参考值 ${idealText}，建议搭配适当的抗阻与热量调控。`
         };
       }
       return {
         category: t.cat5,
         color: "text-amber-700 bg-amber-50 border-amber-200",
-        desc: lang === 'zh' 
-          ? `数据提示已进入【肥胖】警戒区（≥25%）。超出了当前年龄理想基准 ${idealText}，建议积极控制内脏脂肪，开启规律作息。`
-          : `Adiposity warning zone (≥25%). Higher than age benchmark ${idealText}.`
+        desc: `数据提示已进入【肥胖】警戒区（≥25%）。超出了当前年龄理想基准 ${idealText}，建议积极控制内脏脂肪，开启规律作息。`
       };
     } else {
       if (bfpVal >= 10 && bfpVal <= 13) {
         return {
           category: t.cat1,
           color: "text-red-600 bg-red-50 border-red-200",
-          desc: lang === 'zh' 
-            ? `处于女性生理极限的【必需脂肪】安全底线（10%-13%）。可能存在内分泌或周期停滞风险，请及时补充优质能量。`
-            : `Essential lipid bounds (10%-13%). Highly critical for standard feminine endocrine pathways.`
+          desc: `处于女性生理极限的【必需脂肪】安全底线（10%-13%）。可能存在内分泌或周期停滞风险，请及时补充优质能量。`
         };
       }
       if (bfpVal > 13 && bfpVal <= 20) {
         return {
           category: t.cat2,
           color: "text-orange-600 bg-orange-50 border-orange-200",
-          desc: lang === 'zh' 
-            ? `处于优越的【运动员】级别（14%-20%）。皮下脂肪紧致。对比 ${currentAge} 岁女性理想参考值 ${idealText}，线条感极为利落。`
-            : `Premium Athletic build (14%-20%). Your current age baseline target is ${idealText}.`
+          desc: `处于优越的【运动员】级别（14%-20%）。皮下脂肪紧致。对比 ${currentAge} 岁女性理想参考值 ${idealText}，线条感极为利落。`
         };
       }
       if (bfpVal > 20 && bfpVal <= 24) {
         return {
           category: t.cat3,
           color: "text-green-600 bg-green-50 border-green-200",
-          desc: lang === 'zh' 
-            ? `处于完美的【健壮】级别（21%-24%）。身材比例饱满且富含肌肉活力。对比当前年龄参考值 ${idealText}，处于超常状态。`
-            : `Feminine Fit standard (21%-24%). Active structural lean mass preservation.`
+          desc: `处于完美的【健壮】级别（21%-24%）。身材比例饱满且富含肌肉活力。对比当前年龄参考值 ${idealText}，处于超常状态。`
         };
       }
       if (bfpVal > 24 && bfpVal <= 31) {
         return {
           category: t.cat4,
           color: "text-blue-600 bg-blue-50 border-blue-200",
-          desc: lang === 'zh' 
-            ? `处于非常健康的【正常】身材区间（25%-31%）。内分泌极度稳健。对比当前年龄理想参考值 ${idealText}，符合长寿代谢指标。`
-            : `Normal regulatory interval (25%-31%). Your age benchmark target is ${idealText}.`
+          desc: `处于非常健康的【正常】身材区间（25%-31%）。内分泌极度稳健。对比当前年龄理想参考值 ${idealText}，符合长寿代谢指标。`
         };
       }
       return {
         category: t.cat5,
         color: "text-amber-700 bg-amber-50 border-amber-200",
-        desc: lang === 'zh' 
-          ? `数据提示已进入【肥胖】范畴（≥32%）。已超过当前年龄理想基准值 ${idealText}，容易伴随久坐和高皮质醇堆积，建议开启科学控糖。`
-          : `Adiposity warning zone (≥32%). Higher than age benchmark ${idealText}.`
+        desc: `数据提示已进入【肥胖】范畴（≥32%）。已超过当前年龄理想基准值 ${idealText}，容易伴随久坐和高皮质醇堆积，建议开启科学控糖。`
       };
     }
   };
@@ -285,7 +261,6 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
             <h1 className="text-xl font-black text-gray-900 mt-2 tracking-tight">{t.title}</h1>
           </div>
 
-          {/* 双模切换器 */}
           <div className="mb-6">
             <label className="block text-[11px] font-black uppercase text-gray-400 tracking-widest mb-2">{t.modeSelect}</label>
             <div className="grid grid-cols-2 gap-1 bg-gray-100 p-1 rounded-xl border border-gray-200/50">
@@ -306,7 +281,6 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
             </div>
           </div>
 
-          {/* 表单 */}
           <form onSubmit={handleCalculate} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1">{t.gender}</label>
@@ -423,7 +397,6 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
             </button>
           </form>
 
-          {/* 结果展示 */}
           {result !== null && (
             <div className="mt-6 space-y-4">
               <div className="p-4 bg-gray-900 border border-black rounded-2xl text-center shadow-inner">
