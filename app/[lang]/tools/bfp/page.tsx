@@ -3,11 +3,11 @@
 import { useState, use } from 'react';
 import Link from 'next/link';
 
-// 多语言深度定制字典（含硬核双模式解读、避坑提示及裂变炫耀卡片）
+// 多语言深度字典（包含精准对应的五个分类解读档位）
 const uiDict = {
   en: {
     back: "← Back to Home",
-    title: "Advanced Body Fat Calculator",
+    title: "Body Fat Calculator (Dual Mode)",
     modeSelect: "Calculation Method",
     modeBmi: "Mode 1: BMI Status (General)",
     modeNavy: "Mode 2: Navy Method (Fitness Geeks)",
@@ -23,7 +23,7 @@ const uiDict = {
     btn: "⚡ Calculate Body Fat %",
     resultTitle: "Your Estimated Body Fat:",
     interpretationTitle: "📊 Professional Bio-Analysis",
-    tips: "Note: Mode 1 uses the standard BMI equation, which may overestimate body fat for muscular lifters. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.",
+    tips: "Note: Mode 1 uses the standard BMI equation, which may provide general estimations. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.",
     shareCardTitle: "Body Fat % Analysis",
     shareToday: "TODAY'S ACHIEVEMENT",
     tag1: "🏅 Striated Shape",
@@ -35,14 +35,20 @@ const uiDict = {
     shareBtn: "✨ Copy Achievement to Share",
     shareBtnSuccess: "✅ Copied! Go & Flaunt It!",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
-      `🔥 Measured my body fat at ${val}% via [${mode}] on FitKit! Status: [${tag}]. ${desc} Ad-free tool box, test yours here: https://fitkit.top`
+      `🔥 Measured my body fat at ${val}% via [${mode}] on FitKit! Status: [${tag}]. ${desc} Ad-free tool box, test yours here: https://fitkit.top`,
+    // 五大分类标签
+    cat1: "Essential Fat",
+    cat2: "Athletic",
+    cat3: "Fit",
+    cat4: "Normal",
+    cat5: "Obese"
   },
   zh: {
     back: "← 返回首页",
     title: "体脂率科学计算器 (双模版)",
     modeSelect: "测算核心模式",
     modeBmi: "模式一：BMI 状态法 (普通大众)",
-    modeNavy: "模式二：美国海军法 (健身/围度)",
+    modeNavy: "模式二：美国海军法 (健身围度)",
     gender: "性别",
     male: "男",
     female: "女",
@@ -67,7 +73,13 @@ const uiDict = {
     shareBtn: "✨ 复制成就去小红书/朋友圈",
     shareBtnSuccess: "✅ 复制成功！快去群里炫耀",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
-      `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`
+      `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`,
+    // 五大分类标签
+    cat1: "必需脂肪",
+    cat2: "运动员",
+    cat3: "健壮",
+    cat4: "正常",
+    cat5: "肥胖"
   }
 };
 
@@ -75,10 +87,10 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
   const { lang } = use(params);
   const t = uiDict[lang] || uiDict.en;
 
-  // 核心计算模式状态: 'bmi' 或 'navy'
+  // 核心计算模式状态
   const [calcMode, setCalcMode] = useState<'bmi' | 'navy'>('bmi');
 
-  // 表单输入字段状态管理（完全独立，彻底杜绝串行 Bug）
+  // 表单输入字段状态
   const [gender, setGender] = useState('1'); // 1 = 男, 0 = 女
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
@@ -90,17 +102,16 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
   const [result, setResult] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // 双模式体脂计算器核心逻辑
+  // 计算逻辑
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    setResult(null); // 重置上一次的计算值
+    setResult(null);
 
     const h = parseFloat(height);
     const w = parseFloat(weight);
     const a = parseInt(age);
 
     if (calcMode === 'bmi') {
-      // ======= 模式一：BMI 估算法 =======
       if (h && w && a) {
         const hMeter = h / 100;
         const bmi = w / (hMeter * hMeter);
@@ -108,7 +119,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
         setResult(Math.max(2, parseFloat(bfp.toFixed(1))));
       }
     } else {
-      // ======= 模式二：美国海军围度公式 (US Navy Formula) =======
       const n = parseFloat(neck);
       const strokeWaist = parseFloat(waist);
       
@@ -116,14 +126,12 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
 
       let bfpNavy = 0;
       if (gender === '1') {
-        // 海军男子公式: 495 / (1.0324 - 0.19077 * log10(waist - neck) + 0.15456 * log10(height)) - 450
         const logDiff = Math.log10(strokeWaist - n);
         const logH = Math.log10(h);
         if (strokeWaist > n) {
           bfpNavy = 495 / (1.0324 - 0.19077 * logDiff + 0.15456 * logH) - 450;
         }
       } else {
-        // 海军女子公式（需额外代入臀围）: 495 / (1.29579 - 0.35004 * log10(waist + hip - neck) + 0.22100 * log10(height)) - 450
         const strokeHip = parseFloat(hip);
         if (!strokeHip) return;
         const logDiff = Math.log10(strokeWaist + strokeHip - n);
@@ -140,25 +148,126 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
     setCopied(false);
   };
 
-  // 根据最终计算出的体脂率，吐出硬核生化医学解读
-  const getInterpretation = (bfpVal: number) => {
+  // 根据用户上传的基准标准图表 (image_cabfa6.png)，输出严谨分类及理想参考值对比
+  const getDetailedInterpretation = (bfpVal: number) => {
     const isMale = gender === '1';
+    const currentAge = parseInt(age) || 25;
+    
+    // 1. 获取动态年龄理想参考值 (根据图表数据建模)
+    let idealText = "";
     if (isMale) {
-      if (bfpVal < 6) return lang === 'zh' ? "⚠️ 边缘干枯状态：体脂过低。可能引发皮质醇飙升及内分泌紊乱，建议适度补充碳水与优质优质脂肪。" : "⚠️ Essential Fat Only: Dangerously low. Might clear anabolic hormones. Increase clean calorie surpluses.";
-      if (bfpVal < 14) return lang === 'zh' ? "🔥 顶尖运动健美：全身线条极其清晰，腹肌颗粒饱满，血管网外露，皮下水分极低。保持住当前的王牌代谢！" : "🔥 Athletic Elite: Excellent vascularity, shredded abs, premium metabolic efficiency. Keep dominating.";
-      if (bfpVal < 18) return lang === 'zh' ? "💪 均衡理想身材：穿衣显瘦脱衣有肉的黄金标准，马甲线隐约可见，核心内脏脂肪极低，心血管极度健康。" : "💪 Lean & Fit: Gold standard of daily training, visible core definition, perfect visceral fat index.";
-      if (bfpVal < 25) return lang === 'zh' ? "⚖️ 基础轻度冗余：体脂处于正常中上游，腹部脂肪开始出现围度堆积，建议开始锁定热量缺口并加强抗阻训练。" : "⚖️ Moderate Range: Soft abdominal definition. Recommended to optimize macronutrient caloric balance.";
-      return lang === 'zh' ? "🚨 警戒高脂肪超标：内脏脂肪负荷沉重。容易诱导胰岛素抵抗与慢性炎症，必须立刻纠正久坐并进行无广告抗阻干预！" : "🚨 High Adiposity: Heavy metabolic load. High risk of systemic inflammation. Time to strip body fat.";
+      if (currentAge <= 22) idealText = "8.5%";
+      else if (currentAge <= 27) idealText = "10.5%";
+      else if (currentAge <= 32) idealText = "12.7%";
+      else if (currentAge <= 37) idealText = "13.7%";
+      else if (currentAge <= 42) idealText = "15.3%";
+      else if (currentAge <= 47) idealText = "16.4%";
+      else if (currentAge <= 52) idealText = "18.9%";
+      else idealText = "20.9%";
     } else {
-      if (bfpVal < 14) return lang === 'zh' ? "⚠️ 生理下限警报：体脂低于女性正常生理需求。可能面临孕酮停滞、脱发、甚至闭经风险，请火速提高能量供应！" : "⚠️ Leptin Deficit Alert: Risk of endocrine shutdown or amenorrhea. Increase dietary essential fats immediately.";
-      if (bfpVal < 21) return lang === 'zh' ? "🔥 维密超模形态：体脂率极佳。腹部平坦且马甲线轮廓深邃，皮下脂肪极其紧致，肌肉线条利落干净。" : "🔥 Model Physique: Distinct core definition, super firm skin, ultra-premium athletic body composition.";
-      if (bfpVal < 25) return lang === 'zh' ? "💪 健康女性黄金标杆：最符合内分泌长寿的健美身材，臀腿曲度饱满，免疫力强悍，雌激素分泌处于巅峰。" : "💪 Golden Standard: Prime hormonal homeostasis, feminine aesthetics, superb longevity markers.";
-      if (bfpVal < 31) return lang === 'zh' ? "⚖️ 轻度顽固堆积：腰腹及臀部有些许脂肪冗余。代谢速度有所放缓，建议适度控糖并加强全身大肌群抗阻训练。" : "⚖️ Average Status: Soft layers around waist/hips. Metabolism slowing down. Increase physical activities.";
-      return lang === 'zh' ? "🚨 脂肪过剩警戒：皮下与腹部内脏脂肪积压超标。会加速卵巢老化与代谢综合征，建议开启精准减脂备赛膳食。" : "🚨 High Body Fat: Excessive accumulation. Accelerates chronic issues. Highly suggest dynamic daily cutting protocols.";
+      if (currentAge <= 22) idealText = "17.7%";
+      else if (currentAge <= 27) idealText = "18.4%";
+      else if (currentAge <= 32) idealText = "19.3%";
+      else if (currentAge <= 37) idealText = "21.5%";
+      else if (currentAge <= 42) idealText = "22.2%";
+      else if (currentAge <= 47) idealText = "22.9%";
+      else if (currentAge <= 52) idealText = "25.2%";
+      else idealText = "26.3%";
+    }
+
+    // 2. 完美的分类档位决策树
+    if (isMale) {
+      if (bfpVal >= 2 && bfpVal <= 5) {
+        return {
+          category: t.cat1,
+          color: "text-red-600 bg-red-50 border-red-200",
+          desc: lang === 'zh' 
+            ? `处于维持生命最基本的【必需脂肪】临界线（2%-5%）。对于当前 ${currentAge} 岁男性，虽具备赛级线条，但请务必注意免疫与荷尔蒙健康。`
+            : `At essential fat levels (2%-5%). Extremely lean. Monitor your recovery carefully.`
+        };
+      }
+      if (bfpVal > 5 && bfpVal <= 13) {
+        return {
+          category: t.cat2,
+          color: "text-orange-600 bg-orange-50 border-orange-200",
+          desc: lang === 'zh' 
+            ? `处于完美的【运动员】级别（6%-13%）。当前年龄理想参考值为 ${idealText}，您的体脂状态非常拔尖，皮下脂肪极薄！`
+            : `Athletic range (6%-13%). Highly optimized. Your age reference benchmark is ${idealText}.`
+        };
+      }
+      if (bfpVal > 13 && bfpVal <= 17) {
+        return {
+          category: t.cat3,
+          color: "text-green-600 bg-green-50 border-green-200",
+          desc: lang === 'zh' 
+            ? `处于极其优秀的【健壮】级别（14%-17%）。腹肌轮廓可见，肌肉饱满。对比当前年龄参考值 ${idealText}，处于黄金健身区间。`
+            : `Fit and strong condition (14%-17%). Excellent lean muscle mass layout.`
+        };
+      }
+      if (bfpVal > 17 && bfpVal <= 24) {
+        return {
+          category: t.cat4,
+          color: "text-blue-600 bg-blue-50 border-blue-200",
+          desc: lang === 'zh' 
+            ? `处于健康的【正常】标准区间（18%-24%）。对比当前年龄理想参考值 ${idealText}，建议搭配适当的抗阻与热量调控。`
+            : `Normal and stable health profile (18%-24%). Age standard target is ${idealText}.`
+        };
+      }
+      return {
+        category: t.cat5,
+        color: "text-amber-700 bg-amber-50 border-amber-200",
+        desc: lang === 'zh' 
+          ? `数据提示已进入【肥胖】警戒区（≥25%）。超出了当前年龄理想基准 ${idealText}，建议积极控制内脏脂肪，开启规律作息。`
+          : `Adiposity warning zone (≥25%). Higher than age benchmark ${idealText}.`
+      };
+    } else {
+      // 女性标准决策
+      if (bfpVal >= 10 && bfpVal <= 13) {
+        return {
+          category: t.cat1,
+          color: "text-red-600 bg-red-50 border-red-200",
+          desc: lang === 'zh' 
+            ? `处于女性生理极限的【必需脂肪】安全底线（10%-13%）。可能存在内分泌或周期停滞风险，请及时补充优质能量。`
+            : `Essential lipid bounds (10%-13%). Highly critical for standard feminine endocrine pathways.`
+        };
+      }
+      if (bfpVal > 13 && bfpVal <= 20) {
+        return {
+          category: t.cat2,
+          color: "text-orange-600 bg-orange-50 border-orange-200",
+          desc: lang === 'zh' 
+            ? `处于优越的【运动员】级别（14%-20%）。皮下脂肪紧致。对比 ${currentAge} 岁女性理想参考值 ${idealText}，线条感极为利落。`
+            : `Premium Athletic build (14%-20%). Your current age baseline target is ${idealText}.`
+        };
+      }
+      if (bfpVal > 20 && bfpVal <= 24) {
+        return {
+          category: t.cat3,
+          color: "text-green-600 bg-green-50 border-green-200",
+          desc: lang === 'zh' 
+            ? `处于完美的【健壮】级别（21%-24%）。身材比例饱满且富含肌肉活力。对比当前年龄参考值 ${idealText}，处于超常状态。`
+            : `Feminine Fit standard (21%-24%). Active structural lean mass preservation.`
+        };
+      }
+      if (bfpVal > 24 && bfpVal <= 31) {
+        return {
+          category: t.cat4,
+          color: "text-blue-600 bg-blue-50 border-blue-200",
+          desc: lang === 'zh' 
+            ? `处于非常健康的【正常】身材区间（25%-31%）。内分泌极度稳健。对比当前年龄理想参考值 ${idealText}，符合长寿代谢指标。`
+            : `Normal regulatory interval (25%-31%). Your age benchmark target is ${idealText}.`
+        };
+      }
+      return {
+        category: t.cat5,
+        color: "text-amber-700 bg-amber-50 border-amber-200",
+        desc: lang === 'zh' 
+          ? `数据提示已进入【肥胖】范畴（≥32%）。已超过当前年龄理想基准值 ${idealText}，容易伴随久坐和高皮质醇堆积，建议开启科学控糖。`
+          : `Adiposity warning zone (≥32%). Higher than age benchmark ${idealText}.`
+      };
     }
   };
 
-  // 分享卡片的励志文案档位划分
   const getShareContent = (bfpVal: number) => {
     if (bfpVal < (gender === '1' ? 14 : 21)) return { tag: t.tag1, desc: t.desc1 };
     if (bfpVal < (gender === '1' ? 18 : 25)) return { tag: t.tag2, desc: t.desc2 };
@@ -179,7 +288,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
             <h1 className="text-xl font-black text-gray-900 mt-2 tracking-tight">{t.title}</h1>
           </div>
 
-          {/* ⚡ 顶级双模 Tabs 切换标签页组件 */}
+          {/* 顶级双模切换器 */}
           <div className="mb-6">
             <label className="block text-[11px] font-black uppercase text-gray-400 tracking-widest mb-2">{t.modeSelect}</label>
             <div className="grid grid-cols-2 gap-1 bg-gray-100 p-1 rounded-xl border border-gray-200/50">
@@ -200,10 +309,8 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
             </div>
           </div>
 
-          {/* 主输入表单 */}
+          {/* 主表单 */}
           <form onSubmit={handleCalculate} className="space-y-4">
-            
-            {/* 性别选择：左右对齐 */}
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1">{t.gender}</label>
               <div className="grid grid-cols-2 gap-2">
@@ -224,7 +331,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
               </div>
             </div>
 
-            {/* 基础通用维度：身高 + 年龄 */}
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="block text-xs font-bold text-gray-500 mb-1">{t.height}</label>
@@ -251,7 +357,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
               </div>
             </div>
 
-            {/* 模式一独享：体重输入框 */}
             {calcMode === 'bmi' && (
               <div className="animate-fade-in">
                 <label className="block text-xs font-bold text-gray-500 mb-1">{t.weight}</label>
@@ -259,7 +364,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                   type="number" 
                   step="0.1"
                   value={weight} 
-                  // 精准解耦 setWeight，杜绝串行 Bug！
                   onChange={(e) => setWeight(e.target.value)}
                   placeholder="e.g. 70"
                   className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-gray-900 focus:outline-none"
@@ -268,7 +372,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
               </div>
             )}
 
-            {/* 模式二独享：硬核围度数据流（颈围、腰围、女性特有臀围） */}
             {calcMode === 'navy' && (
               <div className="space-y-4 animate-fade-in">
                 <div className="grid grid-cols-2 gap-2">
@@ -282,7 +385,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                       placeholder="e.g. 37"
                       className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-blue-500 focus:outline-none font-mono"
                       required 
-                    />
+                />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-500 mb-1">{t.waist}</label>
@@ -298,7 +401,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                   </div>
                 </div>
 
-                {/* 只有生理女性才渲染臀围输入框（美国海军标准） */}
                 {gender === '0' && (
                   <div className="animate-slide-down">
                     <label className="block text-xs font-bold text-gray-500 mb-1">{t.hip}</label>
@@ -327,7 +429,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
           {/* 计算结果面板 */}
           {result !== null && (
             <div className="mt-6 space-y-4 animate-fade-in">
-              {/* 大数字视窗 */}
               <div className="p-4 bg-gray-900 border border-black rounded-2xl text-center shadow-inner">
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{t.resultTitle}</p>
                 <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 font-mono mt-1">
@@ -335,17 +436,27 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                 </p>
               </div>
 
-              {/* 📊 科学级生化解读面板 */}
-              <div className="p-4 bg-blue-50/40 border border-blue-100 rounded-2xl">
-                <h3 className="text-xs font-black text-blue-950 flex items-center gap-1">
-                  {t.interpretationTitle}
-                </h3>
-                <p className="text-xs text-blue-900/80 font-medium leading-relaxed mt-2">
-                  {getInterpretation(result)}
-                </p>
-              </div>
+              {/* 📊 图表映射生化解读面板 */}
+              {(() => {
+                const interpretation = getDetailedInterpretation(result);
+                return (
+                  <div className={`p-4 border rounded-2xl transition-all duration-300 ${interpretation.color}`}>
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-black text-gray-900 flex items-center gap-1">
+                        {t.interpretationTitle}
+                      </h3>
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-white shadow-sm border border-black/5">
+                        {interpretation.category}
+                      </span>
+                    </div>
+                    <p className="text-xs font-medium leading-relaxed mt-2.5 text-gray-800">
+                      {interpretation.desc}
+                    </p>
+                  </div>
+                );
+              })()}
 
-              {/* 💣 极客黑金社交炫耀裂变卡片 */}
+              {/* 炫耀卡片 */}
               {(() => {
                 const { tag, desc } = getShareContent(result);
                 const currentModeName = calcMode === 'bmi' ? (lang === 'zh' ? 'BMI估算法' : 'BMI Est.') : (lang === 'zh' ? '美国海军公式' : 'US Navy Method');
