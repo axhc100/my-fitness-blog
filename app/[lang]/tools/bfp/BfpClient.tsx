@@ -1,482 +1,286 @@
 'use client';
 
-import { useState, use } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 
-// 多语言深度字典
-const uiDict = {
-  en: {
-    back: "← Back to Home",
-    title: "Body Fat Calculator (Dual Mode)",
-    modeSelect: "Calculation Method",
-    gender: "Gender",
-    male: "Male",
-    female: "Female",
-    height: "Height (cm)",
-    weight: "Weight (kg)",
-    age: "Age",
-    neck: "Neck Circumference (cm)",
-    waist: "Waist Circumference (cm)",
-    hip: "Hip Circumference (cm)",
-    btn: "⚡ Calculate Body Fat %",
-    resultTitle: "Your Estimated Body Fat:",
-    interpretationTitle: "📊 Professional Bio-Analysis",
-    tips: "Note: Mode 1 uses the standard BMI equation. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.",
-    shareCardTitle: "Body Fat % Analysis",
-    shareToday: "TODAY'S ACHIEVEMENT",
-    tag1: "🏅 Striated Shape",
-    desc1: "Beating 92% of fitness geeks globally!",
-    tag2: "🔥 Great Condition",
-    desc2: "Lean in clothes, muscular without. Abs ready!",
-    tag3: "💪 Burning Fat",
-    desc3: "Control cortisol, a better shape is coming!",
-    shareBtn: "✨ Copy Achievement to Share",
-    shareBtnSuccess: "✅ Copied! Go & Flaunt It!",
-    copyText: (val: number, tag: string, desc: string, mode: string) => 
-      `🔥 Measured my body fat at ${val}% via [${mode}] on FitKit! Status: [${tag}]. ${desc} Ad-free tool box, test yours here: https://fitkit.top`,
-    cat1: "Essential Fat",
-    cat2: "Athletic",
-    cat3: "Fit",
-    cat4: "Normal",
-    cat5: "Obese"
-  },
-  zh: {
-    back: "← 返回首页",
-    title: "体脂率科学计算器 (双模版)",
-    modeSelect: "测算核心模式",
-    gender: "性别",
-    male: "男",
-    female: "女",
-    height: "身高 (厘米)",
-    weight: "体重 (公斤)",
-    age: "年龄",
-    neck: "颈围 (厘米 - 喉结下方最细处)",
-    waist: "腰围 (厘米 - 肚脐水平绕一周)",
-    hip: "臀围 (厘米 - 翘臀最粗处绕一周)",
-    btn: "⚡ 锁定真实体脂率",
-    resultTitle: "您的预估体脂率为：",
-    interpretationTitle: "📊 深度身体状态生化解读",
-    tips: "注：模式一基于基础 BMI 公式，高肌肉量人群易偏高；模式二（美国海军公式）直接提取腰围与核心脂肪分布，是健身极客测算的核心标准。",
-    shareCardTitle: "体脂百分比科学测算",
-    shareToday: "今日健身成就",
-    tag1: "🏅 刀刻般线条",
-    desc1: "超越了全球 92% 的健身极客！",
-    tag2: "🔥 极佳运动状态",
-    desc2: "穿衣显瘦，脱衣有肉，马甲线随时待命！",
-    tag3: "💪 持续燃脂中",
-    desc3: "科学控好皮质醇，好身材正在加速出关！",
-    shareBtn: "✨ 复制成就去社交平台/朋友圈炫耀",
-    shareBtnSuccess: "✅ 复制成功！快去群里炫耀",
-    copyText: (val: number, tag: string, desc: string, mode: string) => 
-      `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`,
-    cat1: "必需脂肪",
-    cat2: "运动员",
-    cat3: "健壮",
-    cat4: "正常",
-    cat5: "肥胖"
-  }
-};
+interface BfpClientProps {
+  paramsPromise: Promise<{ lang?: string }>;
+}
 
-export default function BfpClient({ paramsPromise }: { paramsPromise: any }) {
-  // 解构多语言参数并进行安全的 fallback 兜底
-  const unwrappedParams = use<{ lang?: string }>(paramsPromise);
+export default function BfpClient({ paramsPromise }: BfpClientProps) {
+  const unwrappedParams = use(paramsPromise);
   const lang = unwrappedParams?.lang === 'zh' ? 'zh' : 'en';
-  const t = uiDict[lang];
+  const isZh = lang === 'zh';
 
-  // 核心计算模式状态
-  const [calcMode, setCalcMode] = useState<'bmi' | 'navy'>('bmi');
-
-  // 表单输入字段状态
-  const [gender, setGender] = useState('1'); // 1 = 男, 0 = 女
+  const [mounted, setMounted] = useState(false);
+  
+  // 核心状态：模式选择 (Mode 1: BMI, Mode 2: US Navy)
+  const [mode, setMode] = useState<'bmi' | 'navy'>('bmi');
+  const [gender, setGender] = useState<'male' | 'female'>('male');
+  
+  // 输入表单状态
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [age, setAge] = useState('');
-  const [neck, setNeck] = useState('');
   const [waist, setWaist] = useState('');
+  const [neck, setNeck] = useState('');
   const [hip, setHip] = useState('');
-  
+
   const [result, setResult] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // 计算逻辑
-  const handleCalculate = (e: React.FormEvent) => {
-    e.preventDefault();
-    setResult(null);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  if (!mounted) {
+    return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 font-mono text-xs">Loading...</div>;
+  }
+
+  // 科学算法逻辑
+  const calculateBfp = (e: React.FormEvent) => {
+    e.preventDefault();
     const h = parseFloat(height);
     const w = parseFloat(weight);
-    const a = parseInt(age);
+    const a = parseFloat(age);
 
-    if (calcMode === 'bmi') {
-      if (h && w && a) {
-        const hMeter = h / 100;
-        const bmi = w / (hMeter * hMeter);
-        const bfp = 1.20 * bmi + 0.23 * a - 10.8 * parseInt(gender) - 5.4;
-        setResult(Math.max(2, parseFloat(bfp.toFixed(1))));
-      }
+    if (!h || !w) return;
+
+    let bfpVal = 0;
+
+    if (mode === 'bmi') {
+      if (!a) return;
+      const bmi = w / ((h / 100) * (h / 100));
+      const genderFactor = gender === 'male' ? 1 : 0;
+      bfpVal = 1.20 * bmi + 0.23 * a - 10.8 * genderFactor - 5.4;
     } else {
-      const n = parseFloat(neck);
-      const strokeWaist = parseFloat(waist);
-      
-      if (!h || !n || !strokeWaist) return;
+      // 模式 2: 纯正美军体围测量公式 (US Navy Method)
+      const ws = parseFloat(waist);
+      const nk = parseFloat(neck);
+      if (!ws || !nk) return;
 
-      let bfpNavy = 0;
-      if (gender === '1') {
-        const logDiff = Math.log10(strokeWaist - n);
-        const logH = Math.log10(h);
-        if (strokeWaist > n) {
-          bfpNavy = 495 / (1.0324 - 0.19077 * logDiff + 0.15456 * logH) - 450;
-        }
+      if (gender === 'male') {
+        bfpVal = 495 / (1.0324 - 0.19077 * Math.log10(ws - nk) + 0.15456 * Math.log10(h)) - 450;
       } else {
-        const strokeHip = parseFloat(hip);
-        if (!strokeHip) return;
-        const logDiff = Math.log10(strokeWaist + strokeHip - n);
-        const logH = Math.log10(h);
-        if ((strokeWaist + strokeHip) > n) {
-          bfpNavy = 495 / (1.29579 - 0.35004 * logDiff + 0.22100 * logH) - 450;
-        }
-      }
-
-      if (bfpNavy > 0) {
-        setResult(parseFloat(bfpNavy.toFixed(1)));
+        const hp = parseFloat(hip);
+        if (!hp) return;
+        bfpVal = 495 / (1.29579 - 0.35004 * Math.log10(ws + hp - nk) + 0.22100 * Math.log10(h)) - 450;
       }
     }
-    setCopied(false);
+
+    if (!isNaN(bfpVal) && bfpVal > 0) {
+      setResult(parseFloat(bfpVal.toFixed(1)));
+    }
   };
 
-  // 解读面板
-  const getDetailedInterpretation = (bfpVal: number) => {
-    const isMale = gender === '1';
-    const currentAge = parseInt(age) || 25;
+  // 身体成分双语深度诊断矩阵
+  const getAnalysis = (val: number) => {
+    const isNormal = gender === 'male' ? (val >= 14 && val <= 24) : (val >= 18 && val <= 24);
     
-    let idealText = "";
-    if (isMale) {
-      if (currentAge <= 22) idealText = "8.5%";
-      else if (currentAge <= 27) idealText = "10.5%";
-      else if (currentAge <= 32) idealText = "12.7%";
-      else if (currentAge <= 37) idealText = "13.7%";
-      else if (currentAge <= 42) idealText = "15.3%";
-      else if (currentAge <= 47) idealText = "16.4%";
-      else if (currentAge <= 52) idealText = "18.9%";
-      else idealText = "20.9%";
+    if (gender === 'male') {
+      if (val < 6) return { label: isZh ? '精干' : 'Essential', normalLabel: 'MINIMUM', color: 'text-amber-600', bg: 'bg-amber-50', desc: isZh ? '处于竞技运动员极低极限区间。' : 'At the minimum essential fat level for athletes.' };
+      if (val <= 13) return { label: isZh ? '强悍' : 'Athletic', normalLabel: 'ATHLETIC', color: 'text-emerald-600', bg: 'bg-emerald-50', desc: isZh ? '体格线条极佳，肌肉轮廓明显。' : 'Excellent muscle definition and low body fat.' };
+      if (val <= 24) return { label: isZh ? '正常' : 'Normal', normalLabel: 'NORMAL', color: 'text-blue-600', bg: 'bg-blue-50', desc: isZh ? '处于健康的【正常】标准区间 (18%-24%)。对比当前年龄理想参考值 16.4%，建议搭配适当的抗阻与热量调控。' : 'Within the healthy standard range. Consider tracking macro targets.' };
+      return { label: isZh ? '偏高' : 'Overweight', normalLabel: 'OVERWEIGHT', color: 'text-red-500', bg: 'bg-red-50', desc: isZh ? '建议适当控制热量，调整饮食结构并增加有氧。' : 'Above average. Consider tracking a mild calorie deficit.' };
     } else {
-      if (currentAge <= 22) idealText = "17.7%";
-      else if (currentAge <= 27) idealText = "18.4%";
-      else if (currentAge <= 32) idealText = "19.3%";
-      else if (currentAge <= 37) idealText = "21.5%";
-      else if (currentAge <= 42) idealText = "22.2%";
-      else if (currentAge <= 47) idealText = "22.9%";
-      else if (currentAge <= 52) idealText = "25.2%";
-      else idealText = "26.3%";
-    }
-
-    if (isMale) {
-      if (bfpVal >= 2 && bfpVal <= 5) {
-        return {
-          category: t.cat1,
-          color: "text-red-600 bg-red-50 border-red-200",
-          desc: `处于维持生命最基本的【必需脂肪】临界线（2%-5%）。对于当前 ${currentAge} 岁男性，虽具备赛级线条，但请务必注意免疫与荷尔蒙健康。`
-        };
-      }
-      if (bfpVal > 5 && bfpVal <= 13) {
-        return {
-          category: t.cat2,
-          color: "text-orange-600 bg-orange-50 border-orange-200",
-          desc: `处于完美的【运动员】级别（6%-13%）。当前年龄理想参考值为 ${idealText}，您的体脂状态非常拔尖，皮下脂肪极薄！`
-        };
-      }
-      if (bfpVal > 13 && bfpVal <= 17) {
-        return {
-          category: t.cat3,
-          color: "text-green-600 bg-green-50 border-green-200",
-          desc: `处于极其优秀的【健壮】级别（14%-17%）。腹肌轮廓可见，肌肉饱满。对比当前年龄参考值 ${idealText}，处于黄金健身区间。`
-        };
-      }
-      if (bfpVal > 17 && bfpVal <= 24) {
-        return {
-          category: t.cat4,
-          color: "text-blue-600 bg-blue-50 border-blue-200",
-          desc: `处于健康的【正常】标准区间（18%-24%）。对比当前年龄理想参考值 ${idealText}，建议搭配适当的抗阻与热量调控。`
-        };
-      }
-      return {
-        category: t.cat5,
-        color: "text-amber-700 bg-amber-50 border-amber-200",
-        desc: `数据提示已进入【肥胖】警戒区（≥25%）。超出了当前年龄理想基准 ${idealText}，建议积极控制内脏脂肪，开启规律作息。`
-      };
-    } else {
-      if (bfpVal >= 10 && bfpVal <= 13) {
-        return {
-          category: t.cat1,
-          color: "text-red-600 bg-red-50 border-red-200",
-          desc: `处于女性生理极限的【必需脂肪】安全底线（10%-13%）。可能存在内分泌或周期停滞风险，请及时补充优质能量。`
-        };
-      }
-      if (bfpVal > 13 && bfpVal <= 20) {
-        return {
-          category: t.cat2,
-          color: "text-orange-600 bg-orange-50 border-orange-200",
-          desc: `处于优越的【运动员】级别（14%-20%）。皮下脂肪紧致。对比 ${currentAge} 岁女性理想参考值 ${idealText}，线条感极为利落。`
-        };
-      }
-      if (bfpVal > 20 && bfpVal <= 24) {
-        return {
-          category: t.cat3,
-          color: "text-green-600 bg-green-50 border-green-200",
-          desc: `处于完美的【健壮】级别（21%-24%）。身材比例饱满且富含肌肉活力。对比当前年龄参考值 ${idealText}，处于超常状态。`
-        };
-      }
-      if (bfpVal > 24 && bfpVal <= 31) {
-        return {
-          category: t.cat4,
-          color: "text-blue-600 bg-blue-50 border-blue-200",
-          desc: `处于非常健康的【正常】身材区间（25%-31%）。内分泌极度稳健。对比当前年龄理想参考值 ${idealText}，符合长寿代谢指标。`
-        };
-      }
-      return {
-        category: t.cat5,
-        color: "text-amber-700 bg-amber-50 border-amber-200",
-        desc: `数据提示已进入【肥胖】范畴（≥32%）。已超过当前年龄理想基准值 ${idealText}，容易伴随久坐和高皮质醇堆积，建议开启科学控糖。`
-      };
+      if (val < 14) return { label: isZh ? '精干' : 'Essential', normalLabel: 'MINIMUM', color: 'text-amber-600', bg: 'bg-amber-50', desc: isZh ? '处于极低脂肪率，请密切关注身体常规内分泌。' : 'Essential fat level. Monitor hormonal balance closely.' };
+      if (val <= 20) return { label: isZh ? '强悍' : 'Athletic', normalLabel: 'ATHLETIC', color: 'text-emerald-600', bg: 'bg-emerald-50', desc: isZh ? '身体线条紧致，马甲线或肌肉轮廓清晰。' : 'Toned body structure with prominent lean mass.' };
+      if (val <= 31) return { label: isZh ? '正常' : 'Normal', normalLabel: 'NORMAL', color: 'text-blue-600', bg: 'bg-blue-50', desc: isZh ? '处于非常健康的【正常】身材区间 (25%-31%)。内分泌极度稳健。对比当前年龄理想参考值 18.4%，符合长寿代谢指标。' : 'Excellent and highly recommended fitness structure.' };
+      return { label: isZh ? '偏高' : 'Overweight', normalLabel: 'OVERWEIGHT', color: 'text-red-500', bg: 'bg-red-50', desc: isZh ? '建议适当减少高糖高油摄入，加强核心燃脂。' : 'Above normal range. Cardio and clean eating advised.' };
     }
   };
 
-  const getShareContent = (bfpVal: number) => {
-    if (bfpVal < (gender === '1' ? 14 : 21)) return { tag: t.tag1, desc: t.desc1 };
-    if (bfpVal < (gender === '1' ? 18 : 25)) return { tag: t.tag2, desc: t.desc2 };
-    return { tag: t.tag3, desc: t.desc3 };
+  const analysis = result ? getAnalysis(result) : null;
+
+  const handleCopyShare = async () => {
+    if (!result || !analysis) return;
+    const text = isZh
+      ? `🥑 我刚刚在 FitKit 完成了科学体脂率多维测算！\n📊 测算结果：[ ${result}% ]\n🎯 状态评估：${analysis.label} (${analysis.desc})\n💪 掌控身材，点此免费测算你的体脂成分：https://fitkit.top`
+      : `🥑 Just mapped out my body composition on FitKit!\n📊 Body Fat Percentage: [ ${result}% ]\n🎯 Status: ${analysis.label} (${analysis.desc})\n💪 Track your metrics for free at: https://fitkit.top`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 flex flex-col items-center justify-center">
       <div className="w-full max-w-md">
-        
         <Link href={`/${lang}`} className="text-xs font-black uppercase text-blue-600 hover:underline mb-6 inline-block tracking-wider">
-          {t.back}
+          {isZh ? '← 返回首页' : '← Back to Home'}
         </Link>
 
-        <div className="bg-white p-6 rounded-3xl shadow-xl border border-gray-100">
+        {/* 核心卡片容器 */}
+        <div className="bg-white p-6 rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+          
+          {/* 动态大标题 */}
           <div className="text-center mb-6">
-            <span className="text-2xl">🧬</span>
-            <h1 className="text-xl font-black text-gray-900 mt-2 tracking-tight">{t.title}</h1>
+            <span className="text-2xl block mb-1">🧬</span>
+            <h1 className="text-xl font-black text-gray-900 tracking-tight">
+              {isZh ? '体脂率双模式计算器' : 'Body Fat Calculator (Dual Mode)'}
+            </h1>
           </div>
 
-          <div className="mb-6">
-            <label className="block text-[11px] font-black uppercase text-gray-400 tracking-widest mb-2">{t.modeSelect}</label>
-            <div className="grid grid-cols-2 gap-1 bg-gray-100 p-1 rounded-xl border border-gray-200/50">
-              <button
-                type="button"
-                onClick={() => { setCalcMode('bmi'); setResult(null); }}
-                className={`py-2 text-[11px] font-black rounded-lg transition-all ${calcMode === 'bmi' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
-              >
-                {lang === 'zh' ? '模式一: BMI 法' : 'Mode 1: BMI'}
-              </button>
-              <button
-                type="button"
-                onClick={() => { setCalcMode('navy'); setResult(null); }}
-                className={`py-2 text-[11px] font-black rounded-lg transition-all ${calcMode === 'navy' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
-              >
-                {lang === 'zh' ? '模式二: 海军围度' : 'Mode 2: US Navy'}
-              </button>
-            </div>
-          </div>
-
-          <form onSubmit={handleCalculate} className="space-y-4">
+          <form onSubmit={calculateBfp} className="space-y-4">
+            {/* 布局模块一：计算模式切换 (CALCULATION METHOD) */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 mb-1">{t.gender}</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setGender('1')}
-                  className={`p-2.5 text-xs font-bold rounded-xl border transition ${gender === '1' ? 'bg-gray-900 text-white border-gray-900' : 'bg-gray-50 border-gray-200 text-gray-600'}`}
-                >
-                  {t.male}
+              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+                {isZh ? '计算模式' : 'CALCULATION METHOD'}
+              </label>
+              <div className="grid grid-cols-2 gap-2 bg-gray-100 p-1 rounded-xl border border-gray-200/50">
+                <button type="button" onClick={() => { setMode('bmi'); setResult(null); }} className={`py-2 text-xs font-black rounded-lg transition-all ${mode === 'bmi' ? 'bg-white text-gray-950 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>
+                  {isZh ? '模式 1: BMI 基础' : 'Mode 1: BMI'}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setGender('0')}
-                  className={`p-2.5 text-xs font-bold rounded-xl border transition ${gender === '0' ? 'bg-gray-900 text-white border-gray-900' : 'bg-gray-50 border-gray-200 text-gray-600'}`}
-                >
-                  {t.female}
+                <button type="button" onClick={() => { setMode('navy'); setResult(null); }} className={`py-2 text-xs font-black rounded-lg transition-all ${mode === 'navy' ? 'bg-white text-gray-950 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>
+                  {isZh ? '模式 2: 美军体围' : 'Mode 2: US Navy'}
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <label className="block text-xs font-bold text-gray-500 mb-1">{t.height}</label>
-                <input 
-                  type="number" 
-                  step="0.1"
-                  value={height} 
-                  onChange={(e) => setHeight(e.target.value)}
-                  placeholder="e.g. 175"
-                  className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-gray-900 focus:outline-none"
-                  required 
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-gray-500 mb-1">{t.age}</label>
-                <input 
-                  type="number" 
-                  value={age} 
-                  onChange={(e) => setAge(e.target.value)}
-                  placeholder="e.g. 25"
-                  className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-gray-900 focus:outline-none"
-                  required 
-                />
+            {/* 布局模块二：性别选择 (Gender) */}
+            <div>
+              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+                {isZh ? '性别' : 'Gender'}
+              </label>
+              <div className="grid grid-cols-2 gap-2 bg-gray-900 p-1 rounded-xl">
+                <button type="button" onClick={() => setGender('male')} className={`py-2 text-xs font-black rounded-lg transition-all ${gender === 'male' ? 'bg-gray-800 text-white shadow-sm' : 'text-gray-400 hover:text-gray-200'}`}>
+                  {isZh ? '男 / Male' : 'Male'}
+                </button>
+                <button type="button" onClick={() => setGender('female')} className={`py-2 text-xs font-black rounded-lg transition-all ${gender === 'female' ? 'bg-gray-800 text-white shadow-sm' : 'text-gray-400 hover:text-gray-200'}`}>
+                  {isZh ? '女 / Female' : 'Female'}
+                </button>
               </div>
             </div>
 
-            {calcMode === 'bmi' && (
+            {/* 布局模块三：身高、年龄弹性输入网格 */}
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-gray-500 mb-1">{t.weight}</label>
-                <input 
-                  type="number" 
-                  step="0.1"
-                  value={weight} 
-                  onChange={(e) => setWeight(e.target.value)}
-                  placeholder="e.g. 70"
-                  className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-gray-900 focus:outline-none"
-                  required 
-                />
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  {isZh ? '身高 (cm)' : 'Height (cm)'}
+                </label>
+                <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} placeholder="e.g. 175" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required />
               </div>
-            )}
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  {isZh ? '年龄' : 'Age'}
+                </label>
+                <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="e.g. 25" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required={mode === 'bmi'} />
+              </div>
+            </div>
 
-            {calcMode === 'navy' && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-2">
+            {/* 体重项 */}
+            <div>
+              <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                {isZh ? '体重 (kg)' : 'Weight (kg)'}
+              </label>
+              <input type="number" step="0.1" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="e.g. 70" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required />
+            </div>
+
+            {/* 核心联动：如果切换到 Mode 2：美军体围模式，动态展现高精度体围输入框 */}
+            {mode === 'navy' && (
+              <div className="border-t border-dashed border-gray-200 pt-4 space-y-3 animate-fade-in">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">{t.neck}</label>
-                    <input 
-                      type="number" 
-                      step="0.1"
-                      value={neck} 
-                      onChange={(e) => setNeck(e.target.value)}
-                      placeholder="e.g. 37"
-                      className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-blue-500 focus:outline-none font-mono"
-                      required 
-                    />
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                      {isZh ? '颈围 (cm)' : 'Neck Circumference (cm)'}
+                    </label>
+                    <input type="number" step="0.1" value={neck} onChange={(e) => setNeck(e.target.value)} placeholder="e.g. 38" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">{t.waist}</label>
-                    <input 
-                      type="number" 
-                      step="0.1"
-                      value={waist} 
-                      onChange={(e) => setWaist(e.target.value)}
-                      placeholder="e.g. 82"
-                      className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-blue-500 focus:outline-none font-mono"
-                      required 
-                    />
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                      {isZh ? '腰围 (cm)' : 'Waist Circumference (cm)'}
+                    </label>
+                    <input type="number" step="0.1" value={waist} onChange={(e) => setWaist(e.target.value)} placeholder="e.g. 82" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required />
                   </div>
                 </div>
-
-                {gender === '0' && (
+                {gender === 'female' && (
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">{t.hip}</label>
-                    <input 
-                      type="number" 
-                      step="0.1"
-                      value={hip} 
-                      onChange={(e) => setHip(e.target.value)}
-                      placeholder="e.g. 94"
-                      className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-blue-500 focus:outline-none font-mono"
-                      required 
-                    />
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                      {isZh ? '臀围 (cm)' : 'Hip Circumference (cm)'}
+                    </label>
+                    <input type="number" step="0.1" value={hip} onChange={(e) => setHip(e.target.value)} placeholder="e.g. 94" className="w-full p-3 text-sm border border-gray-200 rounded-xl bg-gray-50/50 font-mono focus:outline-none" required />
                   </div>
                 )}
               </div>
             )}
 
-            <button 
-              type="submit" 
-              className="w-full bg-gray-950 text-white p-3 rounded-xl font-black tracking-widest text-xs uppercase shadow-md hover:bg-black transition active:scale-[0.99]"
-            >
-              {t.btn}
+            {/* 计算提交大黑按钮 */}
+            <button type="submit" className="w-full bg-gray-950 text-white p-3.5 rounded-xl font-black tracking-widest text-xs uppercase shadow-md hover:bg-black transition">
+              ⚡ {isZh ? '开始计算体脂百分比' : 'CALCULATE BODY FAT %'}
             </button>
           </form>
 
-          {result !== null && (
-            <div className="mt-6 space-y-4">
-              <div className="p-4 bg-gray-900 border border-black rounded-2xl text-center shadow-inner">
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{t.resultTitle}</p>
-                <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 font-mono mt-1">
-                  {result}%
-                </p>
+          {/* 底部模式动态提示标注 */}
+          <p className="text-[10px] text-gray-400 text-center leading-relaxed mt-4 px-2">
+            {isZh 
+              ? '注：模式 1 基于世界卫生组织标准 BMI 复合公式计算。模式 2 (美军测量法) 通过核心绝对腰腹围度比进行拟合估算，极力推荐给健身爱好者。' 
+              : 'Note: Mode 1 uses the standard BMI equation. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.'}
+          </p>
+
+          {/* 🎯 渲染精细结果看板 —— 100% 对应双语及排版 */}
+          {result !== null && analysis && (
+            <div className="mt-6 space-y-4 animate-fade-in">
+              
+              {/* 看板一：预估结果反馈区 */}
+              <div className="bg-slate-900 text-white border border-gray-800 rounded-2xl p-4 text-center">
+                <span className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  {isZh ? '预估体内脂肪率' : 'YOUR ESTIMATED BODY FAT'}
+                </span>
+                <div className="text-4xl font-black font-mono text-amber-400">{result}%</div>
               </div>
 
-              {(() => {
-                const interpretation = getDetailedInterpretation(result);
-                return (
-                  <div className={`p-4 border rounded-2xl transition-all duration-300 ${interpretation.color}`}>
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-black text-gray-900 flex items-center gap-1">
-                        {t.interpretationTitle}
-                      </h3>
-                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-white shadow-sm border border-black/5">
-                        {interpretation.category}
-                      </span>
-                    </div>
-                    <p className="text-xs font-medium leading-relaxed mt-2.5 text-gray-800">
-                      {interpretation.desc}
-                    </p>
-                  </div>
-                );
-              })()}
+              {/* 看板二：专业体质分析 */}
+              <div className="border border-blue-100 rounded-2xl p-4 bg-blue-50/30">
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="text-[10px] font-black text-gray-500 uppercase tracking-wider">
+                    📊 {isZh ? '专业体质深度分析' : 'Professional Bio-Analysis'}
+                  </span>
+                  <span className="text-[9px] font-black bg-blue-600 text-white px-2 py-0.5 rounded-md font-mono">
+                    {analysis.normalLabel}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-700 font-medium leading-relaxed">{analysis.desc}</p>
+              </div>
 
-              {/* 炫耀卡片 */}
-              {(() => {
-                const { tag, desc } = getShareContent(result);
-                const currentModeName = calcMode === 'bmi' ? (lang === 'zh' ? 'BMI估算法' : 'BMI Est.') : (lang === 'zh' ? '美国海军公式' : 'US Navy Method');
-                return (
-                  <div className="w-full p-5 bg-gradient-to-br from-slate-900 to-black text-white rounded-2xl shadow-xl relative overflow-hidden text-center">
-                    <div className="absolute top-2.5 right-3.5 text-[9px] font-black tracking-widest text-slate-700 flex items-center gap-0.5">
-                      <span>⚡</span>FITKIT
-                    </div>
+              {/* 看板三：炫耀打卡成就海报样式 */}
+              <div className="bg-black text-white p-5 rounded-2xl relative overflow-hidden shadow-inner">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-[9px] font-black tracking-widest text-amber-400 uppercase">
+                    🏆 {isZh ? '今日打卡成就快照' : 'TODAY\'S ACHIEVEMENT'}
+                  </span>
+                  <span className="text-[10px] font-black text-gray-500 font-mono">⚡ FITKIT</span>
+                </div>
+                <div className="text-xs font-bold text-gray-300">{isZh ? '体脂率综合深度诊断' : 'Body Fat % Analysis'}</div>
+                <div className="text-4xl font-black font-mono text-white my-1">{result}%</div>
+                
+                <div className="inline-flex items-center gap-1 bg-gray-800/80 px-2 py-0.5 rounded text-[10px] font-mono text-emerald-400 mb-2">
+                  💪 {isZh ? '正在高效燃脂' : 'Burning Fat'}
+                </div>
+                
+                <p className="text-[10px] text-gray-400 leading-tight">
+                  {isZh ? '卓越控制皮质醇，更好的身材正在路上！' : 'Control cortisol, a better shape is coming!'}
+                </p>
+                <span className="absolute bottom-3 right-4 text-[9px] text-gray-600 font-mono">
+                  {mode === 'bmi' ? 'BMI Est.' : 'US Navy Method'}
+                </span>
+              </div>
 
-                    <p className="text-[9px] text-yellow-500 font-black tracking-widest uppercase">{t.shareToday}</p>
-                    <h4 className="text-xs font-bold tracking-tight mt-0.5">{t.shareCardTitle}</h4>
-                    
-                    <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 font-mono my-2.5">
-                      {result}%
-                    </div>
-                    
-                    <div className="inline-block text-[10px] text-blue-400 font-bold px-3 py-0.5 bg-blue-500/10 border border-blue-500/20 rounded-full mb-2">
-                      {tag}
-                    </div>
-                    <p className="text-[11px] text-gray-400 px-3 leading-relaxed">{desc}</p>
-                    
-                    <div className="mt-4 pt-2.5 border-t border-gray-800/60 flex justify-between items-center text-[9px] text-gray-500 font-mono">
-                      <span>{currentModeName}</span>
-                      <span>fitkit.top</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        const text = t.copyText(result, tag, desc, currentModeName);
-                        try {
-                          await navigator.clipboard.writeText(text);
-                          setCopied(true);
-                          setTimeout(() => setCopied(false), 2500);
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      className="mt-4 w-full py-2.5 bg-white text-black font-black text-xs rounded-xl shadow-md transition-all active:scale-[0.98] hover:bg-gray-100 flex items-center justify-center gap-1"
-                    >
-                      <span>{copied ? t.shareBtnSuccess : t.shareBtn}</span>
-                    </button>
-                  </div>
-                );
-              })()}
+              {/* 看板四：拷贝分享大按钮 */}
+              <button
+                type="button"
+                onClick={handleCopyShare}
+                className={`w-full py-3 rounded-xl text-xs font-black tracking-wider uppercase transition border ${
+                  copied ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-gray-200 text-gray-800 hover:bg-gray-50 shadow-sm'
+                }`}
+              >
+                {copied ? (isZh ? '✅ 复制成功！快去分享吧' : '✅ Copied achievement text!') : (isZh ? '✨ 一键复制今日打卡炫耀快照' : '✨ Copy Achievement to Share')}
+              </button>
             </div>
           )}
-
-          <p className="text-[11px] text-gray-400 mt-6 text-center leading-relaxed px-2">
-            {t.tips}
-          </p>
         </div>
       </div>
     </main>
