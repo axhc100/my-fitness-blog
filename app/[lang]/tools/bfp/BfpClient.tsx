@@ -65,7 +65,7 @@ const uiDict = {
     desc2: "穿衣显瘦，脱衣有肉，马甲线随时待命！",
     tag3: "💪 持续燃脂中",
     desc3: "科学控好皮质醇，好身材正在加速出关！",
-    shareBtn: "✨ 复制成就去小红书/朋友圈",
+    shareBtn: "✨ 复制成就去社交平台/朋友圈炫耀",
     shareBtnSuccess: "✅ 复制成功！快去群里炫耀",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
       `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`,
