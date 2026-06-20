@@ -3,6 +3,15 @@
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 
+// 1. 将复杂的类型定义抽离到外部，避免行内声明触发 Turbopack 编译泛型死锁
+interface CalculateResults {
+  tdee: number;
+  targetCalories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
 interface MacroClientProps {
   paramsPromise: any;
 }
@@ -21,13 +30,8 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
   const [activity, setActivity] = useState('1.375'); // 默认轻度活动
   const [goal, setGoal] = useState<'cut' | 'maintain' | 'bulk' | 'keto'>('cut'); // 减脂/维持/增肌/生酮
 
-  const [results, setResults] = useState<{
-    tdee: number;
-    targetCalories: number;
-    protein: number;
-    carbs: number;
-    fat: number;
-  } | null>(null);
+  // 使用抽离后的类型，干净利落
+  const [results, setResults] = useState<CalculateResults | null>(null);
 
   useEffect(() => { setMounted(true); }, []);
   
@@ -176,7 +180,7 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
               >
                 <option value="1.2">{isZh ? '久坐（很少运动、办公室人群）' : 'Sedentary (Little or no exercise)'}</option>
                 <option value="1.375">{isZh ? '轻度活跃（每周 1-3 天轻度训练）' : 'Light (Light exercise 1-3 days/week)'}</option>
-                <option value="1.55">{isZh ? '中度活跃<span class="font-bold"></span>（每周 3-5 天中度运动）' : 'Moderate (Moderate exercise 3-5 days/week)'}</option>
+                <option value="1.55">{isZh ? '中度活跃（每周 3-5 天中度运动）' : 'Moderate (Moderate exercise 3-5 days/week)'}</option>
                 <option value="1.725">{isZh ? '高频运动（每周 6-7 天高强度训练）' : 'Active (Hard exercise 6-7 days/week)'}</option>
               </select>
             </div>
