@@ -3,14 +3,17 @@
 import { useState, use } from 'react';
 import Link from 'next/link';
 
-// 多语言深度字典（包含精准对应的五个分类解读档位）
+// 1. 显式声明静态路由参数，彻底解决 Vercel 云端打包时因动态语言参数导致的构建失败
+export function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'zh' }];
+}
+
+// 多语言深度字典
 const uiDict = {
   en: {
     back: "← Back to Home",
     title: "Body Fat Calculator (Dual Mode)",
     modeSelect: "Calculation Method",
-    modeBmi: "Mode 1: BMI Status (General)",
-    modeNavy: "Mode 2: Navy Method (Fitness Geeks)",
     gender: "Gender",
     male: "Male",
     female: "Female",
@@ -23,7 +26,7 @@ const uiDict = {
     btn: "⚡ Calculate Body Fat %",
     resultTitle: "Your Estimated Body Fat:",
     interpretationTitle: "📊 Professional Bio-Analysis",
-    tips: "Note: Mode 1 uses the standard BMI equation, which may provide general estimations. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.",
+    tips: "Note: Mode 1 uses the standard BMI equation. Mode 2 (Navy Method) measures absolute abdominal fat distribution and is highly recommended for fitness enthusiasts.",
     shareCardTitle: "Body Fat % Analysis",
     shareToday: "TODAY'S ACHIEVEMENT",
     tag1: "🏅 Striated Shape",
@@ -36,7 +39,6 @@ const uiDict = {
     shareBtnSuccess: "✅ Copied! Go & Flaunt It!",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
       `🔥 Measured my body fat at ${val}% via [${mode}] on FitKit! Status: [${tag}]. ${desc} Ad-free tool box, test yours here: https://fitkit.top`,
-    // 五大分类标签
     cat1: "Essential Fat",
     cat2: "Athletic",
     cat3: "Fit",
@@ -47,8 +49,6 @@ const uiDict = {
     back: "← 返回首页",
     title: "体脂率科学计算器 (双模版)",
     modeSelect: "测算核心模式",
-    modeBmi: "模式一：BMI 状态法 (普通大众)",
-    modeNavy: "模式二：美国海军法 (健身围度)",
     gender: "性别",
     male: "男",
     female: "女",
@@ -74,7 +74,6 @@ const uiDict = {
     shareBtnSuccess: "✅ 复制成功！快去群里炫耀",
     copyText: (val: number, tag: string, desc: string, mode: string) => 
       `🔥 我今天在 FitKit 通过[${mode}]测出了 ${val}% 的真实体脂！状态：[${tag}]。${desc} 免登录无广告计算器，快来测测你的：https://fitkit.top`,
-    // 五大分类标签
     cat1: "必需脂肪",
     cat2: "运动员",
     cat3: "健壮",
@@ -84,8 +83,10 @@ const uiDict = {
 };
 
 export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh' }> }) {
-  const { lang } = use(params);
-  const t = uiDict[lang] || uiDict.en;
+  // 解构多语言参数
+  const unwrappedParams = use(params);
+  const lang = unwrappedParams?.lang === 'zh' ? 'zh' : 'en';
+  const t = uiDict[lang];
 
   // 核心计算模式状态
   const [calcMode, setCalcMode] = useState<'bmi' | 'navy'>('bmi');
@@ -148,12 +149,11 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
     setCopied(false);
   };
 
-  // 根据用户上传的基准标准图表 (image_cabfa6.png)，输出严谨分类及理想参考值对比
+  // 根据用户上传的基准标准图表进行医学级解读
   const getDetailedInterpretation = (bfpVal: number) => {
     const isMale = gender === '1';
     const currentAge = parseInt(age) || 25;
     
-    // 1. 获取动态年龄理想参考值 (根据图表数据建模)
     let idealText = "";
     if (isMale) {
       if (currentAge <= 22) idealText = "8.5%";
@@ -175,7 +175,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
       else idealText = "26.3%";
     }
 
-    // 2. 完美的分类档位决策树
     if (isMale) {
       if (bfpVal >= 2 && bfpVal <= 5) {
         return {
@@ -221,7 +220,6 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
           : `Adiposity warning zone (≥25%). Higher than age benchmark ${idealText}.`
       };
     } else {
-      // 女性标准决策
       if (bfpVal >= 10 && bfpVal <= 13) {
         return {
           category: t.cat1,
@@ -358,7 +356,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
             </div>
 
             {calcMode === 'bmi' && (
-              <div className="animate-fade-in">
+              <div>
                 <label className="block text-xs font-bold text-gray-500 mb-1">{t.weight}</label>
                 <input 
                   type="number" 
@@ -373,7 +371,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
             )}
 
             {calcMode === 'navy' && (
-              <div className="space-y-4 animate-fade-in">
+              <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="block text-xs font-bold text-gray-500 mb-1">{t.neck}</label>
@@ -385,7 +383,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                       placeholder="e.g. 37"
                       className="w-full p-2.5 text-xs border border-gray-200 rounded-xl bg-gray-50 focus:ring-1 focus:ring-blue-500 focus:outline-none font-mono"
                       required 
-                />
+                    />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-500 mb-1">{t.waist}</label>
@@ -402,7 +400,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                 </div>
 
                 {gender === '0' && (
-                  <div className="animate-slide-down">
+                  <div>
                     <label className="block text-xs font-bold text-gray-500 mb-1">{t.hip}</label>
                     <input 
                       type="number" 
@@ -428,7 +426,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
 
           {/* 计算结果面板 */}
           {result !== null && (
-            <div className="mt-6 space-y-4 animate-fade-in">
+            <div className="mt-6 space-y-4">
               <div className="p-4 bg-gray-900 border border-black rounded-2xl text-center shadow-inner">
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{t.resultTitle}</p>
                 <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 font-mono mt-1">
@@ -436,7 +434,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                 </p>
               </div>
 
-              {/* 📊 图表映射生化解读面板 */}
+              {/* 解读面板 */}
               {(() => {
                 const interpretation = getDetailedInterpretation(result);
                 return (
@@ -484,6 +482,7 @@ export default function BfpPage({ params }: { params: Promise<{ lang: 'en' | 'zh
                     </div>
 
                     <button
+                      type="button"
                       onClick={async () => {
                         const text = t.copyText(result, tag, desc, currentModeName);
                         try {
