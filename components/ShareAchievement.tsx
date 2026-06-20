@@ -68,7 +68,7 @@ export default function ShareAchievement({
         <div className="mt-4 pt-1 flex items-center justify-center gap-1.5 opacity-40 select-none">
           <span className="text-xs">⚡</span>
           <span className="text-[9px] tracking-tight font-mono font-bold uppercase">
-            {isZh ? '来自 极客健身数据盒子' : 'POWERED BY FITNESS BOX'}
+            {isZh ? '来自  FitKit' : 'POWERED BY FITNESS BOX'}
           </span>
         </div>
       </div>
