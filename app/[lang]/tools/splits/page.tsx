@@ -21,6 +21,7 @@ export default function SplitsTrackerPage() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [streak, setStreak] = useState(0);
   const [showEffect, setShowEffect] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // 解决 Next.js 15 的客户端水合问题
   useEffect(() => {
@@ -64,6 +65,7 @@ export default function SplitsTrackerPage() {
     setInputValue('');
     setShowEffect(true);
     setTimeout(() => setShowEffect(false), 2000);
+    setCopied(false);
   };
 
   // 清空本地数据
@@ -88,6 +90,34 @@ export default function SplitsTrackerPage() {
       const y = 160 - ((item.value - minVal) / range) * 120;
       return `${x},${y}`;
     }).join(' ');
+  };
+
+  // 获取最新的数据快照用于文案卡片
+  const getLatestEntry = () => {
+    if (history.length === 0) return null;
+    return history[history.length - 1];
+  };
+
+  // 一键复制分享卡片文案
+  const handleShareCopy = async () => {
+    const latest = getLatestEntry();
+    if (!latest) return;
+
+    const metricText = latest.type === 'height'
+      ? (isZh ? `会阴离地高度：${latest.value} cm 📏` : `Distance to floor: ${latest.value} cm 📏`)
+      : (isZh ? `双腿叉开角度：${latest.value}° 📐` : `Legs angle: ${latest.value}° 📐`);
+
+    const text = isZh
+      ? `🤸‍♂️ 我今天在 FitKit 锁定了最新一字马柔韧性打卡！\n🔥 连续拉伸：${streak} 天\n📊 当前进度：${metricText}\n每一次微小的下降，都是身体蜕变的痕迹。免登录无广告的极客打卡小工具，来这里一起解锁神仙柔韧度：https://fitkit.top`
+      : `🤸‍♂️ Just logged my splits flexibility progress on FitKit!\n🔥 Consistency Streak: ${streak} Days\n📊 Current Metric: ${metricText}\nConsistency turns into flexibility. Track your daily flexibility journey without ads: https://fitkit.top`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.error('Copy failed:', err);
+    }
   };
 
   return (
@@ -220,6 +250,53 @@ export default function SplitsTrackerPage() {
             </div>
           )}
         </div>
+
+        {/* 💣 黑金炫耀裂变分享区域 */}
+        {history.length > 0 && (() => {
+          const latest = getLatestEntry();
+          if (!latest) return null;
+          return (
+            <div className="mt-8 w-full p-5 bg-gradient-to-br from-slate-900 to-black text-white rounded-2xl shadow-xl relative overflow-hidden text-center animate-fade-in">
+              {/* 卡片右上角极简高质感 Logo 水印 */}
+              <div className="absolute top-2.5 right-3.5 text-[9px] font-black tracking-widest text-slate-600 flex items-center gap-0.5">
+                <span>⚡</span>FITKIT
+              </div>
+
+              <p className="text-[9px] text-blue-400 uppercase font-black tracking-widest">
+                {isZh ? '🔥 今日柔韧性进化数据已锁定 🔥' : '🔥 FLEXIBILITY PROGRESS LOCKED 🔥'}
+              </p>
+              <h3 className="text-sm font-bold mt-0.5 tracking-tight">
+                {isZh ? '一字马拉伸打卡看板' : 'Splits Progress Dashboard'}
+              </h3>
+
+              {/* 大数值指标显眼凸出 */}
+              <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 font-mono my-2.5">
+                {latest.value} <span className="text-xs font-normal text-gray-400">{latest.type === 'height' ? 'cm' : '°'}</span>
+              </div>
+
+              <div className="inline-block text-[11px] text-yellow-400 font-bold px-3 py-0.5 bg-yellow-500/10 border border-yellow-500/20 rounded-full mb-2">
+                {isZh ? `⚡ 已连续拉伸蜕变 ${streak} 天` : `⚡ ${streak} Days Active Streak`}
+              </div>
+              <p className="text-[11px] text-gray-400 px-4 leading-relaxed">
+                {isZh 
+                  ? '基因决定上限，但汗水延伸下限。看着骨盆离地面的一点点接近，就是拉伸最爽的时刻！' 
+                  : 'Genetics might set boundaries, but sweat extends them. Watch yourself get closer to the ground day by day.'}
+              </p>
+
+              {/* 一键复制裂变按钮 */}
+              <button
+                onClick={handleShareCopy}
+                className="mt-4 w-full py-2.5 bg-white text-black font-black text-xs rounded-xl shadow-md transition-all active:scale-[0.98] hover:bg-gray-100 flex items-center justify-center gap-1"
+              >
+                <span>
+                  {copied 
+                    ? (isZh ? '✅ 复制成功！快去朋友圈和搭子炫耀' : '✅ Copied! Ready to share') 
+                    : (isZh ? '✨ 复制打卡进度去社交平台炫耀' : '✨ Copy Progress to Share')}
+                </span>
+              </button>
+            </div>
+          );
+        })()}
 
       </div>
     </main>
