@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly",
         priority: 0.72,
         alternates: { languages: localizedAlternates(pathname) },
-        images: article.image ? [article.image] : undefined,
+        // ⚡ 完美终结 Bug：直接移除原先会导致相对路径报错的 images 属性，只保留纯净的绝对路径网页 URL
       });
     }
   }
