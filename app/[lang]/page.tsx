@@ -7,6 +7,9 @@ import { getDictionary } from '../dictionaries';
 import FlagCountdown from '@/components/FlagCountdown'; 
 import { buildPageMetadata, getHomeSeo, type Lang } from '../lib/seo';
 
+// 🚀 注入增量再生，防止日期与文章死锁
+export const revalidate = 3600; 
+
 // ⚡ 工业级终极递归武器：扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
 function getMdFilesRecursive(dirPath: string): string[] {
   if (!fs.existsSync(dirPath)) return [];
@@ -18,7 +21,6 @@ function getMdFilesRecursive(dirPath: string): string[] {
     const stat = fs.statSync(fullPath);
     
     if (stat && stat.isDirectory()) {
-      // 遇到年份/月份夹子，继续钻进去找
       results = results.concat(getMdFilesRecursive(fullPath));
     } else if (file.endsWith('.md')) {
       results.push(fullPath);
@@ -28,15 +30,17 @@ function getMdFilesRecursive(dirPath: string): string[] {
   return results;
 }
 
-export async function generateMetadata({
-  params,
-  searchParams,
-}: {
+// 🌐 完美的异步 Metadata 拦截处理
+export async function generateMetadata(props: {
   params: Promise<{ lang: Lang }>;
   searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
-  const { lang } = await params;
-  const { page } = await searchParams;
+  const resolvedParams = await props.params;
+  const resolvedSearchParams = await props.searchParams;
+
+  const lang = resolvedParams.lang;
+  const page = resolvedSearchParams.page;
+
   const seo = getHomeSeo(lang);
   const pageNumber = Number(page || "1");
   const pathname = pageNumber > 1 ? `?page=${pageNumber}` : "";
@@ -49,18 +53,20 @@ export async function generateMetadata({
   });
 }
 
-export default async function HomePage({
-  params,
-  searchParams,
-}: {
+// ⚙️ 规范声明 Next.js 约定的 PageProps 类型接口
+interface PageProps {
   params: Promise<{ lang: 'en' | 'zh' }>;
   searchParams: Promise<{ page?: string }>;
-}) {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
+}
+
+export default async function HomePage(props: PageProps) {
+  // 🔥 核心修正：100% 在服务端组件第一步解开 Promise，断绝编译期类型死结
+  const resolvedParams = await props.params;
+  const resolvedSearchParams = await props.searchParams;
   
   const lang = resolvedParams.lang;
   const page = resolvedSearchParams.page;
+  
   const dict = await getDictionary(lang);
 
   const POSTS_PER_PAGE = 5; 
@@ -69,7 +75,6 @@ export default async function HomePage({
   const contentDir = path.join(process.cwd(), 'content', lang);
   let allArticles: { slug: string; title: string; description: string; date: string }[] = [];
 
-  // 🔥 核心重构：使用全新的递归深度读取，不管文章在根目录还是 2026-06 文件夹，通通拿下
   if (fs.existsSync(contentDir)) {
     const allFilePaths = getMdFilesRecursive(contentDir);
     
@@ -77,31 +82,39 @@ export default async function HomePage({
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       const { data } = matter(fileContent);
       
-      // 极其关键：剥离前面的路径，只留文件名作为 URL 路由 slug
       const slug = path.basename(filePath, '.md');
+      
+      // 容错处理：确保日期在解析阶段不崩塌
+      let finalDate = '';
+      if (data.date instanceof Date) {
+        finalDate = data.date.toISOString().split('T')[0];
+      } else if (typeof data.date === 'string') {
+        finalDate = data.date.split('T')[0];
+      } else {
+        finalDate = String(data.date || '');
+      }
       
       return {
         slug: slug,
         title: data.title || path.basename(filePath),
         description: data.description || '',
-        date: data.date || '',
+        date: finalDate,
       };
     });
 
-    // 依然维持你原本帅气的文章按日期倒序排列
+    // 维持文章按最新日期倒序排列
     allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
   const totalPosts = allArticles.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  // 完美切片分页
   const articles = allArticles.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
     <main className="min-h-screen bg-slate-50/50 text-gray-900 pb-24 relative">
       
-      {/* 🌐 原汁原味的悬浮毛玻璃导航条 */}
+      {/* 🌐 悬浮毛玻璃导航条 */}
       <header className="sticky top-0 z-50 w-full bg-white/75 backdrop-blur-md border-b border-gray-100 transition-all">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href={`/${lang}`} className="flex items-center gap-2 group">
@@ -132,7 +145,7 @@ export default async function HomePage({
         </div>
       </header>
 
-      {/* 🛠️ 原本帅气的头部大标题 */}
+      {/* 🛠️ 头部大标题 */}
       <div className="max-w-5xl mx-auto px-6 text-center mb-16 mt-16">
         <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-gray-900 bg-gradient-to-b from-gray-900 to-gray-700 bg-clip-text text-transparent">
           {dict.title || "Fitness & Health Toolkit"}
@@ -143,7 +156,7 @@ export default async function HomePage({
       </div>
 
       <div className="max-w-5xl mx-auto px-6">
-        {/* 🎛️ 你的全部 8 张核心计算器卡片 UI，一个都不能少！ */}
+        {/* 🎛️ 完美的 8 张核心计算器卡片 UI */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
           
           {/* 1. 一字马进度打卡 */}
@@ -240,7 +253,7 @@ export default async function HomePage({
                 <Link key={art.slug} href={`/${lang}/blog/${art.slug}`} className="block p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-200 group">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition duration-200">{art.title}</h3>
-                    <span className="text-xs text-gray-400 font-mono whitespace-nowrap ml-4 bg-gray-50 px-2 py-0.5 rounded-md border">{art.date}</span>
+                    <span className="text-xs text-gray-400 font-mono whitespace-nowrap ml-4 bg-gray-50 px-2 py-0.5 rounded-md border" suppressHydrationWarning>{art.date}</span>
                   </div>
                   <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">{art.description}</p>
                   <span className="text-xs font-bold text-blue-600 group-hover:underline flex items-center gap-1">
@@ -251,7 +264,7 @@ export default async function HomePage({
             </div>
           )}
 
-          {/* 🎯 精美分页导航组件 */}
+          {/* 🎯 分页导航组件 */}
           {totalPages > 1 && (
             <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-100">
               {currentPage > 1 ? (
