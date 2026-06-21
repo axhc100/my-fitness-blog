@@ -3,11 +3,13 @@ import path from 'path';
 import Link from 'next/link';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import type { Metadata } from 'next';
 import { getDictionary } from '../../../dictionaries';
 import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
 // 如果用 @/ 报错，就直接换成下面这种无敌的相对路径：
 import AdSenseWidget from '../../../../components/AdSenseWidget';
+import { absoluteUrl, buildPageMetadata, getArticle, SITE_NAME, type Lang } from '../../../lib/seo';
 
 // ⚡ 递归工具函数一：深度扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
 function getMdFilesRecursive(dirPath: string): string[] {
@@ -69,6 +71,32 @@ export async function generateStaticParams() {
   return paths;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Lang; slug: string }>;
+}): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const article = getArticle(lang, slug);
+
+  if (!article) {
+    return {
+      title: "Article not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return buildPageMetadata({
+    lang,
+    pathname: `/blog/${slug}`,
+    title: article.data.title || slug,
+    description: article.data.description || "",
+    type: "article",
+    image: article.image,
+    publishedTime: article.data.date,
+  });
+}
+
 export default async function BlogPostPage({
   params,
 }: {
@@ -93,6 +121,26 @@ export default async function BlogPostPage({
   const fileRaw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileRaw);
   const htmlContent = await marked(content);
+  const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: data.title,
+    description: data.description,
+    image: heroImage ? [heroImage] : undefined,
+    datePublished: data.date,
+    dateModified: data.date,
+    inLanguage: lang === "zh" ? "zh-CN" : "en",
+    mainEntityOfPage: absoluteUrl(`/${lang}/blog/${slug}`),
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+    },
+  };
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
@@ -146,6 +194,10 @@ export default async function BlogPostPage({
   return (
     <main className="min-h-screen bg-white text-gray-900 p-6 md:p-12 selection:bg-blue-100">
       <div className="max-w-2xl mx-auto">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
         <Link href={`/${lang}`} className="text-sm font-semibold text-blue-600 hover:underline inline-block mb-10 transition">
           {dict.backToHome}
         </Link>

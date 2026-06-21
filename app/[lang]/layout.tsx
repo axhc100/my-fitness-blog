@@ -1,9 +1,43 @@
 import "../globals.css";
+import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "../lib/seo";
 import Script from "next/script"; // ✨ 引入 Next.js 官方脚本优化组件
 
-export const metadata = {
-  title: "Fitness & Health Toolkit",
-  description: "Your ultimate fitness and health tools container with smart tracking.",
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: {
+    default: "FitKit - Free Fitness Calculators and Health Tools",
+    template: "%s | FitKit",
+  },
+  description:
+    "FitKit provides free fitness calculators, body composition tools, nutrition calculators and practical training guides.",
+  category: "Health",
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export async function generateStaticParams() {

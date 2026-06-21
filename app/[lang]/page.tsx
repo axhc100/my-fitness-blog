@@ -2,8 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import matter from 'gray-matter';
+import type { Metadata } from 'next';
 import { getDictionary } from '../dictionaries';
 import FlagCountdown from '@/components/FlagCountdown'; 
+import { buildPageMetadata, getHomeSeo, type Lang } from '../lib/seo';
 
 // ⚡ 工业级终极递归武器：扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
 function getMdFilesRecursive(dirPath: string): string[] {
@@ -24,6 +26,27 @@ function getMdFilesRecursive(dirPath: string): string[] {
   });
   
   return results;
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: Lang }>;
+  searchParams: Promise<{ page?: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const { page } = await searchParams;
+  const seo = getHomeSeo(lang);
+  const pageNumber = Number(page || "1");
+  const pathname = pageNumber > 1 ? `?page=${pageNumber}` : "";
+
+  return buildPageMetadata({
+    lang,
+    pathname,
+    title: pageNumber > 1 ? `${seo.title} - Page ${pageNumber}` : seo.title,
+    description: seo.description,
+  });
 }
 
 export default async function HomePage({
