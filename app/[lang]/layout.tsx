@@ -2,6 +2,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "../lib/seo";
 import Script from "next/script"; // ✨ 引入 Next.js 官方脚本优化组件
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -69,6 +70,7 @@ export default async function RootLayout({
       </head>
       <body className="antialiased bg-gray-50 text-gray-900">
         {children}
+        <Analytics />
       </body>
     </html>
   );
