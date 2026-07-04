@@ -1,0 +1,65 @@
+Launch Copy: Product Hunt & Indie Hackers
+这里为您准备了用于 Product Hunt 和 Indie Hackers 两个独立开发者/新产品发布社区的英文首发文案。您可以直接复制粘贴使用。
+
+1. Product Hunt 发布文案 (Product Hunt Launch)
+Product Hunt 是获取第一批高质量种子用户和 SEO 高权重外链的最佳地点。发布时，请确保包含几张精美的网站截图。
+
+基本信息 (Basic Info)
+Product Name (产品名称): FitKit
+Tagline (一句话简介 - 60字符以内): Free fitness calculators & science-backed health guides.
+Description (详细描述 - 260字符左右): A minimalist, ad-free toolkit to help you track your fitness journey. Calculate macros, body fat, BMR, and hydration targets, plus access science-backed home workout guides. No paywalls, just clean UI and results.
+Maker's Comment (创作者的首条评论 - 非常重要！)
+发布产品后，作为 Maker (创作者)，您需要立刻在产品下方发布第一条评论，讲述您做这个产品的初衷。这会让产品显得更有“人情味”。
+
+请复制以下内容作为第一条评论：
+
+Hi Product Hunt! 👋
+
+I'm excited to share FitKit with you all today.
+
+When I was trying to optimize my own fitness routine, I realized that most of the free fitness calculators out there are either cluttered with overwhelming ads, hidden behind paywalls, or just have a terrible user interface.
+
+So, I decided to build FitKit—a completely free, clean, and ad-free toolkit designed to help you track your health effortlessly.
+
+What you'll find on FitKit right now: 🍳 Macro Calculator (for customized nutrition targets) 🔥 Body Fat & BMR Calculators 💧 Hydration & Ideal Weight tracking 🤸‍♀️ Splits & Flexibility Tracker 📚 Science-backed home workout guides (with a focus on women's fitness)
+
+It's incredibly simple, fast, and doesn't require any sign-ups. I built this primarily to scratch my own itch, but I hope it brings value to anyone on a fitness or weight-loss journey.
+
+I would absolutely love to hear your feedback on the UI, the calculators, or any feature requests you might have! I'll be here all day to answer your questions.
+
+Cheers! 🏃‍♀️💪
+
+2. Indie Hackers 发布文案 (Indie Hackers Launch)
+Indie Hackers 是一个对独立开发者极其友好的社区。这里的文案风格应该更偏向于“分享你的开发故事”和“虚心求教”。请在 "Show IH" (Show Indie Hackers) 板块发帖。
+
+帖子标题 (Post Title)
+Show IH: I got tired of ad-heavy fitness sites, so I built a free, minimalist fitness toolkit. Would love your feedback!
+
+帖子正文 (Post Body)
+请复制以下正文内容：
+
+Hey Indie Hackers!
+
+I just launched my new side project: FitKit.
+
+The Problem: Whenever I tried to calculate my Macros, BMR, or Body Fat online, I was bombarded by sites with terrible UX, intrusive pop-up ads, or tools that force you to sign up for an email newsletter just to see your results.
+
+The Solution: I built FitKit. It’s a fast, clean, and 100% free collection of fitness tools and calculators. No paywalls, no annoying ads, no mandatory sign-ups. You just input your data and get your results instantly.
+
+Current Features:
+
+Macro Calculator
+BMR & Body Fat Percentage Calculators
+Daily Water Intake Tracker
+A few in-depth, science-backed workout guides (currently focusing on women's home workouts and fat loss).
+Since the site is brand new and has exactly 0 traffic right now, I decided to share it here first to get some brutally honest feedback from this community.
+
+What I'd love your feedback on:
+
+Does the UI feel intuitive and clean?
+Are there any other specific fitness calculators or tools you wish existed in a clean format?
+Does the site load fast enough for you?
+Any feedback (or bug reports!) would be massively appreciated. Thanks for checking it out! 🙏
+
+Link: https://www.fitkit.top/en
+

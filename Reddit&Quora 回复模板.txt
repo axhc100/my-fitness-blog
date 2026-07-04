@@ -1,0 +1,47 @@
+社区引流实战：Reddit & Quora 回复模板
+Reddit 和 Quora 是获取高质量、长期免费流量的宝地，尤其是针对英文市场。但在这些平台直接发广告会被封号。我们的核心策略是：提供有价值的解答 + 软性植入工具。
+
+以下是为您准备的三个实战模板，您可以直接复制、稍作修改后在社区里回复。
+
+场景 1：有人提问“我该如何计算宏量营养素 (Macros) ？”
+常见标题: "How do I calculate macros for fat loss?" / "Need help figuring out my macros." 回复策略: 简单解释原理，然后提供工具省去他们手算的麻烦。
+
+英文回复模板：
+
+The easiest way to start is by finding your TDEE (Total Daily Energy Expenditure) based on your activity level, and then applying a slight caloric deficit (around 300-500 calories) if your goal is fat loss.
+
+As for the macro split, a general rule of thumb for weight loss is 30% protein, 35% carbs, and 35% fats, but it really depends on your body type.
+
+Doing the math manually can be annoying, so I actually built a free tool to calculate this automatically without any sign-ups or ads. You can plug your numbers in here to get your exact daily targets: FitKit Macro Calculator
+
+Hope this helps! Consistency is key, you got this. 💪
+
+场景 2：有人提问“有什么好的基础代谢率 (BMR) 或体脂计算器吗？”
+常见标题: "Best BMR calculator?" / "How accurate are online body fat calculators?" 回复策略: 强调市面上的工具充满了广告，而您做了一个极简的替代品。
+
+英文回复模板：
+
+I had the exact same frustration. Most online BMR and body fat calculators are super cluttered, covered in popup ads, or they force you to give them your email address just to see the results.
+
+Because I was so annoyed by it, I built my own minimalist version in my free time. It uses the Mifflin-St Jeor equation (which is widely considered the most accurate formula). It’s completely free, ad-free, and gives you the results instantly on the screen.
+
+Feel free to check it out if you want a clean tool to track your stats: FitKit BMR Calculator
+
+场景 3：有人在讨论“居家锻炼/女性健身”
+常见标题: "Best home workouts for women?" / "How to get lean legs at home?" 回复策略: 推荐 FitKit 上的训练指南文章。
+
+英文回复模板：
+
+If you're working out at home without much equipment, bodyweight exercises and resistance bands are your best friends. Focus on compound movements like squats, lunges, and push-up variations.
+
+I recently put together a comprehensive, science-backed guide specifically for women's full-body sculpting at home. It covers the exact exercises, sets, and recovery tips you need to build a lean physique without a gym membership.
+
+You can read the full guide here (no paywalls or ads): The Ultimate Home Workout Guide for Women
+
+Start slow and focus on your form first!
+
+💡 每日实战行动指南 (Daily Action Plan)
+每天打开 Reddit，在搜索框搜索关键字：calculate macros, BMR, body fat percentage, home workout women。
+在左侧筛选条件中选择 "Past Week" (过去一周) 或 "Past Month" (过去一个月) 的帖子，找到那些求助的帖子。
+挑选 2-3 个帖子，用上面的模板进行回复。
+记住：每天最多回复 2-3 次带有链接的帖子，否则会被 Reddit 系统标记为垃圾信息。循序渐进，细水长流！
