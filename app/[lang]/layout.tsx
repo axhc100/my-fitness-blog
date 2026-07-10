@@ -71,6 +71,12 @@ export default async function RootLayout({
       <body className="antialiased bg-gray-50 text-gray-900">
         {children}
         <Analytics />
+        {/* 🚀 Product Hunt Launch Badge */}
+        <div className="fixed bottom-6 right-6 z-50 hover:scale-105 transition-transform duration-300 drop-shadow-xl">
+          <a href="https://www.producthunt.com/products/fitkit?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-fitkit" target="_blank" rel="noopener noreferrer">
+            <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1192203&amp;theme=light&amp;t=1783676725471" alt="FitKit - The ultimate free, ad-free macro &amp; fitness calculator | Product Hunt" width="250" height="54" />
+          </a>
+        </div>
       </body>
     </html>
   );
