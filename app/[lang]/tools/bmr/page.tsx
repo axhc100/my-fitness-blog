@@ -1,5 +1,5 @@
 'use client';
-import { useState, use } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 
 const uiDict = {
@@ -17,8 +17,8 @@ export default function BmrPage({ params }: { params: Promise<{ lang: 'en' | 'zh
   const [gender, setGender] = useState('1'); // 1=男, 0=女
   const [result, setResult] = useState<number | null>(null);
 
-  const calculateBMR = (e: React.FormEvent) => {
-    e.preventDefault();
+  const calculateBMR = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     const h = parseFloat(height);
     const w = parseFloat(weight);
     const a = parseInt(age);
@@ -30,6 +30,10 @@ export default function BmrPage({ params }: { params: Promise<{ lang: 'en' | 'zh
       setResult(Math.round(bmr));
     }
   };
+
+  useEffect(() => {
+    calculateBMR();
+  }, [gender, height, weight, age]);
 
   return (
     <main className="min-h-screen bg-gray-50 p-6 flex flex-col items-center justify-center text-gray-900">

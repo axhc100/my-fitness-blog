@@ -33,12 +33,10 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
 
   useEffect(() => { setMounted(true); }, []);
   
-  if (!mounted) {
-    return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 font-mono text-xs">Loading Calculator...</div>;
-  }
 
-  const calculateMacros = (e: React.FormEvent) => {
-    e.preventDefault();
+
+  const calculateMacros = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     const w = parseFloat(weight);
     const h = parseFloat(height);
     const a = parseInt(age);
@@ -75,6 +73,14 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
 
     setResults({ tdee, targetCalories, protein, carbs, fat });
   };
+
+  useEffect(() => {
+    calculateMacros();
+  }, [gender, weight, height, age, activity, goal]);
+
+  if (!mounted) {
+    return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 font-mono text-xs">Loading Calculator...</div>;
+  }
 
   // 完美对齐带链接的硬核社交复制文本
   const handleCopyShare = async () => {
