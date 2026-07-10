@@ -119,10 +119,11 @@ export default async function HomePage(props: PageProps) {
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href={`/${lang}`} className="flex items-center gap-2 group">
             <img 
-  src="/fitkit_logo_thumbnail_1783610898352.png" 
+  src="/logo.png" 
   alt="FitKit Logo" 
   className="w-8 h-8 rounded-lg shadow-sm shadow-green-500/20 group-hover:scale-105 transition object-cover" 
 />
+
 
             <span className="font-black text-sm tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               {lang === 'zh' ? '健康数据箱' : 'FitKit'}
