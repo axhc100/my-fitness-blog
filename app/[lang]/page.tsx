@@ -118,9 +118,12 @@ export default async function HomePage(props: PageProps) {
       <header className="sticky top-0 z-50 w-full bg-white/75 backdrop-blur-md border-b border-gray-100 transition-all">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href={`/${lang}`} className="flex items-center gap-2 group">
-            <span className="text-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center font-black shadow-sm shadow-blue-500/20 group-hover:scale-105 transition">
-              ⚡
-            </span>
+            <img 
+  src="/fitkit_logo_thumbnail_1783610898352.png" 
+  alt="FitKit Logo" 
+  className="w-8 h-8 rounded-lg shadow-sm shadow-green-500/20 group-hover:scale-105 transition object-cover" 
+/>
+
             <span className="font-black text-sm tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               {lang === 'zh' ? '健康数据箱' : 'FitKit'}
             </span>
