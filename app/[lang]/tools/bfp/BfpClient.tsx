@@ -12,6 +12,13 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
   const lang = unwrappedParams?.lang === 'zh' ? 'zh' : 'en';
   const isZh = lang === 'zh';
 
+  interface BfpHistoryEntry {
+    id: string;
+    date: string;
+    mode: 'bmi' | 'navy';
+    bfp: number;
+  }
+
   const [mounted, setMounted] = useState(false);
   
   // 核心状态：模式选择 (Mode 1: BMI, Mode 2: US Navy)
@@ -28,10 +35,49 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
 
   const [result, setResult] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
+  const [history, setHistory] = useState<BfpHistoryEntry[]>([]);
 
   useEffect(() => {
+    // Load existing form values
+    const savedMode = localStorage.getItem('fitkit_bfp_mode') as 'bmi' | 'navy';
+    const savedGender = localStorage.getItem('fitkit_bfp_gender') as 'male' | 'female';
+    const savedHeight = localStorage.getItem('fitkit_bfp_height');
+    const savedWeight = localStorage.getItem('fitkit_bfp_weight');
+    const savedAge = localStorage.getItem('fitkit_bfp_age');
+    const savedWaist = localStorage.getItem('fitkit_bfp_waist');
+    const savedNeck = localStorage.getItem('fitkit_bfp_neck');
+    const savedHip = localStorage.getItem('fitkit_bfp_hip');
+
+    if (savedMode) setMode(savedMode);
+    if (savedGender) setGender(savedGender);
+    if (savedHeight) setHeight(savedHeight);
+    if (savedWeight) setWeight(savedWeight);
+    if (savedAge) setAge(savedAge);
+    if (savedWaist) setWaist(savedWaist);
+    if (savedNeck) setNeck(savedNeck);
+    if (savedHip) setHip(savedHip);
+
+    const savedHistory = localStorage.getItem('fitkit_bfp_history');
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (e) {}
+    }
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('fitkit_bfp_mode', mode);
+      localStorage.setItem('fitkit_bfp_gender', gender);
+      localStorage.setItem('fitkit_bfp_height', height);
+      localStorage.setItem('fitkit_bfp_weight', weight);
+      localStorage.setItem('fitkit_bfp_age', age);
+      localStorage.setItem('fitkit_bfp_waist', waist);
+      localStorage.setItem('fitkit_bfp_neck', neck);
+      localStorage.setItem('fitkit_bfp_hip', hip);
+    }
+  }, [mode, gender, height, weight, age, waist, neck, hip, mounted]);
 
   if (!mounted) {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 font-mono text-xs">Loading...</div>;
@@ -106,6 +152,39 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
       console.error(err);
     }
   };
+
+  const saveSnapshot = () => {
+    if (result === null) return;
+    const newEntry: BfpHistoryEntry = {
+      id: Date.now().toString(),
+      date: new Date().toLocaleDateString(isZh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      mode,
+      bfp: result,
+    };
+    const newHistory = [newEntry, ...history].slice(0, 50); // Keep last 50
+    setHistory(newHistory);
+    localStorage.setItem('fitkit_bfp_history', JSON.stringify(newHistory));
+  };
+
+  const clearHistory = () => {
+    if (confirm(isZh ? '确定要清空所有历史记录吗？' : 'Are you sure you want to clear all history?')) {
+      setHistory([]);
+      localStorage.removeItem('fitkit_bfp_history');
+    }
+  };
+
+  // SVG Chart Calculation
+  const chartData = [...history].reverse();
+  const minBfp = chartData.length > 0 ? Math.min(...chartData.map(d => d.bfp)) : 0;
+  const maxBfp = chartData.length > 0 ? Math.max(...chartData.map(d => d.bfp)) : 100;
+  const chartWidth = 300;
+  const chartHeight = 80;
+  const points = chartData.map((d, i) => {
+    const x = chartData.length > 1 ? (i / (chartData.length - 1)) * chartWidth : chartWidth / 2;
+    const range = maxBfp - minBfp === 0 ? 1 : maxBfp - minBfp;
+    const y = chartHeight - 15 - ((d.bfp - minBfp) / range) * (chartHeight - 30);
+    return `${x},${y}`;
+  }).join(' ');
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 flex flex-col items-center justify-center">
@@ -270,18 +349,78 @@ export default function BfpClient({ paramsPromise }: BfpClientProps) {
               </div>
 
               {/* 看板四：拷贝分享大按钮 */}
-              <button
-                type="button"
-                onClick={handleCopyShare}
-                className={`w-full py-3 rounded-xl text-xs font-black tracking-wider uppercase transition border ${
-                  copied ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-gray-200 text-gray-800 hover:bg-gray-50 shadow-sm'
-                }`}
-              >
-                {copied ? (isZh ? '✅ 复制成功！快去分享吧' : '✅ Copied achievement text!') : (isZh ? '✨ 一键复制今日打卡炫耀快照' : '✨ Copy Achievement to Share')}
-              </button>
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={handleCopyShare}
+                  className={`w-full py-3 rounded-xl text-xs font-black tracking-wider uppercase transition border ${
+                    copied ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-gray-200 text-gray-800 hover:bg-gray-50 shadow-sm'
+                  }`}
+                >
+                  {copied ? (isZh ? '✅ 复制成功！快去分享吧' : '✅ Copied achievement text!') : (isZh ? '✨ 一键复制今日打卡炫耀快照' : '✨ Copy Achievement to Share')}
+                </button>
+                <button
+                  type="button"
+                  onClick={saveSnapshot}
+                  className="w-full py-3 rounded-xl text-xs font-black tracking-wider uppercase transition border bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100"
+                >
+                  {isZh ? '💾 记录到历史走势' : '💾 Save to History Log'}
+                </button>
+              </div>
             </div>
           )}
         </div>
+
+        {/* 📉 历史记录与走势图 UI */}
+        {history.length > 0 && (
+          <div className="mt-8 bg-white p-6 rounded-3xl shadow-xl border border-gray-100 animate-fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-sm font-black text-gray-900 tracking-wider uppercase">
+                {isZh ? '体脂率趋势图 (BFP Trend)' : 'BFP Trend & History'}
+              </h2>
+              <button onClick={clearHistory} className="text-xs font-bold text-red-500 hover:underline">
+                {isZh ? '清空' : 'Clear'}
+              </button>
+            </div>
+
+            {/* 纯原生 SVG 高性能走势图 */}
+            <div className="w-full overflow-hidden mb-6 bg-slate-900 rounded-2xl p-4 shadow-inner relative">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-24 overflow-visible drop-shadow-md">
+                <polyline fill="none" stroke="#fbbf24" strokeWidth="4" points={points} strokeLinecap="round" strokeLinejoin="round" />
+                {chartData.map((d, i) => {
+                  const x = chartData.length > 1 ? (i / (chartData.length - 1)) * chartWidth : chartWidth / 2;
+                  const range = maxBfp - minBfp === 0 ? 1 : maxBfp - minBfp;
+                  const y = chartHeight - 15 - ((d.bfp - minBfp) / range) * (chartHeight - 30);
+                  return (
+                    <g key={i}>
+                      <circle cx={x} cy={y} r="5" fill="#1e293b" stroke="#fbbf24" strokeWidth="2.5" />
+                      <text x={x} y={y - 12} textAnchor="middle" fill="#fbbf24" fontSize="10" fontWeight="bold" fontFamily="monospace">
+                        {d.bfp}%
+                      </text>
+                    </g>
+                  )
+                })}
+              </svg>
+            </div>
+
+            {/* 历史记录滚动列表 */}
+            <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+              {history.map((entry) => (
+                <div key={entry.id} className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between items-center">
+                  <div>
+                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{entry.date}</div>
+                    <div className="text-[10px] font-bold text-gray-500 uppercase mt-0.5">
+                      {entry.mode === 'bmi' ? (isZh ? 'BMI 基础法' : 'BMI Est.') : (isZh ? '美军体围法' : 'US Navy')}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-black text-amber-500 font-mono">{entry.bfp}%</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
