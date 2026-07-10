@@ -11,6 +11,17 @@ interface CalculateResults {
   fat: number;
 }
 
+interface HistoryEntry {
+  id: string;
+  date: string;
+  weight: string;
+  goal: string;
+  targetCalories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
 interface MacroClientProps {
   paramsPromise: any;
 }
@@ -30,6 +41,7 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
 
   const [results, setResults] = useState<CalculateResults | null>(null);
   const [copied, setCopied] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => { 
     const savedGender = localStorage.getItem('fitkit_gender') as 'male' | 'female';
@@ -45,6 +57,13 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
     if (savedAge) setAge(savedAge);
     if (savedActivity) setActivity(savedActivity);
     if (savedGoal) setGoal(savedGoal);
+
+    const savedHistory = localStorage.getItem('fitkit_macro_history');
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (e) {}
+    }
 
     setMounted(true); 
   }, []);
@@ -108,6 +127,30 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
   if (!mounted) {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 font-mono text-xs">Loading Calculator...</div>;
   }
+
+  const saveSnapshot = () => {
+    if (!results || !weight) return;
+    const newEntry: HistoryEntry = {
+      id: Date.now().toString(),
+      date: new Date().toLocaleDateString(isZh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      weight,
+      goal,
+      targetCalories: results.targetCalories,
+      protein: results.protein,
+      carbs: results.carbs,
+      fat: results.fat,
+    };
+    const newHistory = [newEntry, ...history].slice(0, 50); // Keep last 50
+    setHistory(newHistory);
+    localStorage.setItem('fitkit_macro_history', JSON.stringify(newHistory));
+  };
+
+  const clearHistory = () => {
+    if(confirm(isZh ? '确定要清空所有历史记录吗？' : 'Are you sure you want to clear all history?')) {
+      setHistory([]);
+      localStorage.removeItem('fitkit_macro_history');
+    }
+  };
 
   // 完美对齐带链接的硬核社交复制文本
   const handleCopyShare = async () => {
@@ -215,7 +258,7 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-gray-100">
+              <div className="pt-2 border-t border-gray-100 space-y-2">
                 <button
                   type="button"
                   onClick={handleCopyShare}
@@ -225,10 +268,49 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
                 >
                   {copied ? (isZh ? '✅ 复制配置成功！快去粘贴分享' : '✅ copied successfully!') : (isZh ? '📋 一键复制今日膳食配比卡片' : '📋 copy macro snapshot')}
                 </button>
+                <button
+                  type="button"
+                  onClick={saveSnapshot}
+                  className="w-full py-2.5 rounded-xl text-xs font-black tracking-wider uppercase transition border bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                >
+                  {isZh ? '💾 记录到历史趋势' : '💾 Save to History Log'}
+                </button>
               </div>
             </div>
           )}
         </div>
+
+        {/* History Log UI */}
+        {history.length > 0 && (
+          <div className="mt-8 bg-white p-6 rounded-3xl shadow-xl border border-gray-100">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-sm font-black text-gray-900 tracking-wider uppercase">
+                {isZh ? '历史趋势记录' : 'History Log'}
+              </h2>
+              <button onClick={clearHistory} className="text-xs font-bold text-red-500 hover:underline">
+                {isZh ? '清空记录' : 'Clear'}
+              </button>
+            </div>
+            <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+              {history.map((entry) => (
+                <div key={entry.id} className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between items-center">
+                  <div>
+                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{entry.date}</div>
+                    <div className="text-sm font-black text-gray-900">{entry.weight} <span className="text-[10px] text-gray-500">kg</span></div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs font-black text-orange-500">{entry.targetCalories} <span className="text-[10px] text-gray-400">kcal</span></div>
+                    <div className="text-[10px] font-bold text-gray-500 uppercase">
+                      {entry.goal === 'cut' ? (isZh ? '刷脂' : 'Cut') : 
+                       entry.goal === 'bulk' ? (isZh ? '增肌' : 'Bulk') : 
+                       entry.goal === 'keto' ? (isZh ? '生酮' : 'Keto') : (isZh ? '维持' : 'Maintain')}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
