@@ -16,6 +16,30 @@ export default function BmrPage({ params }: { params: Promise<{ lang: 'en' | 'zh
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('1'); // 1=男, 0=女
   const [result, setResult] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const savedHeight = localStorage.getItem('fitkit_bmr_height');
+    const savedWeight = localStorage.getItem('fitkit_bmr_weight');
+    const savedAge = localStorage.getItem('fitkit_bmr_age');
+    const savedGender = localStorage.getItem('fitkit_bmr_gender');
+
+    if (savedHeight) setHeight(savedHeight);
+    if (savedWeight) setWeight(savedWeight);
+    if (savedAge) setAge(savedAge);
+    if (savedGender) setGender(savedGender);
+
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('fitkit_bmr_height', height);
+      localStorage.setItem('fitkit_bmr_weight', weight);
+      localStorage.setItem('fitkit_bmr_age', age);
+      localStorage.setItem('fitkit_bmr_gender', gender);
+    }
+  }, [height, weight, age, gender, mounted]);
 
   const calculateBMR = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -38,7 +62,9 @@ export default function BmrPage({ params }: { params: Promise<{ lang: 'en' | 'zh
   return (
     <main className="min-h-screen bg-gray-50 p-6 flex flex-col items-center justify-center text-gray-900">
       <div className="w-full max-w-md">
-        <Link href={`/${lang}`} className="text-sm text-blue-600 hover:underline mb-4 inline-block">{t.back}</Link>
+        {mounted && (
+          <>
+            <Link href={`/${lang}`} className="text-sm text-blue-600 hover:underline mb-4 inline-block">{t.back}</Link>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <h1 className="text-xl font-bold text-center mb-6">{t.title}</h1>
           <form onSubmit={calculateBMR} className="space-y-4">
@@ -72,6 +98,8 @@ export default function BmrPage({ params }: { params: Promise<{ lang: 'en' | 'zh
             </div>
           )}
         </div>
+          </>
+        )}
       </div>
     </main>
   );

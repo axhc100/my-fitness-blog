@@ -31,7 +31,34 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
   const [results, setResults] = useState<CalculateResults | null>(null);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { 
+    const savedGender = localStorage.getItem('fitkit_gender') as 'male' | 'female';
+    const savedWeight = localStorage.getItem('fitkit_weight');
+    const savedHeight = localStorage.getItem('fitkit_height');
+    const savedAge = localStorage.getItem('fitkit_age');
+    const savedActivity = localStorage.getItem('fitkit_activity');
+    const savedGoal = localStorage.getItem('fitkit_goal') as 'cut' | 'maintain' | 'bulk' | 'keto';
+
+    if (savedGender) setGender(savedGender);
+    if (savedWeight) setWeight(savedWeight);
+    if (savedHeight) setHeight(savedHeight);
+    if (savedAge) setAge(savedAge);
+    if (savedActivity) setActivity(savedActivity);
+    if (savedGoal) setGoal(savedGoal);
+
+    setMounted(true); 
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('fitkit_gender', gender);
+      localStorage.setItem('fitkit_weight', weight);
+      localStorage.setItem('fitkit_height', height);
+      localStorage.setItem('fitkit_age', age);
+      localStorage.setItem('fitkit_activity', activity);
+      localStorage.setItem('fitkit_goal', goal);
+    }
+  }, [gender, weight, height, age, activity, goal, mounted]);
   
 
 
