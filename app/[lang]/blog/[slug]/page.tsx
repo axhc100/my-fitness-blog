@@ -152,6 +152,27 @@ export default async function BlogPostPage({
           const imgNode = domNode.children[0];
           const { src, alt } = imgNode.attribs;
 
+          const isVideo = src.endsWith('.mp4') || src.endsWith('.webm') || alt?.toLowerCase().includes('video');
+
+          if (isVideo) {
+            return (
+              <span className="block w-full rounded-2xl overflow-hidden shadow-lg my-8 bg-black border border-gray-800 relative group">
+                <video
+                  src={src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  className="w-full h-auto max-h-[500px] object-cover block mx-auto"
+                />
+                <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/60 text-white backdrop-blur-md pointer-events-none flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" /> {lang === 'zh' ? '动作示范' : 'Demo Loop'}
+                </span>
+              </span>
+            );
+          }
+
           return (
             <span className="block w-full rounded-2xl overflow-hidden shadow-md my-8 bg-gray-50/50">
               <Image
