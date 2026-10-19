@@ -4,7 +4,9 @@ import Link from 'next/link';
 import matter from 'gray-matter';
 import type { Metadata } from 'next';
 import { getDictionary } from '../dictionaries';
-import FlagCountdown from '@/components/FlagCountdown'; 
+import FlagCountdown from '@/components/FlagCountdown';
+import ArticleList from '@/components/ArticleList';
+import { getArticles } from '../lib/seo'; 
 import { buildPageMetadata, getHomeSeo, type Lang } from '../lib/seo';
 
 // 🚀 注入增量再生，防止日期与文章死锁
@@ -238,7 +240,7 @@ export default async function HomePage(props: PageProps) {
 
         </div>
 
-        {/* 📚 动态文章展示区 */}
+        {/* 📚 动态文章展示区（带分类筛选与无刷新分页） */}
         <div className="max-w-3xl mx-auto text-left border-t border-gray-200/60 pt-16 w-full">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-black text-gray-900 tracking-tight">
@@ -247,51 +249,11 @@ export default async function HomePage(props: PageProps) {
             <span className="h-px bg-gray-200 flex-1 ml-4 hidden sm:block"></span>
           </div>
           
-          {articles.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-2xl border border-dashed text-sm text-gray-400">
-              💡 {lang === 'zh' ? '更多硬核健身拉伸干货文章正在火速撰写中...' : 'More core fitness articles are on the way...'}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {articles.map((art) => (
-                <Link key={art.slug} href={`/${lang}/blog/${art.slug}`} className="block p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-200 group">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition duration-200">{art.title}</h3>
-                    <span className="text-xs text-gray-400 font-mono whitespace-nowrap ml-4 bg-gray-50 px-2 py-0.5 rounded-md border" suppressHydrationWarning>{art.date}</span>
-                  </div>
-                  <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">{art.description}</p>
-                  <span className="text-xs font-bold text-blue-600 group-hover:underline flex items-center gap-1">
-                    {lang === 'zh' ? '阅读文章' : 'Read Article'} <span>→</span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* 🎯 分页导航组件 */}
-          {totalPages > 1 && (
-            <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-100">
-              {currentPage > 1 ? (
-                <Link href={`/${lang}?page=${currentPage - 1}`} className="px-4 py-2 bg-white hover:bg-gray-100 border border-gray-200/60 rounded-xl text-xs font-bold text-gray-600 transition shadow-sm">
-                  ← {lang === 'zh' ? '上一页' : 'Prev'}
-                </Link>
-              ) : (
-                <span className="px-4 py-2 text-gray-300 text-xs font-bold bg-gray-50 border border-gray-100 rounded-xl cursor-not-allowed">← {lang === 'zh' ? '上一页' : 'Prev'}</span>
-              )}
-
-              <span className="text-xs text-gray-400 font-mono bg-white px-3 py-1 rounded-full border shadow-sm">
-                {currentPage} / {totalPages}
-              </span>
-
-              {currentPage < totalPages ? (
-                <Link href={`/${lang}?page=${currentPage + 1}`} className="px-4 py-2 bg-white hover:bg-gray-100 border border-gray-200/60 rounded-xl text-xs font-bold text-gray-600 transition shadow-sm">
-                  {lang === 'zh' ? '下一页' : 'Next'} →
-                </Link>
-              ) : (
-                <span className="px-4 py-2 text-gray-300 text-xs font-bold bg-gray-50 border border-gray-100 rounded-xl cursor-not-allowed">{lang === 'zh' ? '下一页' : 'Next'} →</span>
-              )}
-            </div>
-          )}
+          <ArticleList 
+            articles={getArticles(lang)} 
+            lang={lang} 
+            readMoreText={lang === 'zh' ? '阅读文章' : 'Read Article'} 
+          />
         </div>
       </div>
     </main>

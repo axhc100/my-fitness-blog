@@ -10,12 +10,14 @@ export type Lang = (typeof LANGUAGES)[number];
 
 export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr"] as const;
 
-type Article = {
+export type Article = {
   slug: string;
   title: string;
   description: string;
   date: string;
   image?: string;
+  category?: string;
+  tags?: string[];
 };
 
 const homeSeo = {
@@ -126,8 +128,10 @@ export function getArticles(lang: Lang): Article[] {
         slug: path.basename(filePath, ".md"),
         title: data.title || path.basename(filePath, ".md"),
         description: data.description || "",
-        date: data.date || "",
+        date: data.date instanceof Date ? data.date.toISOString().split("T")[0] : String(data.date || "").split("T")[0],
         image,
+        category: data.category || undefined,
+        tags: Array.isArray(data.tags) ? data.tags : undefined,
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
