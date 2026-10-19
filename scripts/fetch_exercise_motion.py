@@ -67,13 +67,16 @@ def search_exercise(query, exercises):
     # Fallback to bodyweight squat
     return exercises[0]
 
-def download_and_convert(exercise):
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    slug = re.sub(r'[^a-zA-Z0-9_\-]+', '-', exercise["name"].lower()).strip('-')
-    gif_path = os.path.join(OUTPUT_DIR, f"{slug}.gif")
-    mp4_path = os.path.join(OUTPUT_DIR, f"{slug}.mp4")
+from upload_media import upload_file_to_github
 
-    # Download GIF if not present
+def download_and_convert(exercise):
+    temp_dir = os.path.join(os.path.dirname(__file__), "temp_media")
+    os.makedirs(temp_dir, exist_ok=True)
+    slug = re.sub(r'[^a-zA-Z0-9_\-]+', '-', exercise["name"].lower()).strip('-')
+    gif_path = os.path.join(temp_dir, f"{slug}.gif")
+    mp4_path = os.path.join(temp_dir, f"{slug}.mp4")
+
+    # 1. Download GIF to temp
     gif_raw_url = f"https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/{exercise['gif_url']}"
     print(f"[Info] Downloading demo animation from: {gif_raw_url}", file=sys.stderr)
     
@@ -83,7 +86,7 @@ def download_and_convert(exercise):
         with open(gif_path, "wb") as f:
             f.write(content)
 
-    # Convert to MP4 using FFmpeg (h264, yuv420p for universal mobile auto-loop)
+    # 2. Convert to MP4 using FFmpeg (h264, yuv420p for universal mobile auto-loop)
     cmd = [
         "ffmpeg", "-y", "-i", gif_path,
         "-movflags", "faststart",
@@ -95,18 +98,22 @@ def download_and_convert(exercise):
     ]
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
     
-    # Return output filenames
-    mp4_filename = f"{slug}.mp4"
-    gif_filename = f"{slug}.gif"
-    return mp4_filename, gif_filename, exercise["name"]
+    # 3. Direct upload to GitHub repo and delete local temporary files immediately
+    upload_res = upload_file_to_github(mp4_path, f"videos/{slug}.mp4", delete_local=True)
+    # Also clean up temp GIF
+    if os.path.exists(gif_path):
+        os.remove(gif_path)
+    
+    return upload_res["cdn_url"], upload_res["remote_path"], exercise["name"]
 
 def main():
     query = sys.argv[1] if len(sys.argv) > 1 else "squat"
     exercises = get_exercises_db()
     matched = search_exercise(query, exercises)
     print(f"[Info] Matched Exercise: {matched['name']} (Target: {matched['target']})", file=sys.stderr)
-    mp4_name, gif_name, title = download_and_convert(matched)
-    print(f"SUCCESS:{mp4_name}")
+    cdn_url, remote_path, title = download_and_convert(matched)
+    print(f"SUCCESS:{cdn_url}")
+    print(f"REMOTE_PATH:{remote_path}")
     print(f"TITLE:{title}")
 
 if __name__ == "__main__":
