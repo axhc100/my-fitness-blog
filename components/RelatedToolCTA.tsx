@@ -92,18 +92,29 @@ const TOOLS: Record<string, ToolInfo> = {
 export default function RelatedToolCTA({ lang, category, tags = [], content = '' }: RelatedToolCTAProps) {
   const text = `${category || ''} ${tags.join(' ')} ${content}`.toLowerCase();
 
-  // Smart matching based on keywords in content or category
+  // Smart matching strictly aligned with content, category, and tags
   let matchedTool = TOOLS.macro;
-  if (/yoga|pilates|stretch|split|flexibility|mobility|瑜伽|拉伸|活动度|一字马|普拉提/.test(text)) {
+  if (/yoga|pilates|stretch|split|flexibility|mobility|瑜伽|拉伸|活动度|灵活性|柔韧|一字马|普拉提/.test(text)) {
+    // 1. 拉伸 / 灵活性 / 瑜伽 -> Splits & Flexibility Tracker
     matchedTool = TOOLS.splits;
-  } else if (/cardio|run|heart|aerobic|zone 2|心率|跑步|有氧|燃脂心率|马拉松/.test(text)) {
+  } else if (/cardio|run|heart|aerobic|zone 2|心率|跑步|有氧|燃脂心率|耐力|马拉松/.test(text)) {
+    // 2. 有氧 / 燃脂心率 -> Burn Fat Heart Rate
     matchedTool = TOOLS.hr;
-  } else if (/fat loss|body fat|sculpt|cutting|减脂|体脂|塑形|腰围|身材/.test(text)) {
+  } else if (/ideal weight|target weight|healthy weight|ibw|标准体重|理想体重|减重目标|目标体重/.test(text)) {
+    // 3a. 体态 / 减重目标 -> Ideal Body Weight
+    matchedTool = TOOLS.ibw;
+  } else if (/fat loss|body fat|bfp|sculpt|cutting|体脂|减脂|塑形|体态|体成分|体围|身材/.test(text)) {
+    // 3b. 减脂 / 体脂率 -> Body Fat Percentage
     matchedTool = TOOLS.bfp;
-  } else if (/water|hydrate|hydration|drink|补水|喝水|水分/.test(text)) {
+  } else if (/water|hydrate|hydration|drink|补水|喝水|水分|饮水/.test(text)) {
+    // 4. 水分与电解质补水 -> Water Intake Tool
     matchedTool = TOOLS.water;
-  } else if (/metabolism|bmr|tdee|calorie|代谢|热量|基础代谢/.test(text)) {
+  } else if (/metabolism|bmr|tdee|calorie deficit|代谢|基础代谢|热量赤字|每日消耗/.test(text)) {
+    // 5. 代谢与热量预算 -> BMR & TDEE
     matchedTool = TOOLS.bmr;
+  } else {
+    // 6. 减脂 / 增肌 / 营养 / 蛋白质 -> Macro Calculator (默认)
+    matchedTool = TOOLS.macro;
   }
 
   return (
