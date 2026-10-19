@@ -53,22 +53,22 @@ const homeSeo = {
 
 const toolSeo = {
   en: {
-    splits: ["Splits Tracker", "Track stretching consistency and flexibility progress toward front splits or middle splits."],
-    macro: ["Macro Calculator", "Calculate daily protein, carbohydrate and fat targets based on your body and fitness goal."],
-    bfp: ["Body Fat Calculator", "Estimate your body fat percentage quickly with a simple fitness calculator."],
-    bmr: ["BMR Calculator", "Find your basal metabolic rate and understand daily calorie needs."],
-    water: ["Daily Water Calculator", "Calculate a personalized daily hydration target from your body weight and activity."],
-    ibw: ["Ideal Weight Calculator", "Estimate a healthy ideal body weight range using established formulas."],
-    hr: ["Fat Burning Heart Rate Calculator", "Calculate cardio heart rate zones for more efficient fat-burning workouts."],
+    splits: ["Splits Progression Tracker - Flexibility & Hip Mobility Guide", "Track front and middle splits range of motion with biomechanical progression metrics. Includes PNF stretching principles, sarcomere lengthening science, and injury prevention."],
+    macro: ["Macro Calculator (Protein, Carbs, Fats) - Flexible Dieting & IIFYM", "Calculate evidence-based macronutrient targets (protein, carbohydrates, fats) tailored for cutting, clean bulking, or body recomposition according to ISSN sports nutrition guidelines."],
+    bfp: ["Body Fat Calculator (US Navy & BMI Method) - Lean Mass & Fat Percentage", "Calculate your body fat percentage using the US Navy tape circumference method and BMI equations. Track body recomposition, visual progress, and visceral fat categories."],
+    bmr: ["BMR Calculator (Mifflin-St Jeor) - Basal Metabolic Rate & TDEE", "Accurately calculate your Basal Metabolic Rate (BMR) using the clinically validated Mifflin-St Jeor formula. Includes TDEE multipliers, scientific background, and caloric guidelines."],
+    water: ["Daily Water Intake Calculator - Personalized Hydration Target", "Calculate your optimal daily fluid intake based on body weight and exercise sweat rate according to American College of Sports Medicine (ACSM) hydration standards."],
+    ibw: ["Ideal Body Weight Calculator (Devine Formula & WHO Healthy Range)", "Find your ideal body weight (IBW) based on height using the clinical Devine formula and WHO BMI healthy benchmarks. Includes musculoskeletal limitations."],
+    hr: ["Target Heart Rate Calculator (Tanaka & Karvonen) - Zone 2 Fat Burning", "Calculate your peak fat oxidation zone (Zone 2) and maximal heart rate using the Tanaka equation and Karvonen heart rate reserve method."],
   },
   zh: {
-    splits: ["一字马进度打卡", "记录拉伸习惯和柔韧性进步，帮助你持续接近横叉或竖叉目标。"],
-    macro: ["三大营养素计算器", "根据身体数据和健身目标，计算每日蛋白质、碳水和脂肪摄入量。"],
-    bfp: ["体脂率计算器", "用简单的健身计算器快速估算身体脂肪百分比。"],
-    bmr: ["BMR 基础代谢计算器", "计算基础代谢率，了解每日热量需求。"],
-    water: ["每日饮水量计算器", "根据体重和运动状态生成个性化每日补水目标。"],
-    ibw: ["标准体重计算器", "使用经典公式估算适合身高区间的健康理想体重。"],
-    hr: ["燃脂心率区间计算器", "计算有氧训练心率区间，让减脂运动更有方向。"],
+    splits: ["一字马横叉/竖叉进度打卡 - 髋关节活动度与柔韧性科学训练", "基于运动神经力学与本体感觉神经肌肉易化术（PNF），科学记录横叉与竖叉下落距离与开胯角度，打破牵张反射与韧带僵硬。"],
+    macro: ["三大营养素比例计算器 (蛋白质/碳水/脂肪) - 循证运动营养配比", "基于国际运动营养学会（ISSN）标准，个性化测算减脂缺口、增肌盈余与维持期的蛋白质、碳水化合物及健康脂肪克数分配。"],
+    bfp: ["体脂率计算器 (美国海军体围法 & BMI双模式) - 身体成分与骨骼肌分析", "支持美国海军体围测量法与 BMI 两种算法，精准测算体脂百分比、去脂体重与体型分布。提供人体测量学科学依据与健康区间诊断。"],
+    bmr: ["BMR 基础代谢率计算器 (Mifflin-St Jeor 公式) - 每日热量与TDEE计算", "采用临床权威的 Mifflin-St Jeor 基础代谢计算公式，精确推导每日维持热量（BMR/TDEE）。包含科学依据推导、适用人群指南与减脂热量底线考量。"],
+    water: ["每日饮水量动态计算器 - 科学补水与运动出汗量补偿", "根据美国运动医学会（ACSM）与国家医学院指南，基于体重代谢质量与运动排汗消耗，动态计算每日个性化饮水与电解质需求。"],
+    ibw: ["标准理想体重计算器 (Devine 经典公式 & WHO 健康范围)", "采用临床药理学与世界卫生组织（WHO）公认的 Devine 理想体重计算方程，结合身高与骨架测算健康适宜体重区间。"],
+    hr: ["靶心率与黄金燃脂区间计算器 (Tanaka公式 & Karvonen储备心率)", "基于 Tanaka 现代最大心率修正方程与 Karvonen 储备心率法，精准计算 Zone 2 最佳脂肪氧化心率区间，提升有氧心肺耐力。"],
   },
 } satisfies Record<Lang, Record<(typeof TOOL_SLUGS)[number], [string, string]>>;
 

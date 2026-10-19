@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import ToolScientificGuide from '@/components/ToolScientificGuide';
 
 interface CalculateResults {
   tdee: number;
@@ -171,8 +172,8 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md">
+    <main className="min-h-screen bg-gray-50 text-gray-900 py-12 px-4 flex flex-col items-center">
+      <div className="w-full max-w-2xl">
         <Link href={`/${lang}`} className="text-xs font-black uppercase text-blue-600 hover:underline mb-6 inline-block tracking-wider">
           {isZh ? '← 返回首页' : '← Back to Home'}
         </Link>
@@ -311,6 +312,7 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
             </div>
           </div>
         )}
+        <ToolScientificGuide slug="macro" lang={lang} />
       </div>
     </main>
   );

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import ToolScientificGuide from '@/components/ToolScientificGuide';
 
 interface HistoryItem {
   date: string;        // 专门给图表底部显示的本地化标签（支持同天多打卡区分）
@@ -163,8 +164,8 @@ export default function SplitsClient({ paramsPromise }: SplitsClientProps) {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md">
+    <main className="min-h-screen bg-gray-50 text-gray-900 py-12 px-4 flex flex-col items-center">
+      <div className="w-full max-w-2xl">
         <Link href={`/${lang}`} className="text-xs font-black uppercase text-blue-600 hover:underline mb-6 inline-block tracking-wider">
           {isZh ? '← 返回首页' : '← Back to Home'}
         </Link>
@@ -278,6 +279,7 @@ export default function SplitsClient({ paramsPromise }: SplitsClientProps) {
           )}
           
         </div>
+        <ToolScientificGuide slug="splits" lang={lang} />
       </div>
     </main>
   );

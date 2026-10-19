@@ -1,6 +1,7 @@
 'use client';
 import { useState, use } from 'react';
 import Link from 'next/link';
+import ToolScientificGuide from '@/components/ToolScientificGuide';
 
 const uiDict = {
   en: { back: "← Back", title: "Daily Water Intake Calculator", weight: "Your Weight (kg)", exercise: "Daily Exercise Time", min30: "30 mins or less", plus30: "More than 30 mins", btn: "Calculate Water", result: "Recommended Daily Water Intake:", unit: "ml / day" },
@@ -28,11 +29,11 @@ export default function WaterPage({ params }: { params: Promise<{ lang: 'en' | '
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6 flex flex-col items-center justify-center text-gray-900">
-      <div className="w-full max-w-md">
+    <main className="min-h-screen bg-gray-50 py-12 px-4 flex flex-col items-center text-gray-900">
+      <div className="w-full max-w-2xl">
         <Link href={`/${lang}`} className="text-sm text-blue-600 hover:underline mb-4 inline-block">{t.back}</Link>
-        <div className="bg-white p-6 rounded-2xl shadow-lg border">
-          <h1 className="text-xl font-bold text-center mb-6">{t.title}</h1>
+        <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+          <h1 className="text-xl md:text-2xl font-bold text-center mb-6">{t.title}</h1>
           <form onSubmit={calculateWater} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">{t.weight}</label>
@@ -47,7 +48,6 @@ export default function WaterPage({ params }: { params: Promise<{ lang: 'en' | '
             </div>
             <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-xl font-semibold hover:bg-blue-700">{t.btn}</button>
           </form>
-          {/* ✨ 已经完美修正：只判断单数真实存在的 result 状态 */}
           {result !== null && (
             <div className="mt-6 p-4 bg-sky-50 border border-sky-100 rounded-xl text-center">
               <p className="text-sm text-gray-600">{t.result}</p>
@@ -55,6 +55,7 @@ export default function WaterPage({ params }: { params: Promise<{ lang: 'en' | '
             </div>
           )}
         </div>
+        <ToolScientificGuide slug="water" lang={lang} />
       </div>
     </main>
   );

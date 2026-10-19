@@ -1,6 +1,7 @@
 'use client';
 import { useState, use } from 'react';
 import Link from 'next/link';
+import ToolScientificGuide from '@/components/ToolScientificGuide';
 
 const uiDict = {
   en: { back: "← Back", title: "Fat Burning Heart Rate Calculator", age: "Your Age", btn: "Calculate Heart Rate", maxHr: "Estimated Max Heart Rate:", zone: "Fat Burning Zone (60% - 70%):", unit: "bpm" },
@@ -26,11 +27,11 @@ export default function HrPage({ params }: { params: Promise<{ lang: 'en' | 'zh'
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6 flex flex-col items-center justify-center text-gray-900">
-      <div className="w-full max-w-md">
+    <main className="min-h-screen bg-gray-50 py-12 px-4 flex flex-col items-center text-gray-900">
+      <div className="w-full max-w-2xl">
         <Link href={`/${lang}`} className="text-sm text-blue-600 hover:underline mb-4 inline-block">{t.back}</Link>
-        <div className="bg-white p-6 rounded-2xl shadow-lg border">
-          <h1 className="text-xl font-bold text-center mb-6">{t.title}</h1>
+        <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+          <h1 className="text-xl md:text-2xl font-bold text-center mb-6">{t.title}</h1>
           <form onSubmit={calculateHR} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">{t.age}</label>
@@ -52,6 +53,7 @@ export default function HrPage({ params }: { params: Promise<{ lang: 'en' | 'zh'
             </div>
           )}
         </div>
+        <ToolScientificGuide slug="hr" lang={lang} />
       </div>
     </main>
   );
