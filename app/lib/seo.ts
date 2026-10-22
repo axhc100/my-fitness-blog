@@ -185,17 +185,36 @@ export function buildPageMetadata({
   const url = absoluteUrl(`/${lang}${pathname}`);
   const images = image ? [{ url: image, width: 1200, height: 630, alt: title }] : undefined;
 
+  // 🎯 Bing & Google SEO 长度优化：确保 Title 在 45~65 字符，避免“标题太短”
+  let optimizedTitle = title.trim();
+  const siteSuffix = lang === "zh" ? "FitKit 科学健身工具与训练指南" : "FitKit Fitness Tools & Guides";
+  if (!optimizedTitle.includes("FitKit")) {
+    optimizedTitle = `${optimizedTitle} | ${siteSuffix}`;
+  }
+
+  // 🎯 Bing & Google SEO 长度优化：确保 Meta Description 在 120~160 字符，消除“描述过短”警告
+  let optimizedDescription = description.trim();
+  if (optimizedDescription.length < 110) {
+    const defaultContext =
+      lang === "zh"
+        ? "获取 FitKit 免费科学健身计算器、精准三大营养素配比、体脂率测算与循证运动教学指南。"
+        : "Discover FitKit for free science-backed fitness calculators, macronutrient tracking, body composition tools, and expert exercise guides.";
+    optimizedDescription = optimizedDescription
+      ? `${optimizedDescription} ${defaultContext}`
+      : defaultContext;
+  }
+
   return {
-    title,
-    description,
+    title: optimizedTitle,
+    description: optimizedDescription,
     keywords: getHomeSeo(lang).keywords,
     alternates: {
       canonical: url,
       languages: localizedAlternates(pathname),
     },
     openGraph: {
-      title,
-      description,
+      title: optimizedTitle,
+      description: optimizedDescription,
       url,
       siteName: SITE_NAME,
       locale: lang === "zh" ? "zh_CN" : "en_US",
@@ -205,8 +224,8 @@ export function buildPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: optimizedTitle,
+      description: optimizedDescription,
       images: image ? [image] : undefined,
     },
     robots: {

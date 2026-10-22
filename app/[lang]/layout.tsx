@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   title: {
     default: "FitKit - Free Fitness Calculators and Health Tools",
-    template: "%s | FitKit",
+    template: "%s",
   },
   description:
     "FitKit provides free fitness calculators, body composition tools, nutrition calculators and practical training guides.",
