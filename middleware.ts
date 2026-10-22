@@ -7,6 +7,15 @@ const defaultLocale = 'en';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // 静态根文件与验证文件（如 indexnow 密钥 txt、robots.txt、sitemap.xml 等）直接放行，不走重定向
+  if (
+    pathname.includes('.') ||
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next/')
+  ) {
+    return NextResponse.next();
+  }
+
   // 判断 URL 是否已经包含了 /en 或 /zh
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
