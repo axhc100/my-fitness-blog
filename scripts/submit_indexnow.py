@@ -12,7 +12,7 @@ import json
 import urllib.request
 import re
 
-INDEXNOW_KEY = "4ca3038f39ce446e8b2ff7eb3e038a9d"
+INDEXNOW_KEY = "6a6909e660054fcbb7aba2c7f530f81f"
 HOST = "www.fitkit.top"
 KEY_LOCATION = f"https://{HOST}/{INDEXNOW_KEY}.txt"
 INDEXNOW_ENDPOINTS = [
