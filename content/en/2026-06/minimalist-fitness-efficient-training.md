@@ -1,7 +1,7 @@
 ---
 title: "Minimalist Fitness: How to Train Efficiently in a Busy Life"
 date: "2026-06-19"
-description: "A minimalist training methodology that maximizes fitness results with minimal time and equipment"
+description: "Master the minimalist fitness philosophy: achieve maximum strength and physique transformation with compound movements, brief high-yield sessions, and minimal gear."
 ---
 
 ## Minimalist Fitness: High-Efficiency Training for Busy People
