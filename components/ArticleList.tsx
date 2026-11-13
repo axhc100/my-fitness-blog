@@ -2,6 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import {
+  CategoryKey,
+  CATEGORIES_CONFIG,
+  resolveArticleCategoryKey,
+} from '@/lib/categories';
 
 export interface ArticleItem {
   slug: string;
@@ -18,50 +23,21 @@ interface ArticleListProps {
   readMoreText: string;
 }
 
-const CATEGORIES = {
-  en: [
-    { key: 'all', label: 'All Topics' },
-    { key: 'strength', label: 'Strength & Hypertrophy', match: /strength|muscle|hypertrophy|workout|lift|power/i },
-    { key: 'yoga', label: 'Yoga & Mobility', match: /yoga|pilates|mobility|stretch|flexibility|balance/i },
-    { key: 'sculpt', label: 'Body Sculpting', match: /sculpt|tone|abs|waist|leg|glute|fat loss/i },
-    { key: 'wellness', label: 'Recovery & Nutrition', match: /nutrition|macro|protein|recovery|sleep|hydration|diet|deload/i },
-  ],
-  zh: [
-    { key: 'all', label: '全部文章' },
-    { key: 'strength', label: '力量与增肌', match: /力量|增肌|训练|力量举|大重量|渐进负荷/i },
-    { key: 'yoga', label: '瑜伽与柔韧度', match: /瑜伽|普拉提|活动度|拉伸|柔韧|一字马/i },
-    { key: 'sculpt', label: '体态与塑形', match: /塑形|减脂|腹肌|核心|瘦腿|美背|臀部/i },
-    { key: 'wellness', label: '恢复与营养', match: /营养|饮食|蛋白质|恢复|减载|代谢|补水/i },
-  ],
-};
-
 const POSTS_PER_PAGE = 5;
 
 export default function ArticleList({ articles, lang, readMoreText }: ArticleListProps) {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('all');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const categories = CATEGORIES[lang] || CATEGORIES.en;
+  const categories = CATEGORIES_CONFIG[lang] || CATEGORIES_CONFIG.en;
 
-  // Filter articles based on selected category
+  // Filter articles based on normalized category key
   const filteredArticles = useMemo(() => {
     if (selectedCategory === 'all') return articles;
+    return articles.filter((art) => resolveArticleCategoryKey(art) === selectedCategory);
+  }, [articles, selectedCategory]);
 
-    const currentCat = categories.find((c) => c.key === selectedCategory);
-    if (!currentCat || !currentCat.match) return articles;
-
-    return articles.filter((art) => {
-      // Direct category match
-      if (art.category && currentCat.match.test(art.category)) return true;
-      // Tag match
-      if (art.tags && art.tags.some((t) => currentCat.match.test(t))) return true;
-      // Title and description match
-      return currentCat.match.test(art.title) || currentCat.match.test(art.description);
-    });
-  }, [articles, selectedCategory, categories]);
-
-  // Handle category switch
-  const handleSelectCategory = (key: string) => {
+  const handleSelectCategory = (key: CategoryKey) => {
     setSelectedCategory(key);
     setCurrentPage(1);
   };
@@ -101,31 +77,43 @@ export default function ArticleList({ articles, lang, readMoreText }: ArticleLis
         </div>
       ) : (
         <div className="space-y-4">
-          {paginatedArticles.map((art) => (
-            <Link
-              key={art.slug}
-              href={`/${lang}/blog/${art.slug}`}
-              className="block p-6 bg-white rounded-2xl border border-gray-100/90 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-200 group"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition duration-200">
+          {paginatedArticles.map((art) => {
+            const catKey = resolveArticleCategoryKey(art);
+            const catMeta = categories.find((c) => c.key === catKey) || categories[1];
+
+            return (
+              <Link
+                key={art.slug}
+                href={`/${lang}/blog/${art.slug}`}
+                className="block p-6 bg-white rounded-2xl border border-gray-100/90 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-200 group"
+              >
+                {/* 🏷️ 卡片分类标签与日期 */}
+                <div className="flex items-center justify-between mb-3">
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${catMeta.badgeClass}`}
+                  >
+                    {catMeta.label}
+                  </span>
+                  <span
+                    className="text-xs text-gray-400 font-mono whitespace-nowrap bg-gray-50 px-2 py-0.5 rounded-md border border-gray-100"
+                    suppressHydrationWarning
+                  >
+                    {art.date}
+                  </span>
+                </div>
+
+                <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition duration-200 mb-2 leading-snug">
                   {art.title}
                 </h3>
-                <span
-                  className="text-xs text-gray-400 font-mono whitespace-nowrap ml-4 bg-gray-50 px-2 py-0.5 rounded-md border"
-                  suppressHydrationWarning
-                >
-                  {art.date}
+                <p className="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+                  {art.description}
+                </p>
+                <span className="text-xs font-bold text-blue-600 group-hover:underline flex items-center gap-1">
+                  {readMoreText} <span>→</span>
                 </span>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">
-                {art.description}
-              </p>
-              <span className="text-xs font-bold text-blue-600 group-hover:underline flex items-center gap-1">
-                {readMoreText} <span>→</span>
-              </span>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       )}
 

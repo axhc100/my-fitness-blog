@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildPageMetadata, type Lang } from "../../lib/seo";
+import ContactForm from "@/components/ContactForm";
 
 export async function generateMetadata({
   params,
@@ -50,27 +51,11 @@ export default async function ContactPage({
           <p>
             联系我们之前，可以先看一下对应工具页下方的说明、常见问题和参考文献，很多计算逻辑和适用范围已经写在那里。反馈时请尽量写清楚你用的是哪个工具或哪篇文章、输入了什么数据、出现了什么现象，必要时附一张截图，我们会更快定位问题。
           </p>
-          <p>
-            我们会认真阅读每一条留言，但因为 FitKit 目前由团队精简维护，回复可能不会特别快，请理解。如果你反馈的是工具错误或文章事实错误，我们会优先核对和修正。
-          </p>
-          
-          <div className="my-8 p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
-            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">
-              官方联系邮箱
-            </h2>
-            <a
-              href="mailto:contact@fitkit.top"
-              className="text-lg md:text-xl font-mono font-bold text-blue-600 hover:underline"
-            >
-              contact@fitkit.top
-            </a>
-            <p className="text-xs text-gray-400 mt-2">
-              我们会在 1–2 个工作日内查阅您的来信。
-            </p>
-          </div>
 
-          <p className="text-xs text-gray-500">
-            安全提示：我们不会通过邮件向你推销任何产品，也不会把你的邮箱分享给第三方。如果你收到自称是 FitKit 官方、要求你付款或提供账号密码的邮件，请不要回复，那不是我们发的。
+          <ContactForm locale="zh" />
+
+          <p className="text-xs text-gray-400">
+            安全提示：我们不会通过邮件向你推销任何产品，也不会把你的信息分享给第三方。如果你收到自称是 FitKit 官方、要求你付款或提供账号密码的邮件，请不要回复，那不是我们发的。
           </p>
         </div>
       ) : (
@@ -81,30 +66,29 @@ export default async function ContactPage({
           <p>
             Before reaching out, please check the scientific guide and FAQ section located beneath each tool page, as most clinical formulas and boundary conditions are detailed there. When reporting an issue, please specify the tool, your input parameters, expected vs. actual output, and a screenshot if possible.
           </p>
-          <p>
-            We review every submission carefully. Priority is given to mathematical or scientific formula corrections.
-          </p>
 
-          <div className="my-8 p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
-            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">
-              Official Email
-            </h2>
-            <a
-              href="mailto:contact@fitkit.top"
-              className="text-lg md:text-xl font-mono font-bold text-blue-600 hover:underline"
-            >
-              contact@fitkit.top
-            </a>
-            <p className="text-xs text-gray-400 mt-2">
-              We generally respond within 1–2 business days.
-            </p>
-          </div>
+          <ContactForm locale="en" />
 
-          <p className="text-xs text-gray-500">
-            Security Notice: FitKit never sells products via email, nor do we request account passwords, payment info, or credit card details. Never reply to suspicious messages claiming to represent FitKit asking for financial transactions.
+          <p className="text-xs text-gray-400">
+            Security Notice: FitKit never solicits payments, account passwords, or financial credentials. Feedback submitted here is strictly protected and handled in confidence.
           </p>
         </div>
       )}
+
+      <div className="mt-12 pt-8 border-t border-gray-100 flex gap-4">
+        <Link
+          href={`/${lang}/tools`}
+          className="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-semibold text-xs md:text-sm hover:bg-blue-700 transition"
+        >
+          {isZh ? "浏览全部工具 →" : "Explore All Tools →"}
+        </Link>
+        <Link
+          href={`/${lang}/about`}
+          className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 font-semibold text-xs md:text-sm hover:bg-gray-200 transition"
+        >
+          {isZh ? "关于 FitKit" : "About FitKit"}
+        </Link>
+      </div>
     </div>
   );
 }

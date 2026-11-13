@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import SearchBox from "./SearchBox";
 
 type Props = { locale: "zh" | "en" };
 
@@ -25,9 +26,9 @@ export default function Header({ locale }: Props) {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
         {/* 左侧 Logo */}
-        <Link href={p("")} className="flex items-center gap-2 group">
+        <Link href={p("")} className="flex items-center gap-2 group shrink-0">
           <Image
             src="/logo.png"
             alt="FitKit Logo"
@@ -56,8 +57,10 @@ export default function Header({ locale }: Props) {
           ))}
         </nav>
 
-        {/* 桌面端右侧：语言切换 */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* 桌面端右侧：搜索入口 + 语言切换 */}
+        <div className="hidden md:flex items-center gap-3 shrink-0">
+          <SearchBox locale={locale} />
+
           <div className="bg-gray-100 p-0.5 rounded-xl border border-gray-200/50 flex gap-0.5 text-xs font-bold shadow-inner">
             <Link
               href={locale === "en" ? pathname : switchTarget}
@@ -82,11 +85,13 @@ export default function Header({ locale }: Props) {
           </div>
         </div>
 
-        {/* 移动端汉堡菜单按钮 */}
+        {/* 移动端控件区 */}
         <div className="flex md:hidden items-center gap-2">
+          <SearchBox locale={locale} />
+
           <Link
             href={switchTarget}
-            className="px-2.5 py-1 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg border border-gray-200/60"
+            className="px-2.5 py-1.5 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg border border-gray-200/60"
           >
             {locale === "zh" ? "EN" : "中文"}
           </Link>

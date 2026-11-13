@@ -16,6 +16,7 @@ const t = {
     allTools: "全部工具 →",
     allPosts: "全部文章 →",
     copyright: "免费使用 · 内容仅供参考，不能代替医疗建议。",
+    followUs: "关注我们",
   },
   en: {
     tagline: "Free fitness calculators, health tools and training guides. Use science-backed tools to track your body and health precisely.",
@@ -29,6 +30,7 @@ const t = {
     allTools: "All tools →",
     allPosts: "All articles →",
     copyright: "Free to use · For reference only, not medical advice.",
+    followUs: "Follow Us",
   },
 } as const;
 
@@ -50,8 +52,8 @@ export default function Footer({ locale }: Props) {
   return (
     <footer className="w-full bg-white border-t border-gray-100 mt-20 pt-16 pb-12 text-sm text-gray-600">
       <div className="max-w-5xl mx-auto px-6">
-        {/* 4列栅格布局 */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        {/* 4 列栅格布局：品牌、工具、内容与帮助、邮件订阅占位 */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* 第 1 列：品牌与简介 */}
           <div className="space-y-3">
             <Link href={p("")} className="flex items-center gap-2 group">
@@ -62,6 +64,17 @@ export default function Footer({ locale }: Props) {
             <p className="text-xs text-gray-400 leading-relaxed pr-2">
               {c.tagline}
             </p>
+            {/* 社交账号说明：未开通的不放死链接，杜绝 404 */}
+            <div className="pt-2">
+              <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                {c.followUs}
+              </span>
+              <p className="text-xs text-gray-400">
+                {locale === "zh"
+                  ? "官方社交媒体渠道筹备中，敬请期待。"
+                  : "Official social channels coming soon."}
+              </p>
+            </div>
           </div>
 
           {/* 第 2 列：核心工具 */}
@@ -124,7 +137,7 @@ export default function Footer({ locale }: Props) {
             </ul>
           </nav>
 
-          {/* 第 4 列：订阅留存 */}
+          {/* 第 4 列：邮件订阅占位 */}
           <div>
             <SubscribeBox locale={locale} variant="footer" />
           </div>
@@ -135,7 +148,7 @@ export default function Footer({ locale }: Props) {
           <div className="flex items-center gap-2">
             <span>© {year} FitKit</span>
             <span>·</span>
-            <span>{locale === "zh" ? "保留所有权利" : "All rights reserved"}</span>
+            <span>{locale === "zh" ? "免费使用" : "Free to use"}</span>
           </div>
           <p className="text-center sm:text-right text-[11px] text-gray-400">
             {c.copyright}
