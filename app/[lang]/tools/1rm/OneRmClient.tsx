@@ -279,8 +279,8 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
             </p>
             <div className="text-[11px] text-gray-600 bg-slate-100/80 p-2.5 rounded-lg space-y-1 mb-2">
               <div className="font-semibold text-gray-700">{isZh ? '页面验算示例：' : 'Benchmark Examples:'}</div>
-              <div>• 100kg × 5 次 → 100 × (1 + 5/30) = 117kg</div>
-              <div>• 80kg × 8 次 → 80 × (1 + 8/30) = 101kg</div>
+              <div>• 100kg × 5 {isZh ? '次' : 'reps'} → 100 × (1 + 5/30) = 117kg</div>
+              <div>• 80kg × 8 {isZh ? '次' : 'reps'} → 80 × (1 + 8/30) = 101kg</div>
             </div>
             <div className="text-[11px] text-amber-900 bg-amber-50/90 p-2.5 rounded-lg border border-amber-200/70">
               <span className="font-bold">⚠️ {isZh ? '提示：' : 'Safety Tip:'} </span>

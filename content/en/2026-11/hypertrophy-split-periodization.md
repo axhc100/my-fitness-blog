@@ -119,7 +119,7 @@ Engineered by Dr. Mike Israetel, the Volume Landmark paradigm provides the most 
    - Typically **12 to 20 sets per muscle group per week**. Lifters should spend the majority of a training block progressing through this zone.
 4. **MRV (Maximum Recoverable Volume)**:
    - The absolute physiological limit of volume an athlete can recover from and adapt to;
-   - Typically **22 to 26 sets per muscle group per week**. Exceeding this ceiling results in negative protein balance, tendon inflammation, and systemic overtraining.
+   - Typically **22 to 26+ sets per muscle group per week**. Exceeding this ceiling results in negative protein balance, tendon inflammation, and systemic overtraining.
 
 ### 2. The 5-Week Mesocycle Progression Blueprint
 Never jump directly into MRV volume. A periodized mesocycle must progress systematically:
@@ -129,7 +129,7 @@ Never jump directly into MRV volume. A periodized mesocycle must progress system
 | **Week 1** | Baseline Establishment | MEV (~10 sets/week) | RIR 3 (3 Reps in Reserve) | Calibrate movement patterns, set baseline neural load |
 | **Week 2** | Progressive Ramp | Lower MAV (~13 sets/week) | RIR 2 (2 Reps in Reserve) | Micro-load resistance or add 1 set; elevate tension |
 | **Week 3** | Optimal Adaptation | Core MAV (~16 sets/week) | RIR 1–2 (1–2 Reps in Reserve) | Maximum hypertrophy sweet spot; lock high execution quality |
-| **Week 4** | Functional Overreaching | Near MRV (~19–20 sets/week) | RIR 0–1 (Push final sets to failure) | Full motor unit pool recruitment; induce adaptive stress |
+| **Week 4** | Functional Overreaching | At the top of MAV (~19–20 sets/week) | RIR 0–1 (Push final sets to failure) | Full motor unit pool recruitment; induce adaptive stress |
 | **Week 5** | Active Deload | Slash to MV (~5–6 sets/week) | RIR 3–4 (50% set reduction) | Flush CNS & joint fatigue; express delayed supercompensation |
 
 ---

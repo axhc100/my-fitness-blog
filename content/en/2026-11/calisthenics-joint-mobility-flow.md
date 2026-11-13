@@ -131,9 +131,12 @@ Primal, quadrupedal movement patterns train the brain's sensory-motor cortex to 
 
 Here are the four foundational flow components to integrate into a continuous, flowing sequence:
 
-```
-[Deep Squat Pry & Reach] ---> [Static Beast to Contralateral Reach] ---> [Dynamic Crab Reach] ---> [Scorpion / Side Kickthrough]
-```
+| Step | Movement | Key Focus |
+| :---: | :--- | :--- |
+| **Step 1** | Deep Squat Pry & Reach | Max ankle dorsiflexion, pry hips open with elbows, thoracic rotational reach |
+| **Step 2** | Static Beast to Contralateral Reach | Knees floating 1 inch off floor, anti-rotation core stability, subtle limb lift |
+| **Step 3** | Dynamic Crab Reach | Reverse tabletop hip bridge, rainbow arm reach opening anterior chain, glute squeeze |
+| **Step 4** | Scorpion / Side Kickthrough | Pivot and kick leg through parallel to floor, maintain single-arm closed-chain stability |
 
 ### 1. Deep Squat Pry with Thoracic Rotation
 - **Biomechanical Target**: Ankle dorsiflexion, adductor magnus extensibility, thoracic spine rotational decoupling.
