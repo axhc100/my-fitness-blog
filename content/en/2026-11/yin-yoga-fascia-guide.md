@@ -151,7 +151,7 @@ This structured, prop-supported protocol targets the primary kinetic bottlenecks
 
 ### Q3: When is the optimal time to schedule Yin Yoga—before lifting, immediately post-workout, or in the evening?
 **Answer**: **Never perform a prolonged Yin Yoga session immediately prior to heavy weightlifting or explosive sports.** The fascial creep and muscle spindle inhibition induced by Yin postures temporarily dampen passive joint stiffness and peak rate of force development (RFD), elevating injury vulnerability under maximal barbell loads. The ideal windows for Yin practice are:
-- **Dedicated Active Recovery Days**: Serving as the primary modality for soft-tissue rehydration, collagen repair, and nervous system reset;
+- **Dedicated Active Recovery Days**: Serving as the primary modality for soft-tissue rehydration, collagen repair, and nervous system reset, especially following demanding sessions from our [Hypertrophy Split Periodization Guide](/en/blog/hypertrophy-split-periodization) or [HYROX Training Guide](/en/blog/hyrox-training-guide);
 - **Late Evenings or 2+ Hours Post-Training**: When acute muscular pump and neuromuscular arousal have settled, allowing Yin-induced vagal tone to seamlessly usher in deep slow-wave sleep and nocturnal growth hormone (GH) secretion.
 
 ### Q4: Why do my joints feel temporarily stiff and "creaky" immediately when coming out of a Yin pose?
@@ -170,6 +170,8 @@ Tonight, dim the bright lights, unroll your mat, and allow your body to surrende
 ---
 
 > **Takeaway**: Sustained, low-load passive stress (3–5 minutes) reorganizes fascial collagen fibrils, restores hyaluronic fluid dynamics, and triggers deep nervous system recovery.
+
+> **Related Progression**: Collagen synthesis relies on adequate daily amino acid pools—refer to our [Daily Protein Intake Guide](/en/blog/daily-protein-intake-guide) for recovery nutrition, and correct unilateral hip compensations with our [Single-Leg Kinetic Chain Guide](/en/blog/single-leg-training-guide).
 
 > **FitKit Calculators**: Track your mobility journey with the [Splits & Flexibility Tracker](/en/tools/splits) and support fascial tissue hydration with the [Water Intake Calculator](/en/tools/water).
 

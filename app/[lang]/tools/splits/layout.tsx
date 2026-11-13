@@ -1,7 +1,9 @@
 import { buildPageMetadata, getToolSeo, type Lang } from "../../../lib/seo";
+import ToolFaqSection from "@/components/ToolFaqSection";
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: Lang }> }) {
-  const { lang } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const resolved = await params;
+  const lang: Lang = resolved.lang === "zh" ? "zh" : "en";
   const [title, description] = getToolSeo(lang, "splits");
 
   return buildPageMetadata({
@@ -12,6 +14,21 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   });
 }
 
-export default function SplitsLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default async function SplitsLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}) {
+  const resolved = await params;
+  const lang: Lang = resolved.lang === "zh" ? "zh" : "en";
+  return (
+    <>
+      {children}
+      <div className="max-w-4xl mx-auto px-4 pb-16">
+        <ToolFaqSection slug="splits" lang={lang} />
+      </div>
+    </>
+  );
 }

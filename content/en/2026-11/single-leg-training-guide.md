@@ -282,7 +282,7 @@ When practicing unilateral calisthenics, compensation patterns create micro-wear
 | :--- | :--- | :--- |
 | **Heel Lifts Off Floor** *(Heel Rising)* | Severe talocrural dorsiflexion restriction; chronically tight soleus and Achilles tendon | Elevate heel 15mm with a weight plate; daily banded ankle joint distraction and soleus mobilization |
 | **Knee Buckles Inward** *(Dynamic Valgus)* | Gluteus medius inhibition; collapsed foot core tripod; hyperactive adductors | Loop mini-band above knee to cue external rotation; perform active Janda Short Foot arch drills |
-| **Severe Butt Wink** *(Lumbar Flexion Dump)* | Hip capsular impingement in deep flexion; tight proximal hamstrings; core instability | Hold 4kg dumbbell forward as a counterbalance; extend arms long to preserve thoracic-lumbar neutrality |
+| **Severe Butt Wink** *(Lumbar Flexion Dump)* | Hip capsular impingement in deep flexion; tight proximal hamstrings; core instability | Hold 4kg dumbbell forward as a counterbalance; extend arms long to preserve neutrality (consult our [Rib Flare & Pelvic Alignment Guide](/en/blog/rib-flare-correction) to reset intra-abdominal pressure) |
 | **Floating Leg Seizes** *(Hip Flexor Cramp)* | Active insufficiency of psoas and rectus femoris; opposing hamstring passive stiffness | Perform seated pike leg lifts to build end-range hip flexor strength; practice on an elevated box |
 
 ---
@@ -301,6 +301,8 @@ Take off your shoes. Step onto the floor. Reclaim your three-dimensional freedom
 ---
 
 > **Takeaway**: Unilateral training unlocks functional longevity by eliminating bilateral compensations, awakening the foot core tripod, and training joint capsules across multiple planes.
+
+> **Related Progression**: Integrate single-leg accessories into your mesocycle using our [Hypertrophy Training Split Periodization Guide](/en/blog/hypertrophy-split-periodization), and restore adductor elasticity with our [Yin Yoga Fascia Recovery Guide](/en/blog/yin-yoga-fascia-guide).
 
 > **FitKit Calculators**: Track your hip opening progress with the [Splits & Flexibility Tracker](/en/tools/splits) and optimize your body composition with the [Body Fat Calculator](/en/tools/bfp).
 

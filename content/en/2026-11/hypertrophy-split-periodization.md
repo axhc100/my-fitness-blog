@@ -220,11 +220,11 @@ Engineered specifically for intermediate-to-advanced drug-free lifters demanding
 
 Even the most scientifically calibrated split program will produce mediocre results if your nutritional fuel and metabolic parameters are unmeasured. Maximize your mesocycle results using FitKit's dedicated assessment suite:
 
-- **Targeted Macronutrient Ratios & Caloric Surplus**: Calculate your lean bulking targets (1.8 to 2.2g protein per kg of bodyweight [4], paired with a clean 250–350 kcal energy surplus) via the [FitKit Macro Diet Calculator](/en/tools/macro);
-- **Basal Metabolic Rate & Total Expenditure**: Establish your exact non-training vs. heavy training caloric expenditure using the [FitKit BMR Calculator](/en/tools/bmr) to prevent unintentional muscle-wasting deficits;
+- **Targeted Macronutrient Ratios & Caloric Surplus**: Calculate your lean bulking targets (refer to our [Daily Protein Intake Guide](/en/blog/daily-protein-intake-guide) for 1.8 to 2.2g protein per kg of bodyweight [4], paired with a clean 250–350 kcal energy surplus) via the [FitKit Macro Diet Calculator](/en/tools/macro);
+- **Basal Metabolic Rate & Total Expenditure**: Establish your exact non-training vs. heavy training caloric baseline using our guide on [How to Calculate BMR](/en/blog/how-to-calculate-bmr) alongside the [FitKit BMR Calculator](/en/tools/bmr) to prevent unintentional muscle-wasting deficits;
 - **Body Composition & Lean Mass Tracking**: Track lean body mass increments versus adipose accumulation with the [FitKit Body Fat Percentage Calculator (BFP)](/en/tools/bfp) and [FitKit Ideal Body Weight Calculator](/en/tools/ibw) to strategically schedule fat-loss mini-cuts;
 - **Cellular Hydration & Intracellular Volumization**: Muscle fibers are 70% water; intracellular swelling is a primary mechanical trigger for protein synthesis. Determine your exact fluid and electrolyte replenishment with the [FitKit Daily Water Intake Calculator](/en/tools/water);
-- **Cardiovascular Active Recovery & Capillary Density**: On non-lifting recovery days, use the [FitKit Target Heart Rate Zones Calculator](/en/tools/hr) to map a 30- to 40-minute Zone 2 active flush session, accelerating capillary angiogenesis and metabolite clearance between heavy lifting days.
+- **Cardiovascular Active Recovery & Kinetic Stability**: On non-lifting recovery days, use the [FitKit Target Heart Rate Zones Calculator](/en/tools/hr) to map a 30- to 40-minute Zone 2 active flush session, and incorporate drills from our [Single-Leg Kinetic Chain Training Guide](/en/blog/single-leg-training-guide) to eliminate unilateral hip imbalances.
 
 ---
 

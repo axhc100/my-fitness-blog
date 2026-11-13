@@ -185,7 +185,7 @@ To ensure your tapered waistline is visually distinct, align your nutrition with
 
 ### 2. Balance Macronutrients for Tapered Lean Mass
 - Rebuilding fascial layers and muscular tone requires high biological value protein without excessive bulk.
-- Use the [FitKit Macronutrient Calculator](/en/tools/macro) to establish customized daily protein, carbohydrate, and dietary fat targets matching your current metabolic rate and sculpting phase.
+- Review our [Daily Protein Intake Guide](/en/blog/daily-protein-intake-guide) alongside [How to Calculate BMR](/en/blog/how-to-calculate-bmr), and use the [FitKit Macronutrient Calculator](/en/tools/macro) to establish customized daily protein, carbohydrate, and dietary fat targets matching your current metabolic rate and sculpting phase.
 
 ---
 
@@ -214,6 +214,8 @@ Begin today with your first deliberate 90/90 exhalation, recruit your biological
 ---
 
 > **Takeaway**: Correcting rib flare is achieved by restoring diaphragmatic piston breathing, compressing the infrasternal angle, and engaging the transverse abdominis as a natural anatomical corset.
+
+> **Related Progression**: Once core intra-abdominal control is dialed in, progress your physique using our [Hypertrophy Split Periodization Guide](/en/blog/hypertrophy-split-periodization), and address unilateral pelvic compensations with our [Single-Leg Kinetic Chain Guide](/en/blog/single-leg-training-guide).
 
 > **FitKit Calculators**: Track your body composition reshaping with the [Body Fat Percentage Calculator](/en/tools/bfp) and [Ideal Body Weight Tool](/en/tools/ibw).
 

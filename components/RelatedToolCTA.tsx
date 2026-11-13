@@ -94,6 +94,8 @@ const TOOLS: Record<string, ToolInfo> = {
 const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   // 1. 肌肥大 -> 宏量 / BMR
   'hypertrophy-split-periodization': 'macro',
+  'daily-protein-intake-guide': 'macro',
+  'how-to-calculate-bmr': 'bmr',
   '26-11-13-1': 'macro',
   '26-11-06-1': 'bmr',
   // 2. HYROX / 跑步 / 有氧耐力 -> 燃脂心率 / 补水

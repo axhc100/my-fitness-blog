@@ -284,9 +284,9 @@ This progressive 8-week plan is structured for fitness enthusiasts with a base r
 HYROX is a game of calculated physiology. Leverage FitKit’s suite of digital assessment calculators to optimize every variable of your preparation:
 
 - **Target Heart Rate & Lactate Threshold**: Use the [FitKit Target Heart Rate Zones Calculator](/en/tools/hr) to map your exact Zone 2 aerobic base and Zone 4 lactate threshold targets;
-- **High-Performance Carb-Loading & Protein Ratios**: Calculate your race-week glycogen replenishment (7–9g/kg carbohydrate) and muscle recovery targets with the [FitKit Macro Diet Calculator](/en/tools/macro);
-- **Hydration & Electrolyte Replacement**: Gauge your fluid loss and sodium replenishment protocols using the [FitKit Daily Water Intake Calculator](/en/tools/water) to eliminate late-race cramping;
-- **Power-to-Weight Ratio Optimization**: Assess lean mass and optimal racing body composition using the [FitKit Body Fat Percentage Calculator (BFP)](/en/tools/bfp) and [FitKit Ideal Body Weight Calculator](/en/tools/ibw) to build an engine that runs fast without losing sled-pushing power.
+- **High-Performance Nutrition & Protein Demands**: Calculate your race-week glycogen replenishment and muscle recovery targets with the [FitKit Macro Diet Calculator](/en/tools/macro), and check your foundational numbers against our [Daily Protein Intake Guide](/en/blog/daily-protein-intake-guide) and [How to Calculate BMR](/en/blog/how-to-calculate-bmr);
+- **Hydration & Connective Tissue Recovery**: Gauge fluid loss protocols using the [FitKit Daily Water Intake Calculator](/en/tools/water) to eliminate late-race cramping, and incorporate sessions from our [Yin Yoga Fascia Recovery Guide](/en/blog/yin-yoga-fascia-guide) to restore fascial glide between brutal training blocks;
+- **Power-to-Weight Ratio & Unilateral Drive**: Assess lean mass using the [FitKit Body Fat Percentage Calculator (BFP)](/en/tools/bfp) and [FitKit Ideal Body Weight Calculator](/en/tools/ibw), while utilizing our [Single-Leg Kinetic Chain Guide](/en/blog/single-leg-training-guide) to build balanced ground-reaction force for lunges and sled runs.
 
 ---
 
