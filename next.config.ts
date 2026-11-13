@@ -581,6 +581,128 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/deload-week-fatigue-recovery",
         statusCode: 301,
       },
+      // 专项收尾批（第四批）：归档文章旧 Slug 规范化 301 重定向 (最后 11 篇，共 22 条)
+      // 1. HIIT vs 慢跑 (1 -> hiit-vs-steady-state-jogging)
+      {
+        source: "/zh/blog/1",
+        destination: "/zh/blog/hiit-vs-steady-state-jogging",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/1",
+        destination: "/en/blog/hiit-vs-steady-state-jogging",
+        statusCode: 301,
+      },
+      // 2. 运动数字孪生 AI 健身 (3 -> ai-fitness-digital-twin)
+      {
+        source: "/zh/blog/3",
+        destination: "/zh/blog/ai-fitness-digital-twin",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/3",
+        destination: "/en/blog/ai-fitness-digital-twin",
+        statusCode: 301,
+      },
+      // 3. 14天横叉一字马 (4 -> 14-day-straddle-split-guide)
+      {
+        source: "/zh/blog/4",
+        destination: "/zh/blog/14-day-straddle-split-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/4",
+        destination: "/en/blog/14-day-straddle-split-guide",
+        statusCode: 301,
+      },
+      // 4. 罗马尼亚硬拉 RDL (26-10-23-1 -> romanian-deadlift-rdl-masterclass)
+      {
+        source: "/zh/blog/26-10-23-1",
+        destination: "/zh/blog/romanian-deadlift-rdl-masterclass",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-23-1",
+        destination: "/en/blog/romanian-deadlift-rdl-masterclass",
+        statusCode: 301,
+      },
+      // 5. 杠铃卧推大师课 (26-10-26-1 -> barbell-bench-press-masterclass)
+      {
+        source: "/zh/blog/26-10-26-1",
+        destination: "/zh/blog/barbell-bench-press-masterclass",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-26-1",
+        destination: "/en/blog/barbell-bench-press-masterclass",
+        statusCode: 301,
+      },
+      // 6. 杠铃后深蹲大师课 (26-10-28-1 -> barbell-back-squat-masterclass)
+      {
+        source: "/zh/blog/26-10-28-1",
+        destination: "/zh/blog/barbell-back-squat-masterclass",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-28-1",
+        destination: "/en/blog/barbell-back-squat-masterclass",
+        statusCode: 301,
+      },
+      // 7. 杠铃深蹲生物力学全指南 (26-10-30-1 -> barbell-squat-biomechanics-guide)
+      {
+        source: "/zh/blog/26-10-30-1",
+        destination: "/zh/blog/barbell-squat-biomechanics-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-30-1",
+        destination: "/en/blog/barbell-squat-biomechanics-guide",
+        statusCode: 301,
+      },
+      // 8. 运动恢复黄金三角 (26-10-31-1 -> athletic-recovery-matrix-guide)
+      {
+        source: "/zh/blog/26-10-31-1",
+        destination: "/zh/blog/athletic-recovery-matrix-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-31-1",
+        destination: "/en/blog/athletic-recovery-matrix-guide",
+        statusCode: 301,
+      },
+      // 9. 地面流动与 CARs 自重健身 (26-11-04-1 -> calisthenics-joint-mobility-flow)
+      {
+        source: "/zh/blog/26-11-04-1",
+        destination: "/zh/blog/calisthenics-joint-mobility-flow",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-04-1",
+        destination: "/en/blog/calisthenics-joint-mobility-flow",
+        statusCode: 301,
+      },
+      // 10. 匹克球与球拍运动体能 (26-11-05-1 -> pickleball-conditioning-agility-guide)
+      {
+        source: "/zh/blog/26-11-05-1",
+        destination: "/zh/blog/pickleball-conditioning-agility-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-05-1",
+        destination: "/en/blog/pickleball-conditioning-agility-guide",
+        statusCode: 301,
+      },
+      // 11. 昼夜节律与慢波深睡眠 (26-11-07-1 -> circadian-biology-deep-sleep-guide)
+      {
+        source: "/zh/blog/26-11-07-1",
+        destination: "/zh/blog/circadian-biology-deep-sleep-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-07-1",
+        destination: "/en/blog/circadian-biology-deep-sleep-guide",
+        statusCode: 301,
+      },
     ];
   },
 };
