@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SubscribeBox from "./SubscribeBox";
 
 type Props = { locale: "zh" | "en" };
 
@@ -52,8 +51,8 @@ export default function Footer({ locale }: Props) {
   return (
     <footer className="w-full bg-white border-t border-gray-100 mt-20 pt-16 pb-12 text-sm text-gray-600">
       <div className="max-w-5xl mx-auto px-6">
-        {/* 4 列栅格布局：品牌、工具、内容与帮助、邮件订阅占位 */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        {/* 3 列栅格布局：品牌、工具、内容与帮助（坚决不放未接入的虚假订阅框） */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* 第 1 列：品牌与简介 */}
           <div className="space-y-3">
             <Link href={p("")} className="flex items-center gap-2 group">
@@ -61,7 +60,7 @@ export default function Footer({ locale }: Props) {
                 FitKit
               </span>
             </Link>
-            <p className="text-xs text-gray-400 leading-relaxed pr-2">
+            <p className="text-xs text-gray-400 leading-relaxed pr-4">
               {c.tagline}
             </p>
             {/* 社交账号说明：未开通的不放死链接，杜绝 404 */}
@@ -136,11 +135,6 @@ export default function Footer({ locale }: Props) {
               </li>
             </ul>
           </nav>
-
-          {/* 第 4 列：邮件订阅占位 */}
-          <div>
-            <SubscribeBox locale={locale} variant="footer" />
-          </div>
         </div>
 
         {/* 底部版权与医疗免责声明 */}

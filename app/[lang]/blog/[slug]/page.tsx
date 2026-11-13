@@ -9,7 +9,6 @@ import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
 import RelatedToolCTA from '../../../../components/RelatedToolCTA';
 import RelatedArticles from '../../../../components/RelatedArticles';
-import SubscribeBox from '../../../../components/SubscribeBox';
 import ArticleTOC, { TocItem } from '../../../../components/ArticleTOC';
 import {
   resolveArticleCategoryKey,
@@ -455,9 +454,6 @@ export default async function BlogPostPage({
               currentSlug={slug}
               articles={getArticles(lang)}
             />
-
-            {/* 📬 邮件订阅框（占位状态） */}
-            <SubscribeBox locale={lang} variant="article" />
           </main>
 
           {/* 💻 桌面端右侧吸顶目录 */}
