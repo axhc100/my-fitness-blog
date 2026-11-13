@@ -149,7 +149,14 @@ export default async function BlogPostPage({
     cleanContent = cleanContent.replace(/^##\s+.+$/m, '').trim();
   }
 
-  // 3. LaTeX 公式预渲染（支持 $$...$$ 块级和 $...$ 行内数学公式）
+  // 3. 保护代码块：抽取多行 ``` 代码块和行内 ` 代码，防止被加粗或公式预处理器误改
+  const codeBlockStash: string[] = [];
+  cleanContent = cleanContent.replace(/(```[\s\S]*?```|`[^`\n\r]+`)/g, (match) => {
+    codeBlockStash.push(match);
+    return `__CODE_BLOCK_STASH_${codeBlockStash.length - 1}__`;
+  });
+
+  // 4. LaTeX 公式预渲染（支持 $$...$$ 块级和 $...$ 行内数学公式）
   cleanContent = cleanContent.replace(/\$\$([\s\S]+?)\$\$/g, (_, math) => {
     try {
       return `\n\n<div class="katex-display my-4 overflow-x-auto text-center">${katex.renderToString(math.trim(), { displayMode: true, throwOnError: false })}</div>\n\n`;
@@ -166,10 +173,13 @@ export default async function BlogPostPage({
     }
   });
 
-  // 4. 修复中文标点紧贴导致的 Markdown 加粗失效问题（如：**加粗**是）
+  // 5. 修复中文标点紧贴导致的 Markdown 加粗失效问题（仅在代码块外执行）
   cleanContent = cleanContent.replace(/\*\*([^*\n\r]+?)\*\*/g, '<strong>$1</strong>');
 
-  // 5. 自动生成正文 TOC 目录并为 H2 / H3 注入唯一锚点 ID（必须保留前后两重空行，防止截断后续 Markdown 表格）
+  // 6. 还原受保护的代码块
+  cleanContent = cleanContent.replace(/__CODE_BLOCK_STASH_(\d+)__/g, (_, idx) => codeBlockStash[Number(idx)]);
+
+  // 7. 自动生成正文 TOC 目录并为 H2 / H3 注入唯一锚点 ID（保留前后双空行，防止截断后续 Markdown 表格）
   const tocItems: TocItem[] = [];
   let headingCounter = 0;
   const contentWithHeadingIds = cleanContent.replace(
@@ -191,14 +201,14 @@ export default async function BlogPostPage({
   const htmlContent = await marked(contentWithHeadingIds);
   const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image;
 
-  // 6. 计算阅读时长
+  // 8. 计算阅读时长
   const wordCount = content.replace(/\s+/g, '').length;
   const readingMinutes = isZh
     ? Math.max(1, Math.ceil(wordCount / 450))
     : Math.max(1, Math.ceil(content.split(/\s+/).length / 220));
   const readingTimeText = isZh ? `阅读约 ${readingMinutes} 分钟` : `${readingMinutes} min read`;
 
-  // 7. 标准化文章分类与面包屑
+  // 9. 标准化文章分类与面包屑
   const catKey = resolveArticleCategoryKey({
     slug,
     title: data.title || '',
@@ -210,7 +220,7 @@ export default async function BlogPostPage({
   const catConfig = CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];
   const categoryLabel = catConfig.label;
 
-  // 8. 结构化数据 (Article + BreadcrumbList)
+  // 10. 结构化数据 (Article + BreadcrumbList)
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -264,13 +274,24 @@ export default async function BlogPostPage({
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
-      // 包装所有表格，确保在宽屏和移动端 (360px) 均支持横向流畅滚动且永不重叠
+      // 包装所有表格：只在表格内横向滚动，页面整体不横向滚动，永不遮挡侵入目录
       if (domNode instanceof Element && domNode.name === 'table') {
         return (
-          <div className="w-full my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm scrollbar-thin">
+          <div className="w-full max-w-full my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm scrollbar-thin">
             <table className="w-full text-left text-sm" {...domNode.attribs}>
               {domToReact(domNode.children as DOMNode[], options)}
             </table>
+          </div>
+        );
+      }
+
+      // 包装所有代码与图表块：保证只在容器内横向滚动，永不溢出侵入右侧目录
+      if (domNode instanceof Element && domNode.name === 'pre') {
+        return (
+          <div className="w-full max-w-full my-6 overflow-x-auto rounded-2xl bg-slate-900 border border-slate-800 p-4 text-xs font-mono text-slate-100 shadow-sm scrollbar-thin">
+            <pre className="overflow-x-auto m-0 p-0 bg-transparent text-inherit" {...domNode.attribs}>
+              {domToReact(domNode.children as DOMNode[], options)}
+            </pre>
           </div>
         );
       }
