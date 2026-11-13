@@ -65,12 +65,9 @@ export default async function PrivacyPage({
             </p>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-2">3. 基础访问统计与第三方徽章</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-2">3. 基础访问统计</h2>
             <p>
               网站可能会使用最基础的访问统计（如 Vercel Analytics）来了解哪些工具和文章更受欢迎（例如页面访问量）。这些统计不收集个人身份信息。
-            </p>
-            <p className="mt-2">
-              页面右下角的 Product Hunt 徽章会链接到第三方网站，点击后将跳转到 Product Hunt，受其隐私政策约束，与 FitKit 无关。
             </p>
           </div>
           <div>
@@ -98,12 +95,9 @@ export default async function PrivacyPage({
             </p>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-2">3. Anonymous Analytics & Third-Party Badges</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-2">3. Anonymous Analytics</h2>
             <p>
               We may use privacy-preserving, anonymous visit statistics (such as Vercel Web Analytics) to understand which calculators and guides provide the most utility. No personally identifiable information (PII) is tracked.
-            </p>
-            <p className="mt-2">
-              The Product Hunt badge on our pages links to Product Hunt’s external platform and is subject to their independent privacy terms.
             </p>
           </div>
           <div>
