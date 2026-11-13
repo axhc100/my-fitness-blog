@@ -32,56 +32,56 @@ const nextConfig: NextConfig = {
       {
         source: "/zh/blog/26-11-13-1",
         destination: "/zh/blog/hypertrophy-split-periodization",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/26-11-13-1",
         destination: "/en/blog/hypertrophy-split-periodization",
-        permanent: true,
+        statusCode: 301,
       },
       // 2. HYROX
       {
         source: "/zh/blog/26-11-12-1",
         destination: "/zh/blog/hyrox-training-guide",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/26-11-12-1",
         destination: "/en/blog/hyrox-training-guide",
-        permanent: true,
+        statusCode: 301,
       },
       // 3. 单腿
       {
         source: "/zh/blog/26-11-11-1",
         destination: "/zh/blog/single-leg-training-guide",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/26-11-11-1",
         destination: "/en/blog/single-leg-training-guide",
-        permanent: true,
+        statusCode: 301,
       },
       // 4. 肋骨外翻
       {
         source: "/zh/blog/26-11-10-1",
         destination: "/zh/blog/rib-flare-correction",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/26-11-10-1",
         destination: "/en/blog/rib-flare-correction",
-        permanent: true,
+        statusCode: 301,
       },
       // 5. 阴瑜伽
       {
         source: "/zh/blog/26-11-09-1",
         destination: "/zh/blog/yin-yoga-fascia-guide",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/26-11-09-1",
         destination: "/en/blog/yin-yoga-fascia-guide",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
