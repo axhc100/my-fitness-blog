@@ -52,56 +52,59 @@ export default function RelatedArticles({
 
   if (pool.length === 0) return null;
 
-  // 严格主题与标签相关性算法
   const currentArt = articles.find((a) => a.slug === currentSlug);
-  const currentTitle = currentArt?.title || '';
-  const currentTheme = resolveNormalizedTheme(currentCategory, currentTitle, currentTags);
+  const currentCatKey = resolveArticleCategoryKey(
+    currentArt || { category: currentCategory, tags: currentTags }
+  );
   const currentTagSet = new Set(currentTags);
 
-  const scoredArticles = pool.map((art) => {
+  // 1. 严格同分类候选池（确保推荐阅读 3/3 必须同分类）
+  const sameCatPool = pool.filter((a) => resolveArticleCategoryKey(a) === currentCatKey);
+
+  // 打分排序算法：优先同标签匹配，其次规范描述性 slug，最后按发布时间排序
+  const scoreArticle = (art: Article) => {
     let score = 0;
-    const artTheme = resolveNormalizedTheme(art.category, art.title, art.tags);
-
-    // 1. 同原始分类（最高优先级 +60）
-    if (art.category && currentCategory && art.category.toLowerCase() === currentCategory.toLowerCase()) {
-      score += 60;
-    } else if (artTheme === currentTheme) {
-      // 2. 同归一化主题大类（+40）
-      score += 40;
-    }
-
-    // 3. 标签匹配加分（核心标签每个 +12，过滤过于通用的学科大词）
     if (Array.isArray(art.tags)) {
       for (const t of art.tags) {
         if (currentTagSet.has(t)) {
           if (/生物力学|运动生物力学|biomechanics/i.test(t)) {
-            score += 2;
+            score += 4;
           } else {
             score += 12;
           }
         }
       }
     }
-
-    // 4. 优先推荐已具备描述性语义 slug 的精品长文与指南（+100）
     const isDescriptiveSlug =
       !art.slug.startsWith('26-') &&
       !/^\d+$/.test(art.slug) &&
       !/^\d{2}-\d{2}/.test(art.slug);
     if (isDescriptiveSlug) {
-      score += 100;
+      score += 50;
     }
+    return score;
+  };
 
-    return { art, score };
-  });
+  const sortScored = (list: Article[]) => {
+    return list
+      .map((art) => ({ art, score: scoreArticle(art) }))
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return new Date(b.art.date).getTime() - new Date(a.art.date).getTime();
+      })
+      .map((item) => item.art);
+  };
 
-  // 排序：score 从高到低，相同时按时间降序
-  scoredArticles.sort((a, b) => {
-    if (b.score !== a.score) return b.score - a.score;
-    return new Date(b.art.date).getTime() - new Date(a.art.date).getTime();
-  });
-
-  const selected = scoredArticles.slice(0, 3).map((item) => item.art);
+  let selected: Article[] = [];
+  if (sameCatPool.length >= 3) {
+    selected = sortScored(sameCatPool).slice(0, 3);
+  } else {
+    // 兜底：若同分类文章不足 3 篇，先取全同分类，其余按标签相关度补充
+    selected = sortScored(sameCatPool);
+    const diffCatPool = pool.filter((a) => resolveArticleCategoryKey(a) !== currentCatKey);
+    const filler = sortScored(diffCatPool).slice(0, 3 - selected.length);
+    selected = selected.concat(filler);
+  }
 
   return (
     <div className="my-12 pt-8 border-t border-gray-100">

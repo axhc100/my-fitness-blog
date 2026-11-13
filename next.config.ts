@@ -127,6 +127,17 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/pilates-vinyasa-core-alignment",
         statusCode: 301,
       },
+      // 10. 空腹有氧 (规范小写连字符 slug)
+      {
+        source: "/zh/blog/FastedCardio",
+        destination: "/zh/blog/fasted-cardio",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/FastedCardio",
+        destination: "/en/blog/fasted-cardio",
+        statusCode: 301,
+      },
     ];
   },
 };

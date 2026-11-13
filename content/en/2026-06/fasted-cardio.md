@@ -2,6 +2,8 @@
 title: "Does Fasted Cardio Actually Burn More Fat? The Science Behind the Myth"
 date: "2026-06-19"
 description: "Debunking the fasted cardio myth: explore metabolic rate, 24-hour lipid oxidation, cortisol catabolism, and evidence-based cardio strategies for maximal fat loss."
+category: "Recovery & Nutrition"
+tags: ["Fasted Cardio", "Fat Loss", "Cardio", "Lipid Oxidation", "Metabolism"]
 ---
 
 ## Why Has 'Fasted Cardio' Become the Holy Grail of Weight Loss?

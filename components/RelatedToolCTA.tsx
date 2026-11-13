@@ -102,6 +102,8 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   // 2. HYROX / 跑步 / 有氧耐力 -> 燃脂心率 / 补水
   'hyrox-training-guide': 'hr',
   'hyrox-race-prep-guide': 'hr',
+  'fasted-cardio': 'hr',
+  'FastedCardio': 'hr',
   '26-11-12-1': 'hr',
   '26-10-21-1': 'hr',
   '26-10-29-1': 'hr',
