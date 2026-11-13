@@ -162,7 +162,7 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
 
         {/* Main Tool Card */}
         <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-gray-100">
-          <div className="text-center max-w-xl mx-auto mb-8">
+          <div className="text-center max-w-xl mx-auto mb-6">
             <span className="inline-block p-3 bg-indigo-50 text-indigo-600 rounded-2xl text-2xl mb-3 shadow-inner">
               🏋️
             </span>
@@ -174,6 +174,33 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
                 ? '基于权威 Epley 力量方程，根据次极限量（1–10 次）精准推算深蹲、卧推、硬拉等动作的单次极限重量与完整周期化训练强度负荷表。'
                 : 'Calculate your One-Rep Max (1RM) and percentage-based training loads using the validated Epley strength equation.'}
             </p>
+          </div>
+
+          {/* Formula & Validation Examples Box */}
+          <div className="mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-200/70 text-xs text-gray-700 leading-relaxed max-w-lg mx-auto">
+            <div className="font-bold text-gray-900 mb-1.5 flex items-center gap-1.5">
+              <span>📐</span>
+              <span>{isZh ? '计算公式与验算示例' : 'Formula & Validation Benchmarks'}</span>
+            </div>
+            <div className="font-mono text-indigo-700 bg-white px-2.5 py-1.5 rounded-lg border border-slate-200/60 mb-2">
+              {isZh ? 'Epley 公式：1RM = 重量 × (1 + 次数 / 30)' : 'Epley Formula: 1RM = Weight × (1 + Reps / 30)'}
+            </div>
+            <p className="text-[11px] text-gray-600 mb-2">
+              {isZh
+                ? '注：本工具为数学生理学估算公式、非实测值；次数建议 1–10 次，超过 10 次估算误差会变大。'
+                : 'Note: Estimated physiological formula, not a direct test. Recommended for 1–10 reps; sets over 10 reps introduce fatigue error.'}
+            </p>
+            <div className="text-[11px] text-gray-600 bg-slate-100/80 p-2.5 rounded-lg space-y-1 mb-2">
+              <div className="font-semibold text-gray-700">{isZh ? '页面验算示例：' : 'Benchmark Examples:'}</div>
+              <div>• 100kg × 5 次 → 100 × (1 + 5/30) = 117kg</div>
+              <div>• 80kg × 8 次 → 80 × (1 + 8/30) = 101kg</div>
+            </div>
+            <div className="text-[11px] text-amber-900 bg-amber-50/90 p-2.5 rounded-lg border border-amber-200/70">
+              <span className="font-bold">⚠️ {isZh ? '提示：' : 'Safety Tip:'} </span>
+              {isZh
+                ? '1RM 是估算值，实测 1RM 请在有保护、有热身的前提下做；新手不要直接冲极限重量；结果仅供训练参考。'
+                : '1RM is an estimate. True 1RM testing requires spotters and thorough warm-up. Beginners must not jump straight to max single attempts.'}
+            </div>
           </div>
 
           <form onSubmit={calculate1RM} className="space-y-6 max-w-lg mx-auto">
@@ -433,10 +460,10 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
                   >
                     <div className="text-xl mb-1 group-hover:scale-110 transition-transform inline-block">🍳</div>
                     <div className="text-xs font-bold text-gray-900 group-hover:text-blue-600">
-                      {isZh ? '测算蛋白质与营养需求' : 'Protein & Macro Targets'}
+                      {isZh ? '去算宏量配比' : 'Calculate Macros'}
                     </div>
                     <div className="text-[11px] text-gray-500 mt-1 leading-snug">
-                      {isZh ? '精准规划增肌所需的蛋白质与碳水摄入' : 'Optimize daily protein and carbs for muscle hypertrophy'}
+                      {isZh ? '根据增肌热量目标科学分配蛋白质、碳水与脂肪' : 'Balance protein, carbs, and fats for hypertrophy'}
                     </div>
                   </Link>
                 </div>
