@@ -30,6 +30,7 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const savedExercise = localStorage.getItem('fitkit_1rm_exercise') as ExerciseKey;
@@ -103,6 +104,13 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
     });
   };
 
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 2500);
+  };
+
   const handleCopy = () => {
     if (!result) return;
     const p70 = result.percentages.find((p) => p.pct === 70)?.weight ?? 0;
@@ -113,24 +121,103 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
       ? `【${result.exerciseLabel}】1RM 预估值：${result.oneRm} kg（基于 ${result.weight}kg × ${result.reps} 次 Epley 科学估算）。\n训练百分比推荐：\n• 70% 增肌容量：${p70} kg (10~12次)\n• 80% 肌肥大黄金组：${p80} kg (6~8次)\n• 90% 绝对力量组：${p90} kg (2~3次)\n测算自 FitKit 科学力量工具箱：https://www.fitkit.top/zh/tools/1rm`
       : `[${result.exerciseLabel}] 1RM Estimate: ${result.oneRm} kg (based on ${result.weight}kg x ${result.reps} reps via Epley formula).\nTraining Percentages:\n• 70% Hypertrophy: ${p70} kg (10–12 reps)\n• 80% Muscle Growth: ${p80} kg (6–8 reps)\n• 90% Absolute Strength: ${p90} kg (2–3 reps)\nCalculated on FitKit Strength Tools: https://www.fitkit.top/en/tools/1rm`;
 
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
-      });
+    const copyFallback = (str: string) => {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = str;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (success) {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+      }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        })
+        .catch(() => copyFallback(text));
+    } else {
+      copyFallback(text);
     }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const url = typeof window !== 'undefined' ? window.location.href : 'https://www.fitkit.top';
     const title = isZh ? 'FitKit 1RM 最大力量与训练负荷计算器' : 'FitKit 1RM One-Rep Max Calculator';
-    if (navigator.share) {
-      navigator.share({ title, url }).catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
+
+    const copyUrlFallback = () => {
+      try {
+        const input = document.createElement('input');
+        input.value = url;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(input);
+        if (success) {
+          setShared(true);
+          showToast(isZh ? '链接已复制！' : 'Link copied!');
+          setTimeout(() => setShared(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+      }
+    };
+
+    const copyUrl = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            setShared(true);
+            showToast(isZh ? '链接已复制！' : 'Link copied!');
+            setTimeout(() => setShared(false), 2500);
+          })
+          .catch(() => copyUrlFallback());
+      } else {
+        copyUrlFallback();
+      }
+    };
+
+    const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        showToast(isZh ? '正在调起系统分享...' : 'Opening share menu...');
+        await navigator.share({ title, url });
         setShared(true);
+        showToast(isZh ? '分享成功！' : 'Shared successfully!');
         setTimeout(() => setShared(false), 2500);
-      });
+      } catch (err: any) {
+        if (err && err.name === 'AbortError') {
+          // User closed share sheet
+        } else {
+          copyUrl();
+        }
+      }
+    } else {
+      copyUrl();
     }
   };
 
@@ -513,6 +600,18 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
         {/* E-E-A-T Scientific Reference Guide */}
         <ToolScientificGuide slug="1rm" lang={lang} />
       </div>
+
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-gray-900/95 text-white text-xs sm:text-sm font-semibold rounded-full shadow-2xl backdrop-blur-md border border-white/10 animate-fade-in flex items-center gap-2 pointer-events-none"
+        >
+          <span>✨</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </main>
   );
 }

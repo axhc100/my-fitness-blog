@@ -25,6 +25,7 @@ export default function BmiClient({ paramsPromise }: BmiClientProps) {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const savedHeight = localStorage.getItem('fitkit_bmi_height');
@@ -116,6 +117,13 @@ export default function BmiClient({ paramsPromise }: BmiClientProps) {
     },
   };
 
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 2500);
+  };
+
   const handleCopy = () => {
     if (!result) return;
     const cat = categories[result.categoryKey];
@@ -123,24 +131,103 @@ export default function BmiClient({ paramsPromise }: BmiClientProps) {
       ? `我的 BMI 计算结果：${result.bmi}（${cat.label}），标准体重范围：${result.minHealthyWeight}–${result.maxHealthyWeight}kg。测算自 FitKit 科学健身工具箱：https://www.fitkit.top/zh/tools/bmi`
       : `My BMI result: ${result.bmi} (${cat.label}), healthy weight range: ${result.minHealthyWeight}–${result.maxHealthyWeight}kg. Calculated on FitKit Health Tools: https://www.fitkit.top/en/tools/bmi`;
 
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
-      });
+    const copyFallback = (str: string) => {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = str;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (success) {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+      }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        })
+        .catch(() => copyFallback(text));
+    } else {
+      copyFallback(text);
     }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const url = typeof window !== 'undefined' ? window.location.href : 'https://www.fitkit.top';
     const title = isZh ? 'FitKit BMI 身体质量指数计算器' : 'FitKit BMI Calculator';
-    if (navigator.share) {
-      navigator.share({ title, url }).catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
+
+    const copyUrlFallback = () => {
+      try {
+        const input = document.createElement('input');
+        input.value = url;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(input);
+        if (success) {
+          setShared(true);
+          showToast(isZh ? '链接已复制！' : 'Link copied!');
+          setTimeout(() => setShared(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+      }
+    };
+
+    const copyUrl = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            setShared(true);
+            showToast(isZh ? '链接已复制！' : 'Link copied!');
+            setTimeout(() => setShared(false), 2500);
+          })
+          .catch(() => copyUrlFallback());
+      } else {
+        copyUrlFallback();
+      }
+    };
+
+    const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        showToast(isZh ? '正在调起系统分享...' : 'Opening share menu...');
+        await navigator.share({ title, url });
         setShared(true);
+        showToast(isZh ? '分享成功！' : 'Shared successfully!');
         setTimeout(() => setShared(false), 2500);
-      });
+      } catch (err: any) {
+        if (err && err.name === 'AbortError') {
+          // User closed share sheet
+        } else {
+          copyUrl();
+        }
+      }
+    } else {
+      copyUrl();
     }
   };
 
@@ -454,6 +541,18 @@ export default function BmiClient({ paramsPromise }: BmiClientProps) {
         {/* E-E-A-T Scientific Reference Guide */}
         <ToolScientificGuide slug="bmi" lang={lang} />
       </div>
+
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-gray-900/95 text-white text-xs sm:text-sm font-semibold rounded-full shadow-2xl backdrop-blur-md border border-white/10 animate-fade-in flex items-center gap-2 pointer-events-none"
+        >
+          <span>✨</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </main>
   );
 }

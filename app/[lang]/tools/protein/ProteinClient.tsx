@@ -16,7 +16,7 @@ export default function ProteinClient({ paramsPromise }: ProteinClientProps) {
   const isZh = lang === 'zh';
 
   const [mounted, setMounted] = useState(false);
-  const [weight, setWeight] = useState('');
+  const [weight, setWeight] = useState('70');
   const [goal, setGoal] = useState<GoalKey>('hypertrophy');
   const [meals, setMeals] = useState('4');
 
@@ -37,6 +37,7 @@ export default function ProteinClient({ paramsPromise }: ProteinClientProps) {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const savedWeight = localStorage.getItem('fitkit_protein_weight');
@@ -145,30 +146,118 @@ export default function ProteinClient({ paramsPromise }: ProteinClientProps) {
     });
   };
 
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 2500);
+  };
+
   const handleCopy = () => {
     if (!result) return;
     const text = isZh
       ? `【每日蛋白质需求测算】目标：${result.goalLabel}\n• 推荐摄入总量：${result.targetDaily} g/天（推荐区间：${result.minDaily}–${result.maxDaily} g/天）\n• 分餐分配（${result.mealsCount}餐）：每餐约 ${result.perMeal} g\n• 食物等效：约等于 ${result.chickenGrams}g 鸡胸肉 / ${result.eggsCount} 个鸡蛋 / ${result.wheyScoops} 勺蛋白粉\n测算自 FitKit 科学营养工具箱：https://www.fitkit.top/zh/tools/protein`
       : `[Daily Protein Target] Goal: ${result.goalLabel}\n• Target Intake: ${result.targetDaily} g/day (Optimal Range: ${result.minDaily}–${result.maxDaily} g/day)\n• Meal Spacing (${result.mealsCount} meals): ~${result.perMeal} g/meal\n• Whole Food Equivalent: ~${result.chickenGrams}g chicken breast / ${result.eggsCount} eggs / ${result.wheyScoops} whey scoops\nCalculated on FitKit Health Tools: https://www.fitkit.top/en/tools/protein`;
 
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
-      });
+    const copyFallback = (str: string) => {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = str;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (success) {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请长按手动选择复制' : 'Copy failed, please copy manually');
+      }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          setCopied(true);
+          showToast(isZh ? '已复制结果！' : 'Results copied!');
+          setTimeout(() => setCopied(false), 2500);
+        })
+        .catch(() => copyFallback(text));
+    } else {
+      copyFallback(text);
     }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const url = typeof window !== 'undefined' ? window.location.href : 'https://www.fitkit.top';
     const title = isZh ? 'FitKit 每日蛋白质需求与分餐计算器' : 'FitKit Daily Protein Intake Calculator';
-    if (navigator.share) {
-      navigator.share({ title, url }).catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
+
+    const copyUrlFallback = () => {
+      try {
+        const input = document.createElement('input');
+        input.value = url;
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(input);
+        if (success) {
+          setShared(true);
+          showToast(isZh ? '链接已复制！' : 'Link copied!');
+          setTimeout(() => setShared(false), 2500);
+        } else {
+          showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+        }
+      } catch {
+        showToast(isZh ? '复制失败，请手动复制浏览器地址栏' : 'Copy failed, please copy address manually');
+      }
+    };
+
+    const copyUrl = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            setShared(true);
+            showToast(isZh ? '链接已复制！' : 'Link copied!');
+            setTimeout(() => setShared(false), 2500);
+          })
+          .catch(() => copyUrlFallback());
+      } else {
+        copyUrlFallback();
+      }
+    };
+
+    const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        showToast(isZh ? '正在调起系统分享...' : 'Opening share menu...');
+        await navigator.share({ title, url });
         setShared(true);
+        showToast(isZh ? '分享成功！' : 'Shared successfully!');
         setTimeout(() => setShared(false), 2500);
-      });
+      } catch (err: any) {
+        if (err && err.name === 'AbortError') {
+          // User closed the share sheet
+        } else {
+          // Native share failed, fallback to copying link
+          copyUrl();
+        }
+      }
+    } else {
+      // Desktop or devices without native share
+      copyUrl();
     }
   };
 
@@ -488,6 +577,18 @@ export default function ProteinClient({ paramsPromise }: ProteinClientProps) {
         {/* E-E-A-T Scientific Reference Guide */}
         <ToolScientificGuide slug="protein" lang={lang} />
       </div>
+
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-gray-900/95 text-white text-xs sm:text-sm font-semibold rounded-full shadow-2xl backdrop-blur-md border border-white/10 animate-fade-in flex items-center gap-2 pointer-events-none"
+        >
+          <span>✨</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </main>
   );
 }
