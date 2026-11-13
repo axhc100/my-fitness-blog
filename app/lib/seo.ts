@@ -8,7 +8,7 @@ export const SITE_NAME = "FitKit";
 export const LANGUAGES = ["en", "zh"] as const;
 export type Lang = (typeof LANGUAGES)[number];
 
-export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi", "1rm", "protein", "fat-loss"] as const;
+export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi", "1rm", "protein", "fat-loss", "volume"] as const;
 
 export type Article = {
   slug: string;
@@ -66,6 +66,7 @@ const toolSeo = {
     "1rm": ["1RM Calculator | One-Rep Max & Training Percentage Chart - FitKit", "Calculate your One-Rep Max (1RM) using the scientifically validated Epley formula. Generates complete training percentage loads (50%–95%) for squat, bench press, and deadlift."],
     protein: ["Daily Protein Calculator | Evidence-Based Intake by Goal & Weight - FitKit", "Calculate optimal daily protein requirements based on ISSN and ACSM guidelines. Tailored targets for muscle hypertrophy, fat loss, and healthy maintenance with per-meal distribution."],
     "fat-loss": ["Fat Loss Calculator | Calorie Deficit & Target Date Predictor - FitKit", "Calculate your realistic fat loss timeline, estimated target completion date, and safe weekly rate of weight loss based on evidence-based 7,700 kcal energy deficit science."],
+    volume: ["Training Volume Calculator | Sets, Reps, Load & MEV/MAV/MRV Landmarks - FitKit", "Calculate muscle group training volume loads (Sets × Reps × Weight) and evaluate your weekly hypertrophy landmarks against MEV, MAV, and MRV to optimize gains and prevent overtraining."],
   },
   zh: {
     splits: ["一字马横叉/竖叉进度打卡 - 髋关节活动度与柔韧性科学训练", "基于运动神经力学与本体感觉神经肌肉易化术（PNF），科学记录横叉与竖叉下落距离与开胯角度，打破牵张反射与韧带僵硬。"],
@@ -79,6 +80,7 @@ const toolSeo = {
     "1rm": ["1RM 计算器 | 最大力量估算与力量训练百分比对照表 - FitKit", "基于经典 Epley 力量科学公式，输入测试重量与完成次数，精准估算深蹲、卧推、硬拉的 1RM 最大单次重量，并提供 50%~95% 训练强度负荷表。"],
     protein: ["每日蛋白质需求计算器 | 增肌减脂摄入量与按餐分配 - FitKit", "基于国际运动营养学会（ISSN）循证标准，根据体重与健身目标（维持、增肌、减脂）精准计算每日蛋白质克数、分餐摄入量及常见高蛋白食物换算。"],
     "fat-loss": ["减脂速度预测与目标日期计算器 | 7700大卡热量缺口模型 - FitKit", "基于 7700 大卡脂肪热量守恒模型，根据当前体重、目标体重与每日热量缺口，科学推算所需减重天数、预计达标日期与每周减重速率，避开极端节食误区。"],
+    volume: ["训练容量计算器 | 肌群周总容量与 MEV/MAV/MRV 容量地标对照 - FitKit", "基于肌肥大训练力学（组数 × 次数 × 重量），精准核算各肌群周总容量与全周负荷，对照 MEV 维持、MAV 适应与 MRV 恢复极限地标，科学规划训练周期。"],
   },
 } satisfies Record<Lang, Record<(typeof TOOL_SLUGS)[number], [string, string]>>;
 

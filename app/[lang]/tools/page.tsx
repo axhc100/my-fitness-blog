@@ -54,6 +54,14 @@ const toolItems = [
     enDesc: "Calculate your estimated fat loss timeline, target completion date, and safe weekly rate based on energy deficit.",
   },
   {
+    slug: "volume",
+    emoji: "📊",
+    zhTitle: "训练容量计算器 (MEV/MAV/MRV)",
+    enTitle: "Training Volume Calculator",
+    zhDesc: "基于组数×次数×重量核算肌群周总容量，对照 MEV、MAV 与 MRV 容量地标科学调整周期化负荷。",
+    enDesc: "Calculate weekly volume load per muscle group and benchmark against MEV, MAV, and MRV hypertrophy landmarks.",
+  },
+  {
     slug: "bmr",
     emoji: "⚡",
     zhTitle: "BMR 与 TDEE 每日能量计算",

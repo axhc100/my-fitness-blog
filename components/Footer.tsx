@@ -38,6 +38,7 @@ const toolLinks = [
   { href: "/tools/1rm", zh: "1RM 最大力量计算", en: "1RM Calculator" },
   { href: "/tools/protein", zh: "每日蛋白质需求计算", en: "Protein Calculator" },
   { href: "/tools/fat-loss", zh: "减脂速度与目标日期预测", en: "Fat Loss Calculator" },
+  { href: "/tools/volume", zh: "训练容量计算器", en: "Volume Calculator" },
   { href: "/tools/bmr", zh: "BMR 基础代谢计算", en: "BMR Calculator" },
   { href: "/tools/macro", zh: "三大营养素计算器", en: "Macro Calculator" },
   { href: "/tools/bfp", zh: "体脂率计算器", en: "Body Fat Calculator" },

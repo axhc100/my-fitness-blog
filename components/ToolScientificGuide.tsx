@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm' | 'protein' | 'fat-loss';
+export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm' | 'protein' | 'fat-loss' | 'volume';
 
 interface ToolScientificGuideProps {
   slug: ToolSlug;
@@ -661,6 +661,66 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
         "Wishnofsky M. Caloric equivalents of gained or lost weight. Am J Clin Nutr. 1958;6(5):542-546.",
         "Hall KD, Sacks G, Chandramohan D, et al. Quantification of the effect of energy imbalance on bodyweight. Lancet. 2011;378(9793):826-837.",
         "Helms ER, Aragon AA, Fitschen PJ. Evidence-based recommendations for natural bodybuilding contest preparation: nutrition and supplementation. J Int Soc Sports Nutr. 2014;11:20."
+      ]
+    }
+  },
+  volume: {
+    en: {
+      title: "Scientific Methodology: Volume Load Mechanics & Hypertrophy Landmarks (MEV/MAV/MRV)",
+      badge: "Hypertrophy Science Standard (E-E-A-T)",
+      formulaLabel: "Mathematical Formulation",
+      formula: "Exercise Volume Load = Sets × Reps × Weight (kg)\nMuscle Group Weekly Volume = Sum of Volume Loads for that target muscle\nTotal Weekly Volume Load = Sum of all exercise volume loads\n\nValidation Benchmark:\n• Squat: 4 sets × 8 reps × 100 kg = 3,200 kg\n• Bench Press: 4 sets × 10 reps × 80 kg = 3,200 kg\n• Combined Weekly Volume = 3,200 + 3,200 = 6,400 kg",
+      formulaNote: "Based on Dr. Brad Schoenfeld's dose-response meta-analyses and Dr. Mike Israetel's Renaissance Periodization volume landmarks.",
+      backgroundTitle: "Biomechanical Mechanics & Dose-Response Curves",
+      background: [
+        "In modern exercise physiology, training volume is widely recognized as the single most robust predictor of muscle hypertrophy within appropriate intensity bands (typically 60%–85% 1RM, within 1–3 repetitions in reserve / RIR). Dr. Brad Schoenfeld's landmark 2017 meta-analysis in the Journal of Sports Sciences demonstrated a clear dose-response relationship: 10+ weekly sets per muscle group yielded nearly double the muscle growth of under 5 sets.",
+        "To prevent chronic overtraining and tendon breakdown, Dr. Mike Israetel introduced the Volume Landmark framework: classifying volume into Maintenance Volume (MV), Minimum Effective Volume (MEV), Maximum Adaptive Volume (MAV), and Maximum Recoverable Volume (MRV)."
+      ],
+      audienceTitle: "Hypertrophy Landmarks & Programming Application",
+      audience: [
+        "MEV (Minimum Effective Volume, ~6–10 sets/week): The minimum stimulus threshold required to generate measurable muscle hypertrophy. Useful during deloads or maintenance phases.",
+        "MAV (Maximum Adaptive Volume, ~12–20 sets/week): The golden hypertrophy sweet spot where progressive overload yields the fastest gains with sustainable neuromuscular recovery.",
+        "MRV (Maximum Recoverable Volume, ~20–25+ sets/week): The absolute recovery ceiling. Exceeding MRV leads to non-functional overreaching, blunted MPS, and elevated risk of tendinopathy. Planned deload weeks are essential when approaching MRV."
+      ],
+      limitationsTitle: "Junk Volume & Quality Considerations",
+      limitations: [
+        "Junk Volume Pitfall: Volume accumulated far from failure (>4 RIR) or with degraded form generates disproportionate joint fatigue without stimulating high-threshold motor units.",
+        "Individual Recovery Variance: Caloric intake, sleep quality, training age, and endocrine status substantially alter personal MRV thresholds. Volume must be periodized dynamically."
+      ],
+      referencesTitle: "Peer-Reviewed Academic Citations",
+      references: [
+        "Schoenfeld BJ, Ogborn D, Krieger JW. Dose-response relationship between weekly resistance training volume and increases in muscle mass: A systematic review and meta-analysis. J Sports Sci. 2017;35(11):1073-1082.",
+        "Israetel M, Feather J, Faleiro TW, Helms ER. Scientific Principles of Hypertrophy Training. Renaissance Periodization; 2020.",
+        "Baz-Valle E, Fontes-Villalba M, Santos-Concejero J. Total number of sets as a training volume quantification method for muscle hypertrophy: A systematic review. J Strength Cond Res. 2021;35(3):870-878."
+      ]
+    },
+    zh: {
+      title: "科学依据与推导：训练容量负荷与肌肥大地标理论（MEV/MAV/MRV）",
+      badge: "运动力学与肌肥大循证标准 (E-E-A-T)",
+      formulaLabel: "数学推导公式",
+      formula: "单动作训练容量 = 组数 × 每组次数 × 重量 (kg)\n单肌群周容量 = 该目标肌群所有动作的容量总和\n全周总训练容量 = 所有肌群训练容量之和\n\n验算基准示例：\n• 深蹲：4 组 × 8 次 × 100 kg = 3,200 kg (腿部容量)\n• 卧推：4 组 × 10 次 × 80 kg = 3,200 kg (胸部容量)\n• 两项合计全周容量 = 3,200 + 3,200 = 6,400 kg",
+      formulaNote: "基于 Brad Schoenfeld 博士肌肥大剂量反应关系 Meta 分析与 Mike Israetel 博士周期化容量地标模型。",
+      backgroundTitle: "生化生理机制与容量剂量反应关系",
+      background: [
+        "在现代运动人体科学中，当训练强度处于 60%~85% 1RM（距离力竭 1~3 次 RIR）的有效区间内时，训练容量（Volume Load）是决定肌原纤维蛋白质合成与机械张力积累的核心驱动力。著名肌肥大学者 Brad Schoenfeld 博士在 2017 年发表于《体育科学杂志》（JSS）的 Meta 分析证实：单肌群每周达到 10 组以上有效训练组时，增肌效益近乎是 5 组以下的两倍。",
+        "然而容量并非无限堆砌越好。为量化恢复与生长的动态边界，Mike Israetel 博士构建了著名的“容量地标（Volume Landmarks）”体系，将周训练量清晰划分为维持容量（MV）、最低有效容量（MEV）、最佳适应容量（MAV）与最大可恢复容量（MRV）。"
+      ],
+      audienceTitle: "容量地标解读与训练周期规划",
+      audience: [
+        "MEV（最低有效容量，约 6~10 组/周）：触发肌肉产生可观察生长的下限门槛。适合出差、生活忙碌或主动维持期的低负荷刺激。",
+        "MAV（最大适应容量，约 12~20 组/周）：增肌效益最高、性价比最佳的黄金区间。绝大部分训练周期应围绕 MAV 渐进超负荷。",
+        "MRV（最大可恢复容量，约 20~25+ 组/周）：身体和中枢神经能恢复的上限天花板。接近或达到 MRV 时疲劳极度累积，必须在下周安排减量周（Deload）以消除疲劳、兑现肌肉生长。"
+      ],
+      limitationsTitle: "无效垃圾容量警示与个体差异",
+      limitations: [
+        "垃圾容量（Junk Volume）陷阱：远离力竭（>4 RIR）或因力竭导致动作严重变形代偿的组数无法有效募集高阈值运动单位，只会徒增结缔组织磨损与中枢神经疲劳。",
+        "多肌群复合重叠：如卧推在锻炼胸大肌的同时会分担肱三头肌和三角肌前束负荷，制定周容量时需综合考虑复合动作对副肌群的重叠累加。"
+      ],
+      referencesTitle: "权威学术文献引用",
+      references: [
+        "Schoenfeld BJ, Ogborn D, Krieger JW. Dose-response relationship between weekly resistance training volume and increases in muscle mass: A systematic review and meta-analysis. J Sports Sci. 2017;35(11):1073-1082.",
+        "Israetel M, Feather J, Faleiro TW, Helms ER. Scientific Principles of Hypertrophy Training. Renaissance Periodization; 2020.",
+        "Baz-Valle E, Fontes-Villalba M, Santos-Concejero J. Total number of sets as a training volume quantification method for muscle hypertrophy: A systematic review. J Strength Cond Res. 2021;35(3):870-878."
       ]
     }
   }

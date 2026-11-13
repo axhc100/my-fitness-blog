@@ -586,4 +586,57 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
       },
     },
   ],
+
+  volume: [
+    {
+      question: {
+        zh: "训练容量是什么？怎么计算？",
+        en: "What is training volume and how is it calculated?",
+      },
+      answer: {
+        zh: "训练容量（Volume Load）是衡量抗阻力训练机械刺激总量的金标准物理指标，计算公式为：容量 = 组数 × 每组次数 × 重量（kg）。例如深蹲完成 4 组 × 8 次 × 100kg，该动作的训练容量即为 3,200kg。现代运动科学研究（如 Brad Schoenfeld 博士等）证实，在适宜的训练强度与动作规范下，训练容量是刺激肌纤维肌原纤维肥大的核心驱动力。",
+        en: "Training volume load is the gold-standard metric for quantifying mechanical work in resistance training, calculated as: Volume = Sets × Reps × Weight (kg). For example, squatting 4 sets × 8 reps × 100kg yields 3,200kg of volume load. Peer-reviewed sports science confirms that within appropriate intensity ranges, volume is the primary driver of muscular hypertrophy.",
+      },
+    },
+    {
+      question: {
+        zh: "训练容量和训练强度哪个更重要？",
+        en: "Which is more important: training volume or intensity?",
+      },
+      answer: {
+        zh: "两者相辅相成，缺一不可。强度（负荷百分比与接近力竭程度 RIR）是触发肌纤维高阈值运动单位募集的“启动开关”，通常需要达到 60%~85% 1RM 或距离力竭 1~3 次；而容量（高质量有效组数与总吨位）则是积累机械张力与肌肉生长刺激的“驱动累加器”。离开强度的垃圾容量无法增肌，离开容量的过高极限单把也无法积累足够的肥大刺激。",
+        en: "Both are inextricably linked. Intensity (% of 1RM and proximity to failure / RIR) acts as the prerequisite threshold to recruit high-threshold motor units (typically 60%–85% 1RM, 1–3 RIR). Volume represents the dosage of mechanical tension accumulated. Junk volume lacking intensity fails to stimulate growth, while single maximal attempts without volume provide insufficient stimulus.",
+      },
+    },
+    {
+      question: {
+        zh: "每周练多少容量才够（MEV、MAV、MRV 是什么）？",
+        en: "How much weekly volume is optimal (What are MEV, MAV, and MRV)?",
+      },
+      answer: {
+        zh: "这是由 Mike Israetel 博士提出的肌肥大经典容量地标体系：① MEV（维持有效容量）：能产生微量肌肥大进展的最低组数，通常每周单肌群 6~10 组；② MAV（最大适应容量）：产生最佳最快增肌效益的黄金区间，通常每周单肌群 12~20 组；③ MRV（最大可恢复容量）：身体能有效恢复的容量天花板，通常每周单肌群 20~25 组以上。超过 MRV 将导致无法完全超量恢复。",
+        en: "Formulated by Dr. Mike Israetel, these landmarks represent: 1) MEV (Minimum Effective Volume): the baseline threshold to elicit measurable hypertrophy (~6–10 sets/muscle/week); 2) MAV (Maximum Adaptive Volume): the sweet spot where gains are fastest and most efficient (~12–20 sets/muscle/week); 3) MRV (Maximum Recoverable Volume): the upper ceiling beyond which the body cannot recover (~20–25+ sets/muscle/week).",
+      },
+    },
+    {
+      question: {
+        zh: "训练容量长期超过 MRV 会怎么样？",
+        en: "What happens if training volume chronically exceeds MRV?",
+      },
+      answer: {
+        zh: "当周训练容量持续超越身体的 MRV 恢复极限时，肌肉蛋白质分解速率（MPB）将持续压倒合成速率（MPS），导致训练者陷入“非功能性过度超负荷”甚至慢性过度训练综合征（Overtraining Syndrome）。典型表现包括力量停滞或倒退、慢性关节滑囊肌腱疼痛、睡眠障碍与食欲减退。此时必须安排为期 1 周的减量周（Deload），将容量减半以消除神经与肌腱疲劳。",
+        en: "Chronically exceeding MRV causes muscle protein breakdown (MPB) to exceed synthesis (MPS), precipitating non-functional overreaching and overtraining syndrome. Symptoms include performance stagnation or regression, persistent joint and tendon inflammation, elevated resting heart rate, and insomnia. A planned deload week (reducing volume by ~50%) is mandatory to dissipate accumulated fatigue.",
+      },
+    },
+    {
+      question: {
+        zh: "我的训练动作与容量数据会被保存吗？",
+        en: "Is my workout and volume data saved on a server?",
+      },
+      answer: {
+        zh: "你在训练容量计算器中添加的所有动作、肌群、组数、次数与负重数据仅保存在你当前设备的浏览器 LocalStorage 本地存储中，FitKit 绝不上传或记录你的个人训练日志，充分保证隐私安全。",
+        en: "All exercise entries, muscle group selections, sets, reps, and poundages are processed and cached strictly inside your private browser session and local storage. FitKit does not transmit or monetize personal workout logs.",
+      },
+    },
+  ],
 };
