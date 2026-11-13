@@ -315,6 +315,139 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/visible-abs-science-guide",
         statusCode: 301,
       },
+      // 专项批次二：归档文章旧 Slug 规范化 301 重定向 (12 篇，共 24 条)
+      // 1. HIIT 燃脂进阶指南 (26-06-21-1 -> hiit-fat-loss-advanced-guide)
+      {
+        source: "/zh/blog/26-06-21-1",
+        destination: "/zh/blog/hiit-fat-loss-advanced-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-21-1",
+        destination: "/en/blog/hiit-fat-loss-advanced-guide",
+        statusCode: 301,
+      },
+      // 2. 皮质醇腹部脂肪钝化协议 (26-06-21-2 -> cortisol-belly-fat-stress-reset)
+      {
+        source: "/zh/blog/26-06-21-2",
+        destination: "/zh/blog/cortisol-belly-fat-stress-reset",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-21-2",
+        destination: "/en/blog/cortisol-belly-fat-stress-reset",
+        statusCode: 301,
+      },
+      // 3. 女性身体重组塑身全攻略 (26-06-24-2 -> female-body-recomposition-guide)
+      {
+        source: "/zh/blog/26-06-24-2",
+        destination: "/zh/blog/female-body-recomposition-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-24-2",
+        destination: "/en/blog/female-body-recomposition-guide",
+        statusCode: 301,
+      },
+      // 4. 女性翘臀训练终极指南 (26-06-26-1 -> female-glute-training-guide)
+      {
+        source: "/zh/blog/26-06-26-1",
+        destination: "/zh/blog/female-glute-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-26-1",
+        destination: "/en/blog/female-glute-training-guide",
+        statusCode: 301,
+      },
+      // 5. 女性肩背塑形指南 (26-06-27-1 -> womens-shoulder-back-sculpting)
+      {
+        source: "/zh/blog/26-06-27-1",
+        destination: "/zh/blog/womens-shoulder-back-sculpting",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-27-1",
+        destination: "/en/blog/womens-shoulder-back-sculpting",
+        statusCode: 301,
+      },
+      // 6. 女性手臂塑形终极指南 (26-06-28-1 -> womens-arm-sculpting-guide)
+      {
+        source: "/zh/blog/26-06-28-1",
+        destination: "/zh/blog/womens-arm-sculpting-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-28-1",
+        destination: "/en/blog/womens-arm-sculpting-guide",
+        statusCode: 301,
+      },
+      // 7. 女性核心训练指南 (26-06-29-1 -> womens-core-training-guide)
+      {
+        source: "/zh/blog/26-06-29-1",
+        destination: "/zh/blog/womens-core-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-29-1",
+        destination: "/en/blog/womens-core-training-guide",
+        statusCode: 301,
+      },
+      // 8. 女性腿部塑形终极指南 (26-06-30-1 -> womens-leg-sculpting-guide)
+      {
+        source: "/zh/blog/26-06-30-1",
+        destination: "/zh/blog/womens-leg-sculpting-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-30-1",
+        destination: "/en/blog/womens-leg-sculpting-guide",
+        statusCode: 301,
+      },
+      // 9. 女性燃脂训练终极指南 (26-07-01-1 -> womens-fat-loss-training-guide)
+      {
+        source: "/zh/blog/26-07-01-1",
+        destination: "/zh/blog/womens-fat-loss-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-01-1",
+        destination: "/en/blog/womens-fat-loss-training-guide",
+        statusCode: 301,
+      },
+      // 10. 女性家庭健身终极指南 (26-07-03-1 -> womens-home-workout-guide)
+      {
+        source: "/zh/blog/26-07-03-1",
+        destination: "/zh/blog/womens-home-workout-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-03-1",
+        destination: "/en/blog/womens-home-workout-guide",
+        statusCode: 301,
+      },
+      // 11. 女性恢复训练指南 (26-07-04-1 -> womens-recovery-training-guide)
+      {
+        source: "/zh/blog/26-07-04-1",
+        destination: "/zh/blog/womens-recovery-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-04-1",
+        destination: "/en/blog/womens-recovery-training-guide",
+        statusCode: 301,
+      },
+      // 12. 女性柔韧性训练指南 (26-07-05-1 -> womens-flexibility-training-guide)
+      {
+        source: "/zh/blog/26-07-05-1",
+        destination: "/zh/blog/womens-flexibility-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-05-1",
+        destination: "/en/blog/womens-flexibility-training-guide",
+        statusCode: 301,
+      },
     ];
   },
 };
