@@ -2,6 +2,8 @@
 title: "Yoga for Strength, Flexibility, and Recovery: The Complete Guide"
 date: "2026-07-17"
 description: "Discover how yoga improves flexibility, mobility, core strength, recovery, and overall athletic performance through science-based practice."
+category: "Yoga & Mobility"
+tags: ["Yoga", "Flexibility", "Core Strength", "Mobility", "Recovery"]
 ---
 
 ## Yoga for Strength, Flexibility, and Recovery

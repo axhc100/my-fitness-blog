@@ -138,6 +138,50 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/fasted-cardio",
         statusCode: 301,
       },
+      // 11. 女性全身塑形训练指南 (26-07-02-1)
+      {
+        source: "/zh/blog/26-07-02-1",
+        destination: "/zh/blog/womens-full-body-sculpting-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-02-1",
+        destination: "/en/blog/womens-full-body-sculpting-guide",
+        statusCode: 301,
+      },
+      // 12. 瑜伽的科学力量 (26-07-17-1)
+      {
+        source: "/zh/blog/26-07-17-1",
+        destination: "/zh/blog/science-of-yoga",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-17-1",
+        destination: "/en/blog/science-of-yoga",
+        statusCode: 301,
+      },
+      // 13. Mobility Training 终极指南 (26-07-18-1)
+      {
+        source: "/zh/blog/26-07-18-1",
+        destination: "/zh/blog/mobility-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-18-1",
+        destination: "/en/blog/mobility-training-guide",
+        statusCode: 301,
+      },
+      // 14. Zone 2 低心率有氧全指南 (26-10-21-1)
+      {
+        source: "/zh/blog/26-10-21-1",
+        destination: "/zh/blog/zone-2-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-21-1",
+        destination: "/en/blog/zone-2-training-guide",
+        statusCode: 301,
+      },
     ];
   },
 };

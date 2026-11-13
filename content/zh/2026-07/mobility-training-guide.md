@@ -2,6 +2,8 @@
 title: "Mobility Training 终极指南：提升关节活动度，让力量训练更强更安全"
 date: "2026-07-18"
 description: "深入解析 Mobility Training 如何改善关节活动度、动作质量、身体控制与运动表现，打造更灵活、更稳定、更强大的身体。"
+category: "瑜伽与柔韧度"
+tags: ["Mobility", "关节活动度", "拉伸", "柔韧性", "防伤"]
 ---
 
 ## Mobility Training 终极指南：提升关节活动度，让力量训练更强更安全

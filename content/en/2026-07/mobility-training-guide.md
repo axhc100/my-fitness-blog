@@ -2,6 +2,8 @@
 title: "Mobility Training Guide: Improve Joint Mobility for Better Strength and Performance"
 date: "2026-07-18"
 description: "Learn how mobility training improves range of motion, movement quality, joint control, and athletic performance while supporting safer strength training."
+category: "Yoga & Mobility"
+tags: ["Mobility", "Joint Mobility", "Flexibility", "Range of Motion", "Injury Prevention"]
 ---
 
 ## Mobility Training Guide: Improve Joint Mobility for Better Strength and Performance

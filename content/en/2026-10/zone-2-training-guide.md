@@ -2,7 +2,7 @@
 title: "Zone 2 Cardio Deep Dive: How Aerobic Base Training Builds Mitochondrial Density and Burns Fat Efficiently"
 date: "2026-10-21"
 description: "Explore the exercise physiology behind Zone 2 heart rate training. Learn how low-intensity steady-state endurance maximizes fat oxidation (FatMax), stimulates mitochondrial biogenesis, and builds superior aerobic capacity."
-category: "Cardio & Endurance"
+category: "Recovery & Nutrition"
 tags: ["Zone 2", "Cardio", "Fat Burning Heart Rate", "Endurance Training", "Fat Loss"]
 ---
 

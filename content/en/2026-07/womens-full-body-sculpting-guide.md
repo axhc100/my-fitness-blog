@@ -2,6 +2,8 @@
 title: "The Ultimate Full Body Sculpting Guide for Women"
 date: "2026-07-02"
 description: "Build a lean, athletic physique with a science-based full-body training program that combines strength training, cardio, nutrition, and recovery."
+category: "Body Sculpting"
+tags: ["Body Sculpting", "Full Body Workout", "Strength Training", "Women Fitness", "Physique"]
 ---
 
 A beautiful physique is not simply about being lighter—it is about achieving lower body fat, balanced muscle development, and harmonious body proportions.
