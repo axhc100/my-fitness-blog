@@ -427,4 +427,57 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
       },
     },
   ],
+
+  "1rm": [
+    {
+      question: {
+        zh: "1RM 是什么？为什么要测算 1RM？",
+        en: "What is 1RM and why should I calculate it?",
+      },
+      answer: {
+        zh: "1RM（One Repetition Maximum，最大单次重复重量）是指在特定力量动作（如深蹲、卧推、硬拉）中，保持标准技术动作只能完成 1 次的极限重量。1RM 是力量训练的“黄金基准标尺”，所有科学周期化训练的负荷百分比（如 70% 增肌容量组、85% 力量强化组）都以 1RM 为基准进行精准配重。",
+        en: "1RM (One Repetition Maximum) represents the maximum weight an individual can lift for a single repetition with proper biomechanical technique. It serves as the foundational benchmark for strength programming, allowing lifters to calculate precise training percentages (e.g., 70% for hypertrophy, 85% for pure strength).",
+      },
+    },
+    {
+      question: {
+        zh: "Epley 公式算出来的 1RM 准吗？",
+        en: "How accurate is the Epley 1RM formula?",
+      },
+      answer: {
+        zh: "在 1~10 次中低重复区间内，Epley 公式（1RM = 重量 × (1 + 次数/30)）非常准确，经过数十项运动人体科学对照实验验证，与实测 1RM 的统计误差通常在 2%~5% 以内。公式通过次极大负荷（如 5 次或 8 次）安全推算极限，避免了直接冲极限受伤的风险。",
+        en: "Within the 1–10 rep range, the Epley formula is exceptionally accurate, with peer-reviewed literature showing a 2%–5% margin of error compared to direct laboratory testing. It provides a safe surrogate by estimating maximal strength from submaximal sets, avoiding the high injury risk of true limit testing.",
+      },
+    },
+    {
+      question: {
+        zh: "重复次数超过 10 次还能准确测算 1RM 吗？",
+        en: "Can I accurately calculate 1RM if my reps exceed 10?",
+      },
+      answer: {
+        zh: "误差会显著放大。当单组重复次数超过 10 次（例如 12~20 次）时，决定你能做多少次的核心生理因素从“最大神经肌纤维募集能力”转变为“肌耐力与乳酸耐受力”。因此，建议选择能够在 3~10 次内力竭的重量来代入计算，测算出的 1RM 最为准确。",
+        en: "Accuracy diminishes significantly. Beyond 10 reps (e.g., 12–20 reps), performance is governed primarily by local muscular endurance, buffering capacity, and cardiovascular conditioning rather than maximum motor unit recruitment. For optimal accuracy, select a test weight you can lift between 3 and 10 repetitions.",
+      },
+    },
+    {
+      question: {
+        zh: "力量训练新手可以直接测试真实的 1RM 极限吗？",
+        en: "Can strength training beginners safely test true 1RM?",
+      },
+      answer: {
+        zh: "强烈不建议新手直接冲刺真实 1RM。初学者中枢神经系统动作定型尚未成熟，大重量下极易发生代偿变形（如深蹲弓背夹膝、卧推弹胸翻手腕），极易引发肌腱撕裂或腰椎损伤。新手应使用本工具通过 5~8 次的稳定重量安全估算 1RM。",
+        en: "Beginners should strictly avoid testing true 1RM limits. Novices lack the neuromuscular coordination, stabilizing integrity, and structural groove required for maximal single attempts, creating substantial risk of tendon strains or spinal injury. Novices should always estimate 1RM safely via 5–8 rep sets.",
+      },
+    },
+    {
+      question: {
+        zh: "我的动作和重量数据会被保存吗？",
+        en: "Are my exercise choices and weight records saved on your server?",
+      },
+      answer: {
+        zh: "你在 1RM 计算器中选择的动作、输入的负重与次数仅保留在当前浏览器本地会话中，FitKit 没有任何后端数据库收集或存储你的个人训练数据，请放心使用。",
+        en: "All exercise selections, weight inputs, and rep counts reside entirely within your private browser tab session and local storage. FitKit does not log, upload, or monetize personal workout telemetry.",
+      },
+    },
+  ],
 };

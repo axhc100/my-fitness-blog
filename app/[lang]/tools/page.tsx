@@ -30,6 +30,14 @@ const toolItems = [
     enDesc: "Calculate your Body Mass Index (BMI), health risk categories, and ideal weight brackets based on WHO standards.",
   },
   {
+    slug: "1rm",
+    emoji: "🏋️",
+    zhTitle: "1RM 最大力量与周期负荷计算器",
+    enTitle: "1RM One-Rep Max Calculator",
+    zhDesc: "基于经典 Epley 力量方程，根据 1–10 次测试重量精准推算深蹲卧推硬拉极限，生成 50%~95% 训练强度负荷表。",
+    enDesc: "Calculate your One-Rep Max (1RM) using the Epley formula and generate a full percentage training load chart.",
+  },
+  {
     slug: "bmr",
     emoji: "⚡",
     zhTitle: "BMR 与 TDEE 每日能量计算",
