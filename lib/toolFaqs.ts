@@ -614,8 +614,8 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
         en: "How much weekly volume is optimal (What are MEV, MAV, and MRV)?",
       },
       answer: {
-        zh: "这是由 Mike Israetel 博士提出的肌肥大经典容量地标体系：① MEV（维持有效容量）：能产生微量肌肥大进展的最低组数，通常每周单肌群 6~10 组；② MAV（最大适应容量）：产生最佳最快增肌效益的黄金区间，通常每周单肌群 12~20 组；③ MRV（最大可恢复容量）：身体能有效恢复的容量天花板，通常每周单肌群 20~25 组以上。超过 MRV 将导致无法完全超量恢复。",
-        en: "Formulated by Dr. Mike Israetel, these landmarks represent: 1) MEV (Minimum Effective Volume): the baseline threshold to elicit measurable hypertrophy (~6–10 sets/muscle/week); 2) MAV (Maximum Adaptive Volume): the sweet spot where gains are fastest and most efficient (~12–20 sets/muscle/week); 3) MRV (Maximum Recoverable Volume): the upper ceiling beyond which the body cannot recover (~20–25+ sets/muscle/week).",
+        zh: "这是由 Mike Israetel 博士提出的肌肥大经典容量地标体系：① MV（维持容量）：保持现有肌肉量的底线，通常每周单肌群 4~6 组；② MEV（最小有效容量）：产生可观察肌肥大进展的最低组数，通常每周单肌群 8~12 组；③ MAV（最大适应容量）：产生最佳增肌效益的黄金区间，通常每周单肌群 12~20 组；④ MRV（最大可恢复容量）：身体能有效恢复的容量天花板，通常每周单肌群 22~26+ 组。超过 MRV 将导致过度训练且无法超量恢复。",
+        en: "Formulated by Dr. Mike Israetel, these landmarks represent: 1) MV (Maintenance Volume): baseline to preserve muscle mass (~4–6 sets/muscle/week); 2) MEV (Minimum Effective Volume): threshold to elicit measurable hypertrophy (~8–12 sets/muscle/week); 3) MAV (Maximum Adaptive Volume): the sweet spot where gains are fastest and most efficient (~12–20 sets/muscle/week); 4) MRV (Maximum Recoverable Volume): the upper ceiling beyond which the body cannot recover (~22–26+ sets/muscle/week).",
       },
     },
     {

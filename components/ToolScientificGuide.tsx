@@ -678,9 +678,9 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
       ],
       audienceTitle: "Hypertrophy Landmarks & Programming Application",
       audience: [
-        "MEV (Minimum Effective Volume, ~6–10 sets/week): The minimum stimulus threshold required to generate measurable muscle hypertrophy. Useful during deloads or maintenance phases.",
+        "MEV (Minimum Effective Volume, ~8–12 sets/week): The minimum stimulus threshold required to generate measurable muscle hypertrophy. Useful during deloads or baseline mesocycle weeks.",
         "MAV (Maximum Adaptive Volume, ~12–20 sets/week): The golden hypertrophy sweet spot where progressive overload yields the fastest gains with sustainable neuromuscular recovery.",
-        "MRV (Maximum Recoverable Volume, ~20–25+ sets/week): The absolute recovery ceiling. Exceeding MRV leads to non-functional overreaching, blunted MPS, and elevated risk of tendinopathy. Planned deload weeks are essential when approaching MRV."
+        "MRV (Maximum Recoverable Volume, ~22–26+ sets/week): The absolute recovery ceiling. Exceeding MRV leads to non-functional overreaching, blunted MPS, and elevated risk of tendinopathy. Planned deload weeks are essential when approaching MRV."
       ],
       limitationsTitle: "Junk Volume & Quality Considerations",
       limitations: [
@@ -707,9 +707,9 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
       ],
       audienceTitle: "容量地标解读与训练周期规划",
       audience: [
-        "MEV（最低有效容量，约 6~10 组/周）：触发肌肉产生可观察生长的下限门槛。适合出差、生活忙碌或主动维持期的低负荷刺激。",
+        "MEV（最小有效容量，约 8~12 组/周）：触发肌肉产生可观察生长的下限门槛。适合出差、生活忙碌或中周期起始周建立基准。",
         "MAV（最大适应容量，约 12~20 组/周）：增肌效益最高、性价比最佳的黄金区间。绝大部分训练周期应围绕 MAV 渐进超负荷。",
-        "MRV（最大可恢复容量，约 20~25+ 组/周）：身体和中枢神经能恢复的上限天花板。接近或达到 MRV 时疲劳极度累积，必须在下周安排减量周（Deload）以消除疲劳、兑现肌肉生长。"
+        "MRV（最大可恢复容量，约 22~26+ 组/周）：身体和中枢神经能恢复的上限天花板。接近或达到 MRV 时疲劳极度累积，必须在下周安排减量周（Deload）以消除疲劳、兑现肌肉生长。"
       ],
       limitationsTitle: "无效垃圾容量警示与个体差异",
       limitations: [

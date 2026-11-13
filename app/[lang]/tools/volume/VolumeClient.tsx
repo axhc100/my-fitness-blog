@@ -34,12 +34,12 @@ export default function VolumeClient({ paramsPromise }: VolumeClientProps) {
       mrvSetsMax: number; // 最大恢复上限
     }
   > = {
-    legs: { zh: '腿部 (Legs / Quads / Hams)', en: 'Legs (Quads & Hamstrings)', mevSets: 6, mavSetsMax: 18, mrvSetsMax: 22 },
-    chest: { zh: '胸部 (Chest / Pectorals)', en: 'Chest (Pectorals)', mevSets: 6, mavSetsMax: 18, mrvSetsMax: 22 },
+    legs: { zh: '腿部 (Legs / Quads / Hams)', en: 'Legs (Quads & Hamstrings)', mevSets: 8, mavSetsMax: 20, mrvSetsMax: 24 },
+    chest: { zh: '胸部 (Chest / Pectorals)', en: 'Chest (Pectorals)', mevSets: 8, mavSetsMax: 20, mrvSetsMax: 24 },
     back: { zh: '背部 (Back / Lats & Traps)', en: 'Back (Lats & Upper Back)', mevSets: 8, mavSetsMax: 20, mrvSetsMax: 25 },
-    shoulders: { zh: '肩部 (Shoulders / Deltoids)', en: 'Shoulders (Deltoids)', mevSets: 6, mavSetsMax: 18, mrvSetsMax: 22 },
-    arms: { zh: '手臂 (Arms / Biceps & Triceps)', en: 'Arms (Biceps & Triceps)', mevSets: 6, mavSetsMax: 16, mrvSetsMax: 20 },
-    glutes: { zh: '臀部 (Glutes)', en: 'Glutes', mevSets: 4, mavSetsMax: 16, mrvSetsMax: 20 },
+    shoulders: { zh: '肩部 (Shoulders / Deltoids)', en: 'Shoulders (Deltoids)', mevSets: 8, mavSetsMax: 20, mrvSetsMax: 24 },
+    arms: { zh: '手臂 (Arms / Biceps & Triceps)', en: 'Arms (Biceps & Triceps)', mevSets: 8, mavSetsMax: 18, mrvSetsMax: 22 },
+    glutes: { zh: '臀部 (Glutes)', en: 'Glutes', mevSets: 6, mavSetsMax: 18, mrvSetsMax: 22 },
   };
 
   const defaultExercises: ExerciseItem[] = [
@@ -79,25 +79,41 @@ export default function VolumeClient({ paramsPromise }: VolumeClientProps) {
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
-    const saved = localStorage.getItem('fitkit_volume_exercises');
+    const storageKey = `fitkit_volume_exercises_${lang}`;
+    const saved = localStorage.getItem(storageKey) || localStorage.getItem('fitkit_volume_exercises');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          setExercises(parsed);
+          const normalized = parsed.map((item) => ({
+            ...item,
+            name: !isZh
+              ? item.name === '深蹲'
+                ? 'Squat'
+                : item.name === '卧推'
+                ? 'Bench Press'
+                : item.name
+              : item.name === 'Squat'
+              ? '深蹲'
+              : item.name === 'Bench Press'
+              ? '卧推'
+              : item.name,
+          }));
+          setExercises(normalized);
         }
       } catch {
         // fallback to defaults
       }
     }
     setMounted(true);
-  }, []);
+  }, [lang, isZh]);
 
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem('fitkit_volume_exercises', JSON.stringify(exercises));
+      const storageKey = `fitkit_volume_exercises_${lang}`;
+      localStorage.setItem(storageKey, JSON.stringify(exercises));
     }
-  }, [exercises, mounted]);
+  }, [exercises, mounted, lang]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -194,36 +210,36 @@ export default function VolumeClient({ paramsPromise }: VolumeClientProps) {
         const stats = muscleAggregator[m];
         const cfg = muscleConfigs[m];
 
-        let landmarkBadge = 'MAV 黄金区间';
+        let landmarkBadge = isZh ? 'MAV 黄金区间' : 'MAV Optimal Zone';
         let landmarkBadgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
-        let landmarkStatus = isZh ? '在 MAV 最佳适应区间' : 'In MAV (Optimal Growth)';
+        let landmarkStatus = isZh ? '在 MAV 最佳适应区间' : 'In MAV (Optimal Hypertrophy)';
         let interpretation = isZh
           ? '周组数处于 MAV 黄金肌肥大适应区间，机械张力刺激与超量恢复达到理想平衡。'
           : 'Weekly sets within MAV (Maximum Adaptive Volume). Ideal balance between hypertrophy stimulus and recovery.';
 
         if (stats.sets < cfg.mevSets) {
-          landmarkBadge = '< MEV 维持阶段';
+          landmarkBadge = isZh ? '< MEV 维持阶段' : '< MEV Maintenance';
           landmarkBadgeColor = 'bg-slate-100 text-slate-700 border-slate-200';
           landmarkStatus = isZh ? '低于 MEV 有效下限' : 'Below MEV (Maintenance Only)';
           interpretation = isZh
-            ? `当前该肌群仅 ${stats.sets} 组，低于 MEV 下限（${cfg.mevSets} 组），适合减量维持，若想加速生长建议增加组数。`
-            : `Only ${stats.sets} sets (below ${cfg.mevSets} MEV). Sufficient for maintenance, but add sets to stimulate gains.`;
+            ? `当前该肌群仅 ${stats.sets} 组，低于 MEV 下限（${cfg.mevSets} 组），属于低频维持，若想加速生长建议增加 2~4 组。`
+            : `Currently only ${stats.sets} sets, below MEV threshold (${cfg.mevSets} sets). Suitable for maintenance; add 2–4 sets to stimulate progressive hypertrophy.`;
         } else if (stats.sets <= cfg.mavSetsMax) {
-          landmarkBadge = 'MAV 黄金区间';
+          landmarkBadge = isZh ? 'MAV 黄金区间' : 'MAV Optimal Zone';
           landmarkBadgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
           landmarkStatus = isZh ? '在 MAV 最佳适应区间' : 'In MAV (Optimal Hypertrophy)';
           interpretation = isZh
             ? `周组数处于 MAV 黄金增肌区间（${cfg.mevSets}~${cfg.mavSetsMax} 组），容量适中高效，极利于肌肥大。`
             : `Sets fall into golden MAV range (${cfg.mevSets}–${cfg.mavSetsMax} sets). Highly productive hypertrophy zone.`;
         } else if (stats.sets <= cfg.mrvSetsMax) {
-          landmarkBadge = 'MAV ~ MRV 冲击期';
+          landmarkBadge = isZh ? 'MAV ~ MRV 冲击期' : 'MAV–MRV Overreach';
           landmarkBadgeColor = 'bg-amber-100 text-amber-800 border-amber-200';
           landmarkStatus = isZh ? '接近 MRV 恢复极限' : 'Near MRV (High Fatigue)';
           interpretation = isZh
             ? `容量接近 MRV 恢复天花板（${cfg.mrvSetsMax} 组），疲劳累积显著，需注意睡眠与关节状态。`
             : `Approaching MRV ceiling (~${cfg.mrvSetsMax} sets). Demands optimal sleep, nutrition, and joint care.`;
         } else {
-          landmarkBadge = '> MRV 建议减量';
+          landmarkBadge = isZh ? '> MRV 建议减量' : '> MRV Deload Recommended';
           landmarkBadgeColor = 'bg-rose-100 text-rose-800 border-rose-200';
           landmarkStatus = isZh ? '超过 MRV 恢复上限' : 'Exceeds MRV (Overreaching)';
           interpretation = isZh
@@ -256,7 +272,9 @@ export default function VolumeClient({ paramsPromise }: VolumeClientProps) {
     const breakdownLines = result.muscleBreakdown
       .map(
         (b) =>
-          `• ${b.muscleLabel}：周容量 ${b.volumeKg.toLocaleString()} kg（${b.totalSets} 组）[${b.landmarkStatus}]`
+          isZh
+            ? `• ${b.muscleLabel}：周容量 ${b.volumeKg.toLocaleString()} kg（${b.totalSets} 组）[${b.landmarkStatus}]`
+            : `• ${b.muscleLabel}: Weekly Volume ${b.volumeKg.toLocaleString()} kg (${b.totalSets} sets) [${b.landmarkStatus}]`
       )
       .join('\n');
 
@@ -418,6 +436,7 @@ export default function VolumeClient({ paramsPromise }: VolumeClientProps) {
               <div>• {isZh ? '单动作容量 = 组数 × 次数 × 重量 (kg)' : 'Volume Load = Sets × Reps × Weight (kg)'}</div>
               <div>• {isZh ? '肌群周容量 = 该肌群所有动作容量之和' : 'Muscle Volume = Sum of Volume Loads for that muscle'}</div>
               <div>• {isZh ? '全周总容量 = 所有肌群周容量之和' : 'Total Volume = Sum of all muscle group volume loads'}</div>
+              <div>• {isZh ? '容量地标统一标准：MEV (8~12 组/周)、MAV (12~20 组/周)、MRV (22~26+ 组/周)' : 'Volume Landmarks: MEV (8–12 sets/wk), MAV (12–20 sets/wk), MRV (22–26+ sets/wk)'}</div>
             </div>
             <div className="text-[11px] text-gray-600 bg-slate-100/80 p-2.5 rounded-lg mb-2 space-y-1">
               <div className="font-semibold text-gray-700">{isZh ? '验算示例：' : 'Validation Examples:'}</div>

@@ -104,7 +104,7 @@ Engineered by Dr. Mike Israetel, the Volume Landmark paradigm provides the most 
 | :--- | :---: | :--- | :--- |
 | **MV (Maintenance Volume)** | 4–6 sets | Minimum volume needed to preserve existing skeletal muscle tissue | Cutting phases, travel, or Week 5 active deload |
 | **MEV (Minimum Effective Volume)** | 8–12 sets | Baseline threshold volume required to stimulate measurable hypertrophy | Week 1 baseline establishment (RIR 3) |
-| **MAV (Maximum Adaptive Volume)** | 14–20 sets | Optimal sweet spot yielding maximum hypertrophy per unit of fatigue | Weeks 2–3 progressive overload core phase (RIR 1–2) |
+| **MAV (Maximum Adaptive Volume)** | 12–20 sets | Optimal sweet spot yielding maximum hypertrophy per unit of fatigue | Weeks 2–3 progressive overload core phase (RIR 1–2) |
 | **MRV (Maximum Recoverable Volume)** | 22–26+ sets | Upper limit of adaptive capacity; exceeding causes negative protein balance | Week 4 functional overreaching peak (RIR 0–1) |
 
 ### 1. The Four Landmark Pillars
@@ -116,7 +116,7 @@ Engineered by Dr. Mike Israetel, the Volume Landmark paradigm provides the most 
    - Typically **8 to 12 sets per muscle group per week**. This represents the ideal starting point for Week 1 of any structured mesocycle.
 3. **MAV (Maximum Adaptive Volume)**:
    - The range where the rate of muscle hypertrophy is maximized relative to systemic fatigue;
-   - Typically **14 to 20 sets per muscle group per week**. Lifters should spend the majority of a training block progressing through this zone.
+   - Typically **12 to 20 sets per muscle group per week**. Lifters should spend the majority of a training block progressing through this zone.
 4. **MRV (Maximum Recoverable Volume)**:
    - The absolute physiological limit of volume an athlete can recover from and adapt to;
    - Typically **22 to 26 sets per muscle group per week**. Exceeding this ceiling results in negative protein balance, tendon inflammation, and systemic overtraining.
