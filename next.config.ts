@@ -182,6 +182,139 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/zone-2-training-guide",
         statusCode: 301,
       },
+      // 专项批次一：归档文章旧 Slug 规范化 301 重定向 (12 篇，共 24 条)
+      // 1. 15分钟HIIT (06-06-20-01 -> hiit-15-minute-fat-burn)
+      {
+        source: "/zh/blog/06-06-20-01",
+        destination: "/zh/blog/hiit-15-minute-fat-burn",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/06-06-20-01",
+        destination: "/en/blog/hiit-15-minute-fat-burn",
+        statusCode: 301,
+      },
+      // 2. 皮质醇与腹部脂肪 (06-06-20-02 -> cortisol-stress-belly-fat)
+      {
+        source: "/zh/blog/06-06-20-02",
+        destination: "/zh/blog/cortisol-stress-belly-fat",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/06-06-20-02",
+        destination: "/en/blog/cortisol-stress-belly-fat",
+        statusCode: 301,
+      },
+      // 3. Zone 2 与线粒体 (06-06-20-03 -> zone-2-mitochondrial-biogenesis)
+      {
+        source: "/zh/blog/06-06-20-03",
+        destination: "/zh/blog/zone-2-mitochondrial-biogenesis",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/06-06-20-03",
+        destination: "/en/blog/zone-2-mitochondrial-biogenesis",
+        statusCode: 301,
+      },
+      // 4. 肌浆网肥大 (06-06-20-04 -> sarcoplasmic-hypertrophy-mechanisms)
+      {
+        source: "/zh/blog/06-06-20-04",
+        destination: "/zh/blog/sarcoplasmic-hypertrophy-mechanisms",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/06-06-20-04",
+        destination: "/en/blog/sarcoplasmic-hypertrophy-mechanisms",
+        statusCode: 301,
+      },
+      // 5. 为什么拼命做HIIT肚子更胖 (06-06-20-05 -> why-hiit-causes-belly-fat)
+      {
+        source: "/zh/blog/06-06-20-05",
+        destination: "/zh/blog/why-hiit-causes-belly-fat",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/06-06-20-05",
+        destination: "/en/blog/why-hiit-causes-belly-fat",
+        statusCode: 301,
+      },
+      // 6. 肌少型肥胖与抗阻 (26-06-22-2 -> sarcopenic-obesity-resistance-training)
+      {
+        source: "/zh/blog/26-06-22-2",
+        destination: "/zh/blog/sarcopenic-obesity-resistance-training",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-22-2",
+        destination: "/en/blog/sarcopenic-obesity-resistance-training",
+        statusCode: 301,
+      },
+      // 7. 生酮流感与电解质 (26-06-22-3 -> keto-flu-electrolytes-remedy)
+      {
+        source: "/zh/blog/26-06-22-3",
+        destination: "/zh/blog/keto-flu-electrolytes-remedy",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-22-3",
+        destination: "/en/blog/keto-flu-electrolytes-remedy",
+        statusCode: 301,
+      },
+      // 8. 增肌平台期突破 (26-06-22-1 -> break-muscle-growth-plateau)
+      {
+        source: "/zh/blog/26-06-22-1",
+        destination: "/zh/blog/break-muscle-growth-plateau",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-22-1",
+        destination: "/en/blog/break-muscle-growth-plateau",
+        statusCode: 301,
+      },
+      // 9. 渐进超负荷 (26-06-23-1 -> progressive-overload-hypertrophy-guide)
+      {
+        source: "/zh/blog/26-06-23-1",
+        destination: "/zh/blog/progressive-overload-hypertrophy-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-23-1",
+        destination: "/en/blog/progressive-overload-hypertrophy-guide",
+        statusCode: 301,
+      },
+      // 10. 自然睾酮提升 (26-06-23-2 -> natural-testosterone-optimization)
+      {
+        source: "/zh/blog/26-06-23-2",
+        destination: "/zh/blog/natural-testosterone-optimization",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-23-2",
+        destination: "/en/blog/natural-testosterone-optimization",
+        statusCode: 301,
+      },
+      // 11. 增肌不长脂 Lean Bulk (26-06-24-1 -> lean-bulk-mastery-guide)
+      {
+        source: "/zh/blog/26-06-24-1",
+        destination: "/zh/blog/lean-bulk-mastery-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-24-1",
+        destination: "/en/blog/lean-bulk-mastery-guide",
+        statusCode: 301,
+      },
+      // 12. 科学显现腹肌 (26-06-25-1 -> visible-abs-science-guide)
+      {
+        source: "/zh/blog/26-06-25-1",
+        destination: "/zh/blog/visible-abs-science-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-06-25-1",
+        destination: "/en/blog/visible-abs-science-guide",
+        statusCode: 301,
+      },
     ];
   },
 };
