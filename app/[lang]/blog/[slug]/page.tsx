@@ -177,6 +177,10 @@ export default async function BlogPostPage({
   cleanContent = cleanContent.replace(/^(#{1,6}\s+)\*\*([^*\n\r]+?)\*\*\s*$/gm, '$1$2');
   cleanContent = cleanContent.replace(/^(#{1,6}\s+.*?)\*\*\s*$/gm, '$1');
 
+  // 4.6 保护数值区间与近似符号：将代码块外的波浪号 ~ 转换为 HTML 实体 &#126;
+  // 彻底阻断 marked 将成对出现的 16~24小时 ... RIR 1~2 误解析为 GFM 删除线 (<del>)
+  cleanContent = cleanContent.replace(/~/g, '&#126;');
+
   // 5. 修复中文标点紧贴导致的 Markdown 加粗失效问题（仅在代码块外执行）
   cleanContent = cleanContent.replace(/\*\*([^*\n\r]+?)\*\*/g, '<strong>$1</strong>');
 
@@ -198,6 +202,7 @@ export default async function BlogPostPage({
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
         .replace(/<[^>]+>/g, '')
         .replace(/[*_`]/g, '')
+        .replace(/&#126;/g, '~')
         .trim();
       const id = `heading-${headingCounter}`;
       tocItems.push({ id, text: plainText, level });
@@ -281,6 +286,11 @@ export default async function BlogPostPage({
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
+      // 彻底解包任何误生成的 <del> 删除线，保证任何数字区间和文字绝对不被划线或拼接
+      if (domNode instanceof Element && domNode.name === 'del') {
+        return <>{domToReact(domNode.children as DOMNode[], options)}</>;
+      }
+
       // 包装所有表格：只在表格内横向滚动，页面整体不横向滚动，永不遮挡侵入目录
       if (domNode instanceof Element && domNode.name === 'table') {
         return (
