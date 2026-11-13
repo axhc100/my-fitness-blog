@@ -448,6 +448,139 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/womens-flexibility-training-guide",
         statusCode: 301,
       },
+      // 专项批次三：归档文章旧 Slug 规范化 301 重定向 (12 篇，共 24 条)
+      // 1. 女性平衡训练指南 (26-07-06-1 -> womens-balance-training-guide)
+      {
+        source: "/zh/blog/26-07-06-1",
+        destination: "/zh/blog/womens-balance-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-06-1",
+        destination: "/en/blog/womens-balance-training-guide",
+        statusCode: 301,
+      },
+      // 2. 女性功能性训练指南 (26-07-07-1 -> womens-functional-training-guide)
+      {
+        source: "/zh/blog/26-07-07-1",
+        destination: "/zh/blog/womens-functional-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-07-1",
+        destination: "/en/blog/womens-functional-training-guide",
+        statusCode: 301,
+      },
+      // 3. 女性HIIT训练终极指南 (26-07-08-1 -> womens-hiit-training-guide)
+      {
+        source: "/zh/blog/26-07-08-1",
+        destination: "/zh/blog/womens-hiit-training-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-08-1",
+        destination: "/en/blog/womens-hiit-training-guide",
+        statusCode: 301,
+      },
+      // 4. 科学安排Deload周 (26-07-09-1 -> deload-week-programming-guide)
+      {
+        source: "/zh/blog/26-07-09-1",
+        destination: "/zh/blog/deload-week-programming-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-09-1",
+        destination: "/en/blog/deload-week-programming-guide",
+        statusCode: 301,
+      },
+      // 5. 训练容量终极指南 (26-07-10-1 -> hypertrophy-training-volume-guide)
+      {
+        source: "/zh/blog/26-07-10-1",
+        destination: "/zh/blog/hypertrophy-training-volume-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-10-1",
+        destination: "/en/blog/hypertrophy-training-volume-guide",
+        statusCode: 301,
+      },
+      // 6. 力竭训练完全指南 (26-07-11-1 -> training-to-failure-guide)
+      {
+        source: "/zh/blog/26-07-11-1",
+        destination: "/zh/blog/training-to-failure-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-11-1",
+        destination: "/en/blog/training-to-failure-guide",
+        statusCode: 301,
+      },
+      // 7. 睡眠与增肌终极指南 (26-07-12-1 -> sleep-and-muscle-growth)
+      {
+        source: "/zh/blog/26-07-12-1",
+        destination: "/zh/blog/sleep-and-muscle-growth",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-12-1",
+        destination: "/en/blog/sleep-and-muscle-growth",
+        statusCode: 301,
+      },
+      // 8. 有氧会掉肌肉吗 (26-07-13-1 -> does-cardio-kill-muscle)
+      {
+        source: "/zh/blog/26-07-13-1",
+        destination: "/zh/blog/does-cardio-kill-muscle",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-13-1",
+        destination: "/en/blog/does-cardio-kill-muscle",
+        statusCode: 301,
+      },
+      // 9. 健身平台期破解指南 (26-07-14-1 -> how-to-break-fitness-plateau)
+      {
+        source: "/zh/blog/26-07-14-1",
+        destination: "/zh/blog/how-to-break-fitness-plateau",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-14-1",
+        destination: "/en/blog/how-to-break-fitness-plateau",
+        statusCode: 301,
+      },
+      // 10. 肌肉增长机制 (26-07-15-1 -> science-of-muscle-hypertrophy)
+      {
+        source: "/zh/blog/26-07-15-1",
+        destination: "/zh/blog/science-of-muscle-hypertrophy",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-15-1",
+        destination: "/en/blog/science-of-muscle-hypertrophy",
+        statusCode: 301,
+      },
+      // 11. 身体重组终极指南 (26-07-16-1 -> body-recomposition-guide)
+      {
+        source: "/zh/blog/26-07-16-1",
+        destination: "/zh/blog/body-recomposition-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-07-16-1",
+        destination: "/en/blog/body-recomposition-guide",
+        statusCode: 301,
+      },
+      // 12. 减载周完整指南 (26-10-19-1 -> deload-week-fatigue-recovery)
+      {
+        source: "/zh/blog/26-10-19-1",
+        destination: "/zh/blog/deload-week-fatigue-recovery",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-19-1",
+        destination: "/en/blog/deload-week-fatigue-recovery",
+        statusCode: 301,
+      },
     ];
   },
 };
