@@ -3,10 +3,11 @@ import path from 'path';
 import Link from 'next/link';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import katex from 'katex';
 import type { Metadata } from 'next';
 import { getDictionary } from '../../../dictionaries';
 import Image from 'next/image';
-import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
+import parse, { Element, HTMLReactParserOptions, domToReact, DOMNode } from 'html-react-parser';
 import RelatedToolCTA from '../../../../components/RelatedToolCTA';
 import RelatedArticles from '../../../../components/RelatedArticles';
 import ArticleTOC, { TocItem } from '../../../../components/ArticleTOC';
@@ -133,18 +134,42 @@ export default async function BlogPostPage({
   const fileRaw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileRaw);
 
-  // 1. 消除 H1 紧随其后的重复 H2 标题
   let cleanContent = content;
+
+  // 1. 清理文内可能存在的冗余目录标题
+  cleanContent = cleanContent.replace(/^#{1,3}\s*(目录|Table of Contents|Content)\s*$/gmi, '');
+
+  // 2. 消除与 H1 重复紧随其后的首个 H2 标题
   const firstH2Match = content.match(/^##\s+(.+)$/m);
   if (
     firstH2Match &&
     (firstH2Match[1].trim() === (data.title || '').trim() ||
       (data.title || '').includes(firstH2Match[1].trim()))
   ) {
-    cleanContent = content.replace(/^##\s+.+$/m, '').trim();
+    cleanContent = cleanContent.replace(/^##\s+.+$/m, '').trim();
   }
 
-  // 2. 自动生成正文 TOC 目录并为 H2 / H3 注入唯一锚点 ID
+  // 3. LaTeX 公式预渲染（支持 $$...$$ 块级和 $...$ 行内数学公式）
+  cleanContent = cleanContent.replace(/\$\$([\s\S]+?)\$\$/g, (_, math) => {
+    try {
+      return `\n\n<div class="katex-display my-4 overflow-x-auto text-center">${katex.renderToString(math.trim(), { displayMode: true, throwOnError: false })}</div>\n\n`;
+    } catch {
+      return math;
+    }
+  });
+
+  cleanContent = cleanContent.replace(/\$([^\$\n\r]+?)\$/g, (_, math) => {
+    try {
+      return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
+    } catch {
+      return math;
+    }
+  });
+
+  // 4. 修复中文标点紧贴导致的 Markdown 加粗失效问题（如：**加粗**是）
+  cleanContent = cleanContent.replace(/\*\*([^*\n\r]+?)\*\*/g, '<strong>$1</strong>');
+
+  // 5. 自动生成正文 TOC 目录并为 H2 / H3 注入唯一锚点 ID（必须保留前后两重空行，防止截断后续 Markdown 表格）
   const tocItems: TocItem[] = [];
   let headingCounter = 0;
   const contentWithHeadingIds = cleanContent.replace(
@@ -154,25 +179,26 @@ export default async function BlogPostPage({
       const level = hashes.length;
       const plainText = rawTitle
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/<[^>]+>/g, '')
         .replace(/[*_`]/g, '')
         .trim();
       const id = `heading-${headingCounter}`;
       tocItems.push({ id, text: plainText, level });
-      return `<h${level} id="${id}">${rawTitle}</h${level}>`;
+      return `\n\n<h${level} id="${id}">${rawTitle}</h${level}>\n\n`;
     }
   );
 
   const htmlContent = await marked(contentWithHeadingIds);
   const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image;
 
-  // 3. 计算阅读时长
+  // 6. 计算阅读时长
   const wordCount = content.replace(/\s+/g, '').length;
   const readingMinutes = isZh
     ? Math.max(1, Math.ceil(wordCount / 450))
     : Math.max(1, Math.ceil(content.split(/\s+/).length / 220));
   const readingTimeText = isZh ? `阅读约 ${readingMinutes} 分钟` : `${readingMinutes} min read`;
 
-  // 4. 标准化文章分类与面包屑
+  // 7. 标准化文章分类与面包屑
   const catKey = resolveArticleCategoryKey({
     slug,
     title: data.title || '',
@@ -184,7 +210,7 @@ export default async function BlogPostPage({
   const catConfig = CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];
   const categoryLabel = catConfig.label;
 
-  // 5. 结构化数据 (Article + BreadcrumbList)
+  // 8. 结构化数据 (Article + BreadcrumbList)
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -197,7 +223,7 @@ export default async function BlogPostPage({
     mainEntityOfPage: absoluteUrl(`/${lang}/blog/${slug}`),
     author: {
       '@type': 'Organization',
-      name: isZh ? 'FitKit 团队' : 'FitKit Team',
+      name: isZh ? 'FitKit 科学团队' : 'FitKit Science Team',
     },
     publisher: {
       '@type': 'Organization',
@@ -238,6 +264,17 @@ export default async function BlogPostPage({
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
+      // 包装所有表格，确保在宽屏和移动端 (360px) 均支持横向流畅滚动且永不重叠
+      if (domNode instanceof Element && domNode.name === 'table') {
+        return (
+          <div className="w-full my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm scrollbar-thin">
+            <table className="w-full text-left text-sm" {...domNode.attribs}>
+              {domToReact(domNode.children as DOMNode[], options)}
+            </table>
+          </div>
+        );
+      }
+
       if (domNode instanceof Element && domNode.name === 'p') {
         if (
           domNode.children.length === 1 &&
@@ -316,7 +353,7 @@ export default async function BlogPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
 
-        {/* 🧭 面包屑导航（移动端横向滚动不换行） */}
+        {/* 🍞 面包屑导航（移动端横向滚动不换行） */}
         <nav
           aria-label="Breadcrumbs"
           className="flex items-center gap-1.5 text-xs text-gray-400 overflow-x-auto whitespace-nowrap scrollbar-none pb-4 mb-6"
@@ -336,7 +373,7 @@ export default async function BlogPostPage({
           <span className="text-gray-400 truncate max-w-xs">{data.title}</span>
         </nav>
 
-        {/* 双栏布局：正文区 + 桌面端右侧 TOC */}
+        {/* 双栏布局：正文区 + 桌面端右侧吸顶 TOC */}
         <div className="flex flex-col lg:flex-row gap-12 justify-between items-start">
           <main className="w-full lg:max-w-3xl min-w-0">
             <article>
@@ -379,8 +416,8 @@ export default async function BlogPostPage({
                 </div>
               </header>
 
-              {/* 移动端目录折叠抽屉 */}
-              <ArticleTOC items={tocItems} lang={lang} />
+              {/* 📱 仅在移动端渲染折叠目录抽屉 */}
+              <ArticleTOC items={tocItems} lang={lang} mode="mobile" />
 
               {/* 正文渲染 */}
               <div
@@ -413,7 +450,7 @@ export default async function BlogPostPage({
                 </div>
               )}
 
-              {/* 作者详细 Bio 卡片（文末 E-E-A-T 权威性提升） */}
+              {/* 作者详细 Bio 卡片 */}
               <div className="my-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
                 <Image
                   src="/images/author-avatar.jpg"
@@ -456,10 +493,10 @@ export default async function BlogPostPage({
             />
           </main>
 
-          {/* 💻 桌面端右侧吸顶目录 */}
-          <div className="hidden lg:block">
-            <ArticleTOC items={tocItems} lang={lang} />
-          </div>
+          {/* 📑 桌面端右侧固定吸顶目录（仅在 lg 及以上展示，单份渲染绝无重复） */}
+          <aside className="hidden lg:block w-72 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
+            <ArticleTOC items={tocItems} lang={lang} mode="desktop" />
+          </aside>
         </div>
       </div>
     </div>

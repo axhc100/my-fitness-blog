@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Lang, Article } from '@/app/lib/seo';
+import { resolveArticleCategoryKey, CATEGORIES_CONFIG } from '@/lib/categories';
 
 interface RelatedArticlesProps {
   lang: Lang;
@@ -29,25 +30,36 @@ export default function RelatedArticles({ lang, currentSlug, articles }: Related
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {filtered.map((art) => (
-          <Link
-            key={art.slug}
-            href={`/${lang}/blog/${art.slug}`}
-            className="flex flex-col justify-between p-5 bg-gray-50/70 hover:bg-white rounded-2xl border border-gray-100 hover:border-blue-100 hover:shadow-md transition-all duration-200 group"
-          >
-            <div>
-              <span className="text-[11px] font-mono text-gray-400 block mb-1.5" suppressHydrationWarning>
-                {art.date}
+        {filtered.map((art) => {
+          const catKey = resolveArticleCategoryKey(art);
+          const catConfig =
+            CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];
+
+          return (
+            <Link
+              key={art.slug}
+              href={`/${lang}/blog/${art.slug}`}
+              className="flex flex-col justify-between p-5 bg-gray-50/70 hover:bg-white rounded-2xl border border-gray-100 hover:border-blue-100 hover:shadow-md transition-all duration-200 group"
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${catConfig.badgeClass}`}>
+                    {catConfig.label}
+                  </span>
+                  <span className="text-[11px] font-mono text-gray-400" suppressHydrationWarning>
+                    {art.date}
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                  {art.title}
+                </h4>
+              </div>
+              <span className="text-[11px] font-bold text-blue-500 mt-4 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                {lang === 'zh' ? '阅读全文' : 'Read Now'} →
               </span>
-              <h4 className="text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                {art.title}
-              </h4>
-            </div>
-            <span className="text-[11px] font-bold text-blue-500 mt-4 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-              {lang === 'zh' ? '阅读全文' : 'Read Now'} →
-            </span>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

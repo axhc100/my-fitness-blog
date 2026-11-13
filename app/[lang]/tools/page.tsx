@@ -15,8 +15,8 @@ export async function generateMetadata({
     pathname: "/tools",
     title: isZh ? "健身计算器与健康数据工具大全 - FitKit" : "All Fitness Calculators & Health Tools - FitKit",
     description: isZh
-      ? "FitKit 免费健身工具大全：BMR 基础代谢、三大营养素、体脂率、每日饮水量、标准体重、靶心率及一字马柔韧度打卡。"
-      : "Complete directory of FitKit free health and fitness calculators: BMR, Macros, Body Fat %, Hydration, Ideal Weight, Target Heart Rate & Splits.",
+      ? "FitKit 科学健身工具箱大全：包含 BMR 基础代谢与 TDEE 每日总消耗、三大营养素宏量配比、美军体脂率、每日科学饮水量、标准理想体重、靶心率区间及一字马打卡。"
+      : "FitKit Free Health Tools: Calculate BMR & TDEE, macronutrient diet splits, body fat percentage, daily hydration goals, ideal weight, and target heart rate zones.",
   });
 }
 

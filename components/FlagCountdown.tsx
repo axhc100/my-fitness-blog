@@ -30,7 +30,6 @@ export default function FlagCountdown({ lang }: FlagCountdownProps) {
     if (!isSaved || !targetDate) return;
 
     const calculateTime = () => {
-      // ⚡ 增强兼容性解析：如果是 YYYY-MM-DD，强制补齐时间，防止时区导致提早一天过期
       let targetTimeParsed = Date.parse(targetDate);
       
       if (targetDate.includes('-') && !targetDate.includes('T')) {
@@ -60,7 +59,7 @@ export default function FlagCountdown({ lang }: FlagCountdownProps) {
     return () => clearInterval(timer);
   }, [isSaved, targetDate]);
 
-  // 3. 保存 Flag：确保存进去的是标准的 YYYY-MM-DD
+  // 3. 保存 Flag：确保标准 YYYY-MM-DD
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     if (!goal || !targetDate) return;
@@ -128,7 +127,7 @@ export default function FlagCountdown({ lang }: FlagCountdownProps) {
         <p className="text-xs text-gray-400 leading-relaxed mb-4">{isZh ? '给自己设一个终极目标日期。' : 'Set an ultimate target date.'}</p>
       </div>
 
-      <form onSubmit={handleSave} className="space-y-2">
+      <form onSubmit={handleSave} className="space-y-2" lang={isZh ? 'zh-CN' : 'en-US'}>
         <input
           type="text"
           required
@@ -140,11 +139,12 @@ export default function FlagCountdown({ lang }: FlagCountdownProps) {
         <div className="flex gap-2">
           <input
             type="date"
-            lang={lang}
+            lang={isZh ? 'zh-CN' : 'en-US'}
             required
             min={new Date().toISOString().split('T')[0]}
             value={targetDate}
             onChange={(e) => setTargetDate(e.target.value)}
+            title={isZh ? "选择目标日期" : "Select target date"}
             className="flex-1 px-3 py-1.5 text-xs border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50/50 text-gray-600 font-mono"
           />
           <button

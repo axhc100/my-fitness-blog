@@ -15,8 +15,8 @@ export async function generateMetadata({
     pathname: "/about",
     title: isZh ? "关于 FitKit - 科学健身计算器与训练指南" : "About FitKit - Science-Backed Fitness Tools",
     description: isZh
-      ? "了解 FitKit 的初心：免费的健身计算器与健康工具站，提供 BMR、三大营养素、体脂率与循证训练科学指南。"
-      : "Discover FitKit: Free, evidence-based fitness calculators and comprehensive training guides to help you reach your goals.",
+      ? "了解 FitKit 科学健身平台的初心与使命：我们致力于打造严谨、循证的免费健康工具矩阵，涵盖 BMR 与 TDEE 计算、宏量营养素配比、体脂率测算、补水标准与全景运动生理学指南。"
+      : "Explore FitKit: Free evidence-based fitness calculators, Mifflin-St Jeor TDEE formulas, macro diets, body fat analysis, and peer-reviewed athletic training guides.",
   });
 }
 

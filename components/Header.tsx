@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import SearchBox from "./SearchBox";
 
@@ -57,12 +57,12 @@ export default function Header({ locale }: Props) {
           ))}
         </nav>
 
-        {/* 桌面端右侧：搜索入口 + 语言切换 */}
+        {/* 桌面端右侧：搜索入口 + 语言切换（使用原生 a 标签保证整站语言属性与服务端渲染彻底同步） */}
         <div className="hidden md:flex items-center gap-3 shrink-0">
           <SearchBox locale={locale} />
 
           <div className="bg-gray-100 p-0.5 rounded-xl border border-gray-200/50 flex gap-0.5 text-xs font-bold shadow-inner">
-            <Link
+            <a
               href={locale === "en" ? pathname : switchTarget}
               className={`px-3 py-1 rounded-lg transition-all duration-200 ${
                 locale === "en"
@@ -71,8 +71,8 @@ export default function Header({ locale }: Props) {
               }`}
             >
               EN
-            </Link>
-            <Link
+            </a>
+            <a
               href={locale === "zh" ? pathname : switchTarget}
               className={`px-3 py-1 rounded-lg transition-all duration-200 ${
                 locale === "zh"
@@ -81,7 +81,7 @@ export default function Header({ locale }: Props) {
               }`}
             >
               中文
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -89,12 +89,12 @@ export default function Header({ locale }: Props) {
         <div className="flex md:hidden items-center gap-2">
           <SearchBox locale={locale} />
 
-          <Link
+          <a
             href={switchTarget}
             className="px-2.5 py-1.5 text-xs font-bold text-gray-600 bg-gray-100 rounded-lg border border-gray-200/60"
           >
             {locale === "zh" ? "EN" : "中文"}
-          </Link>
+          </a>
           <button
             type="button"
             aria-expanded={open}
@@ -112,14 +112,14 @@ export default function Header({ locale }: Props) {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
+                  strokeWidth={2}
                   d="M6 18L18 6M6 6l12 12"
                 />
               ) : (
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
+                  strokeWidth={2}
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               )}

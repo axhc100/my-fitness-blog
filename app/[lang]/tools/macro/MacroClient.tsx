@@ -200,11 +200,15 @@ export default function MacroClient({ paramsPromise }: MacroClientProps) {
             </p>
           </div>
 
-          {/* 示例数据小提示（解决占位符冒充默认值 Bug） */}
+          {/* 示例数据小提示（带入真实参数时动态显示） */}
           <div className="mb-6 p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-blue-900 text-xs text-center font-medium">
-            💡 {isZh
-              ? '以下为示例数据（175 cm / 70 kg / 25 岁），可直接修改后计算。'
-              : 'Sample data below (175 cm / 70 kg / 25 years old). Edit it and calculate.'}
+            💡 {importedNotice
+              ? (isZh
+                ? `已成功带入 BMR 计算实际数据（${heightCm} cm / ${weightKg} kg / ${age} 岁），可直接微调后计算。`
+                : `Imported your calculated BMR parameters (${heightCm} cm / ${weightKg} kg / ${age} yrs). Adjust and recalculate.`)
+              : (isZh
+                ? '以下为默认初始数据（175 cm / 70 kg / 25 岁），可直接修改后计算。'
+                : 'Default baseline data loaded (175 cm / 70 kg / 25 yrs). Edit directly and calculate.')}
           </div>
 
           <form onSubmit={handleCalculateSubmit} className="space-y-5">

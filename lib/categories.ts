@@ -39,21 +39,26 @@ export function resolveArticleCategoryKey(article: {
   const tagsStr = (article.tags || []).join(' ').toLowerCase();
   const allText = `${cat} ${tagsStr} ${title}`;
 
-  // 1. 优先匹配明确的瑜伽/柔韧
+  // 1. 优先匹配明确的瑜伽/柔韧/拉伸
   if (/瑜伽|普拉提|开胯|一字马|柔韧|筋膜|结缔组织|yoga|pilates|mobility|splits|stretch|fascia/i.test(cat || allText)) {
     return 'yoga';
   }
 
-  // 2. 匹配体态与塑形
+  // 2. 优先匹配力量与增肌（含肌肥大、分化训练、大重量复合等，必须在塑形之前检测，避免“传统力量与肌肉塑形”被截胡）
+  if (/力量|增肌|肌肥大|分化|深蹲|卧推|硬拉|推举|负重|hypertrophy|strength|split|squat|bench|deadlift|press|overload/i.test(cat || allText)) {
+    return 'strength';
+  }
+
+  // 3. 匹配体态与塑形
   if (/体态|塑形|骨盆|细腰|沙漏|肋骨|假胯宽|腹肌|马甲线|sculpt|tone|waist|rib flare|posture|abs/i.test(cat || allText)) {
     return 'sculpt';
   }
 
-  // 3. 匹配营养与恢复
+  // 4. 匹配营养与恢复
   if (/营养|饮食|蛋白质|宏量|卡路里|热量|补水|睡眠|恢复|hyrox|有氧|耐力|nutrition|diet|protein|macro|calorie|sleep|recovery|hydration|cardio|endurance/i.test(cat || allText)) {
     return 'wellness';
   }
 
-  // 4. 其余归入力量与增肌
+  // 5. 其余归入力量与增肌
   return 'strength';
 }

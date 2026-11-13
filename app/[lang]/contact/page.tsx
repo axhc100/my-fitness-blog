@@ -16,8 +16,8 @@ export async function generateMetadata({
     pathname: "/contact",
     title: isZh ? "联系我们 - FitKit 反馈与建议" : "Contact FitKit - Feedback & Support",
     description: isZh
-      ? "遇到工具计算异常、文章数据疑问或有新工具建议？欢迎与 FitKit 取得联系。"
-      : "Questions about our fitness formulas, bug reports, or feature requests? Contact the FitKit team.",
+      ? "联系 FitKit 运动科学与技术团队。如果您在使用 BMR、三大营养素、体脂率等健康计算器时遇到数值疑问、程序 Bug，或有全新工具功能需求与学术建议，欢迎通过表单随时与我们取得联系。"
+      : "Contact the FitKit sports science team. Send feedback, report calculator calculation issues, submit training questions, or suggest new evidence-based tools.",
   });
 }
 

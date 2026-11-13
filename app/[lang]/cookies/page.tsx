@@ -15,8 +15,8 @@ export async function generateMetadata({
     pathname: "/cookies",
     title: isZh ? "Cookie 说明 - FitKit 本地存储与使用政策" : "Cookie Policy - FitKit Local Storage & Privacy",
     description: isZh
-      ? "了解 FitKit 的 Cookie 与本地数据政策：不使用跨站追踪广告 Cookie，数据仅保留在浏览器端。"
-      : "FitKit Cookie & Local Storage Policy: We do not use third-party advertising cookies. Learn about our local-first storage.",
+      ? "FitKit Cookie 与本地存储使用说明：我们严格坚持本地优先与隐私优先原则，不使用任何侵入式第三方跨站广告追踪 Cookie，您的身体指标与计算历史仅保存在浏览器本地。"
+      : "Read the FitKit Cookie and Local Storage Policy. Learn how we protect privacy through local-first browser storage with zero third-party cross-site ad trackers.",
   });
 }
 
@@ -38,39 +38,80 @@ export default async function CookiesPage({
         <span className="text-gray-600">{isZh ? "Cookie 说明" : "Cookie Policy"}</span>
       </nav>
 
-      <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-6">
-        {isZh ? "Cookie 与本地存储说明" : "Cookie & Local Storage Policy"}
-      </h1>
+      <div className="border-b border-gray-100 pb-6 mb-8">
+        <div className="inline-block text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 mb-3">
+          {isZh ? "最后更新：2026-11-13" : "Last Updated: November 13, 2026"}
+        </div>
+        <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
+          {isZh ? "Cookie 与本地存储说明" : "Cookie & Local Storage Policy"}
+        </h1>
+      </div>
 
       {isZh ? (
-        <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-5 text-sm md:text-base">
-          <p>
-            FitKit 本身不使用第三方追踪或广告营销 Cookie，也不要求任何用户登录。
-          </p>
-          <p>
-            网站主要使用**浏览器本地存储（localStorage）**来保存你的计算历史、一字马打卡记录和目标倒计时。这些数据仅保存在你当前使用的设备和浏览器中，不会上传到任何云端服务器。
-          </p>
-          <p>
-            如果你未来看到 Cookie 相关提示，通常来自轻量访问统计服务（例如 Vercel Analytics，用于统计总访问量以改善产品性能）。我们会在政策页面随时同步更新说明与关闭方法。
-          </p>
-          <p>
-            你可以随时在自己的浏览器设置中清除本地缓存和 Cookie。请注意，清除后储存在本机的历史计算和目标倒计时记录将会重置。
-          </p>
+        <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-8 text-sm md:text-base">
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">1. 什么是 Cookie 与本地存储？</h2>
+            <p>
+              Cookie 是网站在用户访问时保存在浏览器中的小型文本文件，常用于会话管理或行为追踪。除传统 Cookie 外，现代网页技术还包括<strong>浏览器本地存储（localStorage）</strong>与<strong>会话存储（sessionStorage）</strong>，用于在客户端保存离线数据。
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">2. FitKit 的“本地优先”数据原则</h2>
+            <p>
+              FitKit 本身<strong>不使用任何第三方跨站追踪或定向广告营销 Cookie</strong>，也无需任何访客注册或登录账号。
+            </p>
+            <p className="mt-2">
+              网站主要使用<strong>浏览器本地存储（localStorage）</strong>来保存你的三大营养素微调偏好、BMR 计算历史、一字马打卡进度和目标 Flag 倒计时。这些数据直接保存在你的设备本地，绝对不会同步或上传至任何远程云端数据库。
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">3. 匿名性能统计与分析</h2>
+            <p>
+              为了持续改善网站访问速度与工具稳定性，我们可能启用轻量级、不采集个人身份信息的性能统计服务（例如 Vercel Web Analytics）。此类服务仅统计总页面访问量与网络延迟，不记录任何个人体测数值，不使用跨网站追踪凭证。
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">4. 如何管理或清除本地数据？</h2>
+            <p>
+              你可以随时在浏览器的“设置 / 清除浏览数据”中删除本站的 Cookie 与本地存储。请注意，清除本地存储后，之前保存在当前设备上的 Flag 倒计时、BMR 测算缓存等数据将被重置为初始状态。
+            </p>
+          </div>
         </div>
       ) : (
-        <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-5 text-sm md:text-base">
-          <p>
-            FitKit does not deploy intrusive cross-site advertising cookies or tracking beacons, and does not require account creation.
-          </p>
-          <p>
-            Our website relies on **Browser Local Storage (localStorage)** to preserve your goal countdowns, calculator history, and flexibility logs. This data resides strictly on your device and is never synchronized to external servers.
-          </p>
-          <p>
-            Anonymous performance analytics (such as Vercel Web Analytics) may be utilized to measure overall page response times and popular calculators without identifying individual visitors.
-          </p>
-          <p>
-            You can clear cookies and local storage anytime via your browser settings. Please note that clearing local storage will erase saved calculator entries and goal flags on that device.
-          </p>
+        <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-8 text-sm md:text-base">
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">1. What Are Cookies and Local Storage?</h2>
+            <p>
+              Cookies are small data files placed on your browser when visiting websites. Modern web standards also provide <strong>Browser Local Storage (localStorage)</strong>, enabling web applications to save offline preferences directly on client devices without transmitting data to remote servers.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">2. FitKit Local-First Architecture</h2>
+            <p>
+              FitKit does <strong>not deploy invasive third-party tracking beacons or behavioral advertising cookies</strong>. We do not require accounts or user logins.
+            </p>
+            <p className="mt-2">
+              We utilize <strong>Browser Local Storage (localStorage)</strong> strictly to preserve your personal fitness calculations, splits flexibility entries, and fitness goal countdown flags. This data remains on your physical device and is never uploaded or shared externally.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">3. Anonymous Performance Analytics</h2>
+            <p>
+              To maintain high uptime and fast page response speeds, we may utilize privacy-respecting telemetry (such as Vercel Web Analytics) to observe aggregated traffic volumes. These tools measure general site stability without compiling individual user profiles or collecting health metrics.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3">4. Managing and Clearing Your Data</h2>
+            <p>
+              You can wipe cookies and local storage at any time through your browser preferences. Note that clearing local data will reset saved goal countdowns and historical calculator values on that specific browser.
+            </p>
+          </div>
         </div>
       )}
     </div>
