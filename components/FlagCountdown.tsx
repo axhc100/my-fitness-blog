@@ -140,6 +140,7 @@ export default function FlagCountdown({ lang }: FlagCountdownProps) {
         <div className="flex gap-2">
           <input
             type="date"
+            lang={lang}
             required
             min={new Date().toISOString().split('T')[0]}
             value={targetDate}

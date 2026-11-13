@@ -7,10 +7,9 @@ import type { Metadata } from 'next';
 import { getDictionary } from '../../../dictionaries';
 import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
-// 如果用 @/ 报错，就直接换成下面这种无敌的相对路径：
-import AdSenseWidget from '../../../../components/AdSenseWidget';
 import RelatedToolCTA from '../../../../components/RelatedToolCTA';
 import RelatedArticles from '../../../../components/RelatedArticles';
+import SubscribeBox from '../../../../components/SubscribeBox';
 import { absoluteUrl, buildPageMetadata, getArticle, getArticles, SITE_NAME, type Lang } from '../../../lib/seo';
 
 // ⚡ 递归工具函数一：深度扫描当前语言目录下（包括所有子夹子）的全部 .md 文件
@@ -267,8 +266,8 @@ export default async function BlogPostPage({
           articles={getArticles(lang)} 
         />
 
-        {/* 💰 变现位：插在硬核干货正文的最底部，看完顺手点一波，收益率最高！ */}
-        <AdSenseWidget slot="你的文章页底部广告位ID" />
+        {/* 📬 邮件订阅框（取代原先的空白广告位，承接深度读者） */}
+        <SubscribeBox locale={lang} variant="article" />
 
       </div>
     </main>

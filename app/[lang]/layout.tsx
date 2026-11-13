@@ -1,18 +1,19 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "../lib/seo";
-import Script from "next/script"; // ✨ 引入 Next.js 官方脚本优化组件
+import { SITE_NAME, SITE_URL, type Lang } from "../lib/seo";
 import { Analytics } from '@vercel/analytics/next';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
   title: {
-    default: "FitKit - Free Fitness Calculators and Health Tools",
-    template: "%s",
+    default: "FitKit - Free Fitness Calculators, Health Tools & Workout Guides",
+    template: "%s | FitKit",
   },
   description:
-    "FitKit provides free fitness calculators, body composition tools, nutrition calculators and practical training guides.",
+    "FitKit provides free, science-backed fitness calculators, macronutrient tracking tools, body fat analyzers, BMR formulas, hydration targets, and training guides.",
   category: "Health",
   creator: SITE_NAME,
   publisher: SITE_NAME,
@@ -53,23 +54,14 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const currentLang = (lang === "zh" ? "zh" : "en") as Lang;
 
   return (
-    <html lang={lang || "en"} suppressHydrationWarning>
-      <head>
-        {/* 🎯 Google AdSense 自动化广告脚本占位区
-          等你的域名通过 AdSense 审核后，将下面的 client=ca-pub-XXXXXXXXXXXXXXXX 替换为你自己的广告主 ID 即可。
-          Next.js 的 Script 组件会确保广告脚本以非阻塞的最高性能加载，完全不耽误网页打开速度！
-        */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-      </head>
-      <body className="antialiased bg-gray-50 text-gray-900">
-        {children}
+    <html lang={currentLang} suppressHydrationWarning>
+      <body className="antialiased bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <Header locale={currentLang} />
+        <main className="flex-1">{children}</main>
+        <Footer locale={currentLang} />
         <Analytics />
         {/* 🚀 Product Hunt Launch Badge */}
         <div className="fixed bottom-6 right-6 z-50 hover:scale-105 transition-transform duration-300 drop-shadow-xl">

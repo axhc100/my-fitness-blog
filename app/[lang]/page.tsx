@@ -114,43 +114,7 @@ export default async function HomePage(props: PageProps) {
   const articles = allArticles.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
-    <main className="min-h-screen bg-slate-50/50 text-gray-900 pb-24 relative">
-      
-      {/* 🌐 悬浮毛玻璃导航条 */}
-      <header className="sticky top-0 z-50 w-full bg-white/75 backdrop-blur-md border-b border-gray-100 transition-all">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href={`/${lang}`} className="flex items-center gap-2 group">
-            <img 
-  src="/logo.png" 
-  alt="FitKit Logo" 
-  className="w-8 h-8 rounded-lg shadow-sm shadow-green-500/20 group-hover:scale-105 transition object-cover" 
-/>
-
-
-            <span className="font-black text-sm tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              {lang === 'zh' ? '健康数据箱' : 'FitKit'}
-            </span>
-          </Link>
-
-          <nav className="flex items-center gap-4">
-            <div className="bg-gray-100 p-0.5 rounded-xl border border-gray-200/50 flex gap-0.5 text-xs font-bold shadow-inner">
-              <Link 
-                href={`/en${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
-                className={`px-3 py-1 rounded-lg transition-all duration-200 ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
-              >
-                EN
-              </Link>
-              <Link 
-                href={`/zh${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
-                className={`px-3 py-1 rounded-lg transition-all duration-200 ${lang === 'zh' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-gray-700'}`}
-              >
-                中文
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </header>
-
+    <div className="bg-slate-50/50 text-gray-900 pb-24 relative">
       {/* 🛠️ 头部大标题 */}
       <div className="max-w-5xl mx-auto px-6 text-center mb-16 mt-16">
         <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-gray-900 bg-gradient-to-b from-gray-900 to-gray-700 bg-clip-text text-transparent">
@@ -256,6 +220,6 @@ export default async function HomePage(props: PageProps) {
           />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

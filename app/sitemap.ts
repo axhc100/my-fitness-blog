@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, getArticles, LANGUAGES, localizedAlternates, TOOL_SLUGS } from "./lib/seo";
 
+export const STATIC_PAGES = ["tools", "about", "contact", "privacy", "terms", "cookies"] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const urls: MetadataRoute.Sitemap = [
@@ -21,6 +23,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   for (const lang of LANGUAGES) {
+    for (const page of STATIC_PAGES) {
+      const pathname = `/${page}`;
+      urls.push({
+        url: absoluteUrl(`/${lang}${pathname}`),
+        lastModified: now,
+        changeFrequency: page === "tools" ? "weekly" : "monthly",
+        priority: page === "tools" ? 0.9 : 0.6,
+        alternates: { languages: localizedAlternates(pathname) },
+      });
+    }
+
     for (const slug of TOOL_SLUGS) {
       const pathname = `/tools/${slug}`;
       urls.push({
@@ -40,7 +53,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly",
         priority: 0.72,
         alternates: { languages: localizedAlternates(pathname) },
-        // ⚡ 完美终结 Bug：直接移除原先会导致相对路径报错的 images 属性，只保留纯净的绝对路径网页 URL
       });
     }
   }

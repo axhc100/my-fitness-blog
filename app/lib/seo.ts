@@ -24,13 +24,14 @@ const homeSeo = {
   en: {
     title: "FitKit - Free Fitness Calculators, Health Tools and Training Guides",
     description:
-      "Use FitKit free fitness calculators, macro tracking tools, body fat calculators, BMR calculators, hydration targets, flexibility tracking and practical health guides.",
+      "Use FitKit free fitness calculators, macro tracking tools, body fat calculators, BMR & TDEE formulas, hydration targets, flexibility tracking, and evidence-based workout guides.",
     keywords: [
       "FitKit",
       "fitness calculator",
       "macro calculator",
       "body fat calculator",
       "BMR calculator",
+      "TDEE calculator",
       "health tools",
       "workout guides",
     ],
@@ -38,13 +39,14 @@ const homeSeo = {
   zh: {
     title: "FitKit - 免费健身计算器、健康工具与训练指南",
     description:
-      "FitKit 提供免费的健身计算器、三大营养素计算器、体脂率计算、基础代谢计算、饮水量目标、柔韧性追踪和实用健康文章。",
+      "FitKit 提供免费科学健身计算器与训练指南：包含 BMR 基础代谢与 TDEE 计算、三大营养素宏量配比、体脂率测算、每日饮水量、标准体重与燃脂心率，助力科学增肌减脂与健康生活。",
     keywords: [
       "FitKit",
       "健身计算器",
       "三大营养素计算器",
       "体脂率计算器",
       "基础代谢计算器",
+      "TDEE计算器",
       "健康工具",
       "健身指南",
     ],
