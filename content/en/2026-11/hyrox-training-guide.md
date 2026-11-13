@@ -2,7 +2,7 @@
 title: "HYROX Training Guide: Pacing and 8-Station Strategy"
 date: "2026-11-12"
 description: "Training for HYROX? Learn 8×1km pacing, the 8 functional stations, and compromised running, with an 8-week plan for first-time racers."
-category: "全球流行热门运动"
+category: "Trending Sports"
 tags: ["HYROX", "Fitness Racing", "Functional Fitness", "Lactate Clearance", "Compromised Running [3]", "Heart Rate Zones", "Pacing Strategy", "SkiErg", "Sled Push", "Burpee Broad Jumps", "Rowing", "Farmers Carry", "Wall Balls", "Biomechanics"]
 ---
 

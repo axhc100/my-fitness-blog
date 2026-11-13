@@ -12,7 +12,6 @@ import RelatedToolCTA from '../../../../components/RelatedToolCTA';
 import RelatedArticles from '../../../../components/RelatedArticles';
 import ArticlePagination from '../../../../components/ArticlePagination';
 import ArticleShare from '../../../../components/ArticleShare';
-import ArticleTOC, { TocItem } from '../../../../components/ArticleTOC';
 import {
   resolveArticleCategoryKey,
   CATEGORIES_CONFIG,
@@ -140,7 +139,7 @@ export default async function BlogPostPage({
   let cleanContent = content;
 
   // 1. 清理文内可能存在的冗余目录标题
-  cleanContent = cleanContent.replace(/^#{1,3}\s*(目录|Table of Contents|Content)\s*$/gmi, '');
+  cleanContent = cleanContent.replace(/^#{1,3}\s*(目录|Table of Contents|Content|本篇导读)\s*$/gmi, '');
 
   // 2. 消除与 H1 重复紧随其后的首个 H2 标题
   const firstH2Match = content.match(/^##\s+(.+)$/m);
@@ -193,40 +192,20 @@ export default async function BlogPostPage({
   // 6. 还原受保护的代码块
   cleanContent = cleanContent.replace(/__CODE_BLOCK_STASH_(\d+)__/g, (_, idx) => codeBlockStash[Number(idx)]);
 
-  // 7. 自动生成正文 TOC 目录并为 H2 / H3 注入唯一锚点 ID（保留前后双空行，防止截断后续 Markdown 表格）
-  const tocItems: TocItem[] = [];
-  let headingCounter = 0;
-  const contentWithHeadingIds = cleanContent.replace(
-    /^(#{2,3})\s+(.+)$/gm,
-    (match, hashes, rawTitle) => {
-      headingCounter++;
-      const level = hashes.length;
-      const plainText = rawTitle
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-        .replace(/<[^>]+>/g, '')
-        .replace(/[*_`]/g, '')
-        .replace(/&#126;/g, '~')
-        .trim();
-      const id = `heading-${headingCounter}`;
-      tocItems.push({ id, text: plainText, level });
-      return `\n\n<h${level} id="${id}">${rawTitle}</h${level}>\n\n`;
-    }
-  );
-
-  const htmlContent = await marked(contentWithHeadingIds);
+  const htmlContent = await marked(cleanContent);
   const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image ?? `/images/${slug}.jpg`;
   const absoluteHeroImage = heroImage.startsWith('http')
     ? heroImage
     : absoluteUrl(heroImage);
 
-  // 8. 计算阅读时长
+  // 7. 计算阅读时长
   const wordCount = content.replace(/\s+/g, '').length;
   const readingMinutes = isZh
     ? Math.max(1, Math.ceil(wordCount / 450))
     : Math.max(1, Math.ceil(content.split(/\s+/).length / 220));
   const readingTimeText = isZh ? `阅读约 ${readingMinutes} 分钟` : `${readingMinutes} min read`;
 
-  // 9. 标准化文章分类与面包屑
+  // 8. 标准化文章分类与面包屑
   const catKey = resolveArticleCategoryKey({
     slug,
     title: data.title || '',
@@ -238,7 +217,7 @@ export default async function BlogPostPage({
   const catConfig = CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];
   const categoryLabel = catConfig.label;
 
-  // 10. 结构化数据 (Article / BlogPosting + BreadcrumbList)
+  // 9. 结构化数据 (BlogPosting + BreadcrumbList)
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -298,7 +277,7 @@ export default async function BlogPostPage({
     ],
   };
 
-  // 11. 获取全站文章列表并计算 上一篇 / 下一篇 (按发布时间降序排序)
+  // 10. 获取全站文章列表并计算 上一篇 / 下一篇 (按发布时间降序排序)
   const allArticles = getArticles(lang);
   const currentIndex = allArticles.findIndex((a) => a.slug === slug);
   const nextArticle = currentIndex > 0 ? allArticles[currentIndex - 1] : null; // 更新的一篇
@@ -311,7 +290,7 @@ export default async function BlogPostPage({
         return <>{domToReact(domNode.children as DOMNode[], options)}</>;
       }
 
-      // 包装所有表格：只在表格内横向滚动，页面整体不横向滚动，永不遮挡侵入目录
+      // 包装所有表格：只在表格内横向滚动，页面整体不横向滚动，不产生多余水平滚动条
       if (domNode instanceof Element && domNode.name === 'table') {
         return (
           <div className="w-full max-w-full my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm scrollbar-thin">
@@ -344,7 +323,7 @@ export default async function BlogPostPage({
         );
       }
 
-      // 包装所有代码与图表块：保证只在容器内横向滚动，永不溢出侵入右侧目录
+      // 包装所有代码与图表块：保证只在容器内横向滚动，永不溢出侵入右侧
       if (domNode instanceof Element && domNode.name === 'pre') {
         return (
           <div className="w-full max-w-full my-6 overflow-x-auto rounded-2xl bg-slate-900 border border-slate-800 p-4 text-xs font-mono text-slate-100 shadow-sm scrollbar-thin">
@@ -441,7 +420,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="min-h-screen bg-white text-gray-900 py-10 px-4 md:px-8 selection:bg-blue-100">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -471,96 +450,49 @@ export default async function BlogPostPage({
           <span className="text-gray-400 truncate max-w-xs">{data.title}</span>
         </nav>
 
-        {/* 双栏布局：正文区 + 桌面端右侧吸顶 TOC */}
-        <div className="flex flex-col lg:flex-row gap-12 justify-between items-start">
-          <main className="w-full lg:max-w-3xl min-w-0">
-            <article>
-              {/* 文章头部 Header */}
-              <header className="mb-6 border-b pb-6 border-gray-100">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${catConfig.badgeClass}`}>
-                    {categoryLabel}
-                  </span>
-                  <span className="text-xs text-gray-400 font-mono">
-                    {data.date}
-                  </span>
-                  <span className="text-xs text-gray-300">·</span>
-                  <span className="text-xs text-gray-400 font-medium">
-                    {readingTimeText}
-                  </span>
-                </div>
-
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight mb-4">
-                  {data.title}
-                </h1>
-
-                {/* 作者简要栏（带头像） */}
-                <div className="flex items-center gap-3 pt-2">
-                  <Image
-                    src="/images/author-avatar.jpg"
-                    alt="FitKit Author"
-                    width={36}
-                    height={36}
-                    className="w-9 h-9 rounded-full object-cover border border-gray-200"
-                  />
-                  <div>
-                    <div className="text-xs font-bold text-gray-900">
-                      {isZh ? 'FitKit 运动科学组' : 'FitKit Science Team'}
-                    </div>
-                    <div className="text-[11px] text-gray-400">
-                      {isZh ? '专注循证健身与健康数据' : 'Evidence-based sports science'}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 📤 分享按钮组（位置 1：标题下方一排） */}
-                <div className="mt-4 pt-3 border-t border-gray-100/80">
-                  <ArticleShare
-                    lang={lang}
-                    slug={slug}
-                    title={data.title}
-                    description={data.description}
-                    mode="inline"
-                  />
-                </div>
-              </header>
-
-              {/* 📱 仅在移动端渲染折叠目录抽屉 */}
-              <ArticleTOC items={tocItems} lang={lang} mode="mobile" />
-
-              {/* 正文渲染 */}
-              <div
-                className="prose prose-gray max-w-none leading-relaxed
-                           prose-headings:font-bold prose-headings:text-gray-900
-                           prose-h2:text-xl md:prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-2
-                           prose-h3:text-lg md:prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
-                           prose-p:text-gray-600 prose-p:mb-4 prose-p:text-sm md:prose-p:text-base
-                           prose-strong:text-gray-900 prose-strong:font-bold
-                           prose-ul:text-sm md:prose-ul:text-base prose-ul:space-y-1.5"
-              >
-                {reactContent}
+        {/* 单栏居中正文主体布局（彻底移除 TOC 侧边栏与抽屉） */}
+        <main className="w-full min-w-0">
+          <article>
+            {/* 文章头部 Header */}
+            <header className="mb-6 border-b pb-6 border-gray-100">
+              <div className="flex items-center gap-2 mb-3">
+                <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${catConfig.badgeClass}`}>
+                  {categoryLabel}
+                </span>
+                <span className="text-xs text-gray-400 font-mono">
+                  {data.date}
+                </span>
+                <span className="text-xs text-gray-300">·</span>
+                <span className="text-xs text-gray-400 font-medium">
+                  {readingTimeText}
+                </span>
               </div>
 
-              {/* 文章标签 */}
-              {Array.isArray(data.tags) && data.tags.length > 0 && (
-                <div className="mt-10 pt-6 border-t border-gray-100">
-                  <div className="flex flex-wrap gap-2 items-center">
-                    <span className="text-xs font-bold text-gray-400 mr-1">🏷️ Tags:</span>
-                    {data.tags.map((tag: string) => (
-                      <Link
-                        key={tag}
-                        href={`/${lang}/#articles`}
-                        className="text-xs px-2.5 py-1 rounded-lg bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 border border-gray-200/60 transition"
-                      >
-                        #{tag}
-                      </Link>
-                    ))}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 tracking-tight leading-tight mb-4">
+                {data.title}
+              </h1>
+
+              {/* 作者简要栏（带头像） */}
+              <div className="flex items-center gap-3 pt-2">
+                <Image
+                  src="/images/author-avatar.jpg"
+                  alt="FitKit Author"
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 rounded-full object-cover border border-gray-200"
+                />
+                <div>
+                  <div className="text-xs font-bold text-gray-900">
+                    {isZh ? 'FitKit 运动科学组' : 'FitKit Science Team'}
+                  </div>
+                  <div className="text-[11px] text-gray-400">
+                    {isZh ? '专注循证健身与健康数据' : 'Evidence-based sports science'}
                   </div>
                 </div>
-              )}
+              </div>
 
-              {/* 📤 分享按钮组（位置 2：文末一排） */}
-              <div className="my-8 pt-4 border-t border-gray-100">
+              {/* 📤 分享按钮组（位置 1：标题下方一排） */}
+              <div className="mt-4 pt-3 border-t border-gray-100/80">
                 <ArticleShare
                   lang={lang}
                   slug={slug}
@@ -569,73 +501,111 @@ export default async function BlogPostPage({
                   mode="inline"
                 />
               </div>
+            </header>
 
-              {/* 作者详细 Bio 卡片 */}
-              <div className="my-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
-                <Image
-                  src="/images/author-avatar.jpg"
-                  alt="FitKit Author"
-                  width={56}
-                  height={56}
-                  className="w-14 h-14 rounded-2xl object-cover border border-gray-200 shrink-0"
-                />
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-gray-900">
-                      {isZh ? 'FitKit 科学健身团队' : 'FitKit Research & Fitness Team'}
-                    </span>
-                    <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">
-                      {isZh ? '认证作者' : 'Verified Author'}
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-500 leading-relaxed">
-                    {isZh
-                      ? '专注科学健身与健康数据工具，文章基于国际运动科学文献（ISSN, ACSM, PubMed）整理，仅供科普与训练参考。'
-                      : 'Dedicated to evidence-based sports science and practical health calculators. Articles synthesized from peer-reviewed exercise physiology and clinical literature.'}
-                  </p>
+            {/* 正文渲染 */}
+            <div
+              className="prose prose-gray max-w-none leading-relaxed
+                         prose-headings:font-bold prose-headings:text-gray-900
+                         prose-h2:text-xl md:prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-2
+                         prose-h3:text-lg md:prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+                         prose-p:text-gray-600 prose-p:mb-4 prose-p:text-sm md:prose-p:text-base
+                         prose-strong:text-gray-900 prose-strong:font-bold
+                         prose-ul:text-sm md:prose-ul:text-base prose-ul:space-y-1.5"
+            >
+              {reactContent}
+            </div>
+
+            {/* 文章标签 */}
+            {Array.isArray(data.tags) && data.tags.length > 0 && (
+              <div className="mt-10 pt-6 border-t border-gray-100">
+                <div className="flex flex-wrap gap-2 items-center">
+                  <span className="text-xs font-bold text-gray-400 mr-1">🏷️ Tags:</span>
+                  {data.tags.map((tag: string) => (
+                    <Link
+                      key={tag}
+                      href={`/${lang}/#articles`}
+                      className="text-xs px-2.5 py-1 rounded-lg bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 border border-gray-200/60 transition"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
                 </div>
               </div>
-            </article>
+            )}
 
-            {/* 🛠️ 工具联动推荐 (Related Tool CTA) */}
-            <RelatedToolCTA
-              lang={lang}
-              category={data.category}
-              tags={data.tags}
-              content={content}
-            />
+            {/* 📤 分享按钮组（位置 2：文末一排） */}
+            <div className="my-8 pt-4 border-t border-gray-100">
+              <ArticleShare
+                lang={lang}
+                slug={slug}
+                title={data.title}
+                description={data.description}
+                mode="inline"
+              />
+            </div>
 
-            {/* 📖 上一篇 / 下一篇 (按发布时间排序，显示完整标题) */}
-            <ArticlePagination
-              lang={lang}
-              prevArticle={prevArticle}
-              nextArticle={nextArticle}
-            />
+            {/* 作者详细 Bio 卡片 */}
+            <div className="my-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
+              <Image
+                src="/images/author-avatar.jpg"
+                alt="FitKit Author"
+                width={56}
+                height={56}
+                className="w-14 h-14 rounded-2xl object-cover border border-gray-200 shrink-0"
+              />
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-gray-900">
+                    {isZh ? 'FitKit 科学健身团队' : 'FitKit Research & Fitness Team'}
+                  </span>
+                  <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">
+                    {isZh ? '认证作者' : 'Verified Author'}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  {isZh
+                    ? '专注科学健身与健康数据工具，文章基于国际运动科学文献（ISSN, ACSM, PubMed）整理，仅供科普与训练参考。'
+                    : 'Dedicated to evidence-based sports science and practical health calculators. Articles synthesized from peer-reviewed exercise physiology and clinical literature.'}
+                </p>
+              </div>
+            </div>
+          </article>
 
-            {/* 📚 相关阅读 (同分类 + 同标签优先，每张卡片显示分类标签、标题、日期) */}
-            <RelatedArticles
-              lang={lang}
-              currentSlug={slug}
-              currentCategory={data.category}
-              currentTags={data.tags}
-              articles={allArticles}
-            />
+          {/* 🛠️ 工具联动推荐 (Related Tool CTA：按文章主题精准匹配不同工具) */}
+          <RelatedToolCTA
+            lang={lang}
+            category={data.category}
+            tags={data.tags}
+            content={content}
+            slug={slug}
+          />
 
-            {/* 📱 移动端悬浮分享按钮组（位置 3） */}
-            <ArticleShare
-              lang={lang}
-              slug={slug}
-              title={data.title}
-              description={data.description}
-              mode="floating"
-            />
-          </main>
+          {/* 📖 上一篇 / 下一篇 (按发布时间排序，显示完整标题) */}
+          <ArticlePagination
+            lang={lang}
+            prevArticle={prevArticle}
+            nextArticle={nextArticle}
+          />
 
-          {/* 📑 桌面端右侧固定吸顶目录（仅在 lg 及以上展示，单份渲染绝无重复） */}
-          <aside className="hidden lg:block w-72 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
-            <ArticleTOC items={tocItems} lang={lang} mode="desktop" />
-          </aside>
-        </div>
+          {/* 📚 相关阅读 (同分类优先 + 同标签权重，每张卡片显示分类标签、标题、日期) */}
+          <RelatedArticles
+            lang={lang}
+            currentSlug={slug}
+            currentCategory={data.category}
+            currentTags={data.tags}
+            articles={allArticles}
+          />
+
+          {/* 📱 移动端悬浮分享按钮组（位置 3） */}
+          <ArticleShare
+            lang={lang}
+            slug={slug}
+            title={data.title}
+            description={data.description}
+            mode="floating"
+          />
+        </main>
       </div>
     </div>
   );

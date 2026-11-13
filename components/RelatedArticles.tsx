@@ -10,6 +10,36 @@ interface RelatedArticlesProps {
   articles: Article[];
 }
 
+/**
+ * 主题归一化映射：将细分/无 category 的历史文章精准映射到各大核心运动健康主题
+ */
+function resolveNormalizedTheme(category?: string, title?: string, tags?: string[]): string {
+  const cat = (category || '').toLowerCase();
+  const t = (title || '').toLowerCase();
+  const tagsStr = (tags || []).join(' ').toLowerCase();
+  const allText = `${cat} ${tagsStr} ${t}`;
+
+  if (/瑜伽|普拉提|开胯|一字马|柔韧|筋膜|结缔组织|阴瑜伽|yoga|pilates|mobility|splits|stretch|fascia/i.test(cat || allText)) {
+    return 'yoga';
+  }
+  if (/力量|增肌|肌肥大|分化|深蹲|卧推|硬拉|推举|负重|hypertrophy|strength|split|squat|bench|deadlift|press|overload/i.test(cat || allText)) {
+    return 'strength';
+  }
+  if (/体态|塑形|骨盆|细腰|沙漏|肋骨|假胯宽|腹肌|马甲线|sculpt|tone|waist|rib flare|posture|abs/i.test(cat || allText)) {
+    return 'sculpt';
+  }
+  if (/功能性|自重|单腿|动力链|动物流|徒手|calisthenics|functional|single-leg/i.test(cat || allText)) {
+    return 'functional';
+  }
+  if (/hyrox|匹克球|网球|球拍|比赛|竞赛|热门运动|sports|pickleball/i.test(cat || allText)) {
+    return 'sports';
+  }
+  if (/恢复|睡眠|昼夜节律|营养|补水|饮食|recovery|sleep|hydration|nutrition/i.test(cat || allText)) {
+    return 'wellness';
+  }
+  return 'strength';
+}
+
 export default function RelatedArticles({
   lang,
   currentSlug,
@@ -22,26 +52,33 @@ export default function RelatedArticles({
 
   if (pool.length === 0) return null;
 
-  // 优先级计算：同分类 + 同标签权重最高，其次按发布时间排序
-  const currentKey = currentCategory || '';
+  // 严格主题与标签相关性算法
+  const currentArt = articles.find((a) => a.slug === currentSlug);
+  const currentTitle = currentArt?.title || '';
+  const currentTheme = resolveNormalizedTheme(currentCategory, currentTitle, currentTags);
   const currentTagSet = new Set(currentTags);
 
   const scoredArticles = pool.map((art) => {
     let score = 0;
+    const artTheme = resolveNormalizedTheme(art.category, art.title, art.tags);
 
-    // 1. 同分类权重
-    const artCatKey = resolveArticleCategoryKey(art);
-    if (artCatKey && artCatKey === currentKey) {
-      score += 10;
-    } else if (art.category && art.category === currentCategory) {
-      score += 10;
+    // 1. 同原始分类（最高优先级 +60）
+    if (art.category && currentCategory && art.category.toLowerCase() === currentCategory.toLowerCase()) {
+      score += 60;
+    } else if (artTheme === currentTheme) {
+      // 2. 同归一化主题大类（+40）
+      score += 40;
     }
 
-    // 2. 同标签权重（每个重合标签 +3 分）
+    // 3. 标签匹配加分（核心标签每个 +12，过滤过于通用的学科大词）
     if (Array.isArray(art.tags)) {
       for (const t of art.tags) {
         if (currentTagSet.has(t)) {
-          score += 3;
+          if (/生物力学|运动生物力学|biomechanics/i.test(t)) {
+            score += 2;
+          } else {
+            score += 12;
+          }
         }
       }
     }

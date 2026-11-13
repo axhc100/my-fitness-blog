@@ -6,6 +6,7 @@ interface RelatedToolCTAProps {
   category?: string;
   tags?: string[];
   content?: string;
+  slug?: string;
 }
 
 interface ToolInfo {
@@ -89,34 +90,69 @@ const TOOLS: Record<string, ToolInfo> = {
   },
 };
 
-export default function RelatedToolCTA({ lang, category, tags = [], content = '' }: RelatedToolCTAProps) {
-  const text = `${category || ''} ${tags.join(' ')} ${content}`.toLowerCase();
+// 针对文章主题进行精准映射
+const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
+  // 1. 肌肥大 -> 宏量 / BMR
+  'hypertrophy-split-periodization': 'macro',
+  '26-11-13-1': 'macro',
+  '26-11-06-1': 'bmr',
+  // 2. HYROX / 跑步 / 有氧耐力 -> 燃脂心率 / 补水
+  'hyrox-training-guide': 'hr',
+  '26-11-12-1': 'hr',
+  '26-10-21-1': 'hr',
+  '26-10-29-1': 'hr',
+  '26-11-05-1': 'hr',
+  // 3. 单腿动力链 / 下肢灵活性 -> 一字马柔韧度 / BFP
+  'single-leg-training-guide': 'splits',
+  '26-11-11-1': 'splits',
+  '26-11-04-1': 'splits',
+  // 4. 肋骨外翻 / 沙漏细腰 / 体态塑造 -> 体脂率 / 理想体重 (体态相关)
+  'rib-flare-correction': 'bfp',
+  '26-11-10-1': 'bfp',
+  '26-11-03-1': 'bfp',
+  // 5. 阴瑜伽 / 筋膜健康 -> 每日补水 (水合作用) / 柔韧拉伸
+  'yin-yoga-fascia-guide': 'water',
+  '26-11-09-1': 'water',
+  '26-11-02-1': 'splits',
+  '26-10-31-1': 'water',
+  '26-11-07-1': 'water',
+};
 
-  // Smart matching strictly aligned with content, category, and tags
-  let matchedTool = TOOLS.macro;
-  if (/yoga|pilates|stretch|split|flexibility|mobility|瑜伽|拉伸|活动度|灵活性|柔韧|一字马|普拉提/.test(text)) {
-    // 1. 拉伸 / 灵活性 / 瑜伽 -> Splits & Flexibility Tracker
-    matchedTool = TOOLS.splits;
-  } else if (/cardio|run|heart|aerobic|zone 2|心率|跑步|有氧|燃脂心率|耐力|马拉松/.test(text)) {
-    // 2. 有氧 / 燃脂心率 -> Burn Fat Heart Rate
-    matchedTool = TOOLS.hr;
-  } else if (/ideal weight|target weight|healthy weight|ibw|标准体重|理想体重|减重目标|目标体重/.test(text)) {
-    // 3a. 体态 / 减重目标 -> Ideal Body Weight
-    matchedTool = TOOLS.ibw;
-  } else if (/fat loss|body fat|bfp|sculpt|cutting|体脂|减脂|塑形|体态|体成分|体围|身材/.test(text)) {
-    // 3b. 减脂 / 体脂率 -> Body Fat Percentage
-    matchedTool = TOOLS.bfp;
-  } else if (/water|hydrate|hydration|drink|补水|喝水|水分|饮水/.test(text)) {
-    // 4. 水分与电解质补水 -> Water Intake Tool
-    matchedTool = TOOLS.water;
-  } else if (/metabolism|bmr|tdee|calorie deficit|代谢|基础代谢|热量赤字|每日消耗/.test(text)) {
-    // 5. 代谢与热量预算 -> BMR & TDEE
-    matchedTool = TOOLS.bmr;
-  } else {
-    // 6. 减脂 / 增肌 / 营养 / 蛋白质 -> Macro Calculator (默认)
-    matchedTool = TOOLS.macro;
+export default function RelatedToolCTA({
+  lang,
+  category,
+  tags = [],
+  content = '',
+  slug = '',
+}: RelatedToolCTAProps) {
+  // 1. 优先采用明确的 slug 精准映射
+  if (slug && SLUG_TOOL_MAP[slug]) {
+    const matched = TOOLS[SLUG_TOOL_MAP[slug]];
+    return renderCTA(matched, lang);
   }
 
+  // 2. 启发式内容匹配（按优先级严密分支，防止通用词霸屏）
+  const text = `${category || ''} ${tags.join(' ')}`.toLowerCase();
+
+  let matchedTool = TOOLS.macro;
+  if (/hyrox|cardio|running|endurance|heart rate|心率|跑步|有氧|耐力/.test(text)) {
+    matchedTool = TOOLS.hr;
+  } else if (/rib flare|hourglass|waist|vacuum|posture|sculpt|体态|肋骨|细腰|真空腹|塑形/.test(text)) {
+    matchedTool = TOOLS.bfp;
+  } else if (/yin yoga|fascia|hydration|water|recovery|sleep|阴瑜伽|筋膜|水合|补水|睡眠|恢复/.test(text)) {
+    matchedTool = TOOLS.water;
+  } else if (/split|yoga|flexibility|mobility|stretch|柔韧|拉伸|活动度|一字马|普拉提/.test(text)) {
+    matchedTool = TOOLS.splits;
+  } else if (/hypertrophy|muscle|protein|bulking|cutting|肌肥大|增肌|蛋白质|分化|热量/.test(text)) {
+    matchedTool = TOOLS.macro;
+  } else if (/metabolism|bmr|tdee|代谢|基础代谢/.test(text)) {
+    matchedTool = TOOLS.bmr;
+  }
+
+  return renderCTA(matchedTool, lang);
+}
+
+function renderCTA(matchedTool: ToolInfo, lang: Lang) {
   return (
     <div className="my-10 p-6 md:p-8 bg-gradient-to-br from-blue-50/80 via-indigo-50/40 to-white rounded-3xl border border-blue-100/80 shadow-sm relative overflow-hidden group hover:shadow-md hover:border-blue-200 transition-all duration-300">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
