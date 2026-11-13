@@ -8,7 +8,7 @@ export const SITE_NAME = "FitKit";
 export const LANGUAGES = ["en", "zh"] as const;
 export type Lang = (typeof LANGUAGES)[number];
 
-export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr"] as const;
+export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi"] as const;
 
 export type Article = {
   slug: string;
@@ -62,6 +62,7 @@ const toolSeo = {
     water: ["Daily Water Intake Calculator - Personalized Hydration Target", "Calculate your optimal daily fluid intake based on body weight and exercise sweat rate according to American College of Sports Medicine (ACSM) hydration standards."],
     ibw: ["Ideal Body Weight Calculator (Devine Formula & WHO Healthy Range)", "Find your ideal body weight (IBW) based on height using the clinical Devine formula and WHO BMI healthy benchmarks. Includes musculoskeletal limitations."],
     hr: ["Target Heart Rate Calculator (Tanaka & Karvonen) - Zone 2 Fat Burning", "Calculate your peak fat oxidation zone (Zone 2) and maximal heart rate using the Tanaka equation and Karvonen heart rate reserve method."],
+    bmi: ["BMI Calculator | Body Mass Index & Healthy Weight Evaluation - FitKit", "Calculate your Body Mass Index (BMI) using WHO standard formula. Get weight categories, health risks insights, and personalized fitness guidance."],
   },
   zh: {
     splits: ["一字马横叉/竖叉进度打卡 - 髋关节活动度与柔韧性科学训练", "基于运动神经力学与本体感觉神经肌肉易化术（PNF），科学记录横叉与竖叉下落距离与开胯角度，打破牵张反射与韧带僵硬。"],
@@ -71,6 +72,7 @@ const toolSeo = {
     water: ["每日饮水量动态计算器 - 科学补水与运动出汗量补偿", "根据美国运动医学会（ACSM）与国家医学院指南，基于体重代谢质量与运动排汗消耗，动态计算每日个性化饮水与电解质需求。"],
     ibw: ["标准理想体重计算器 (Devine 经典公式 & WHO 健康范围)", "采用临床药理学与世界卫生组织（WHO）公认的 Devine 理想体重计算方程，结合身高与骨架测算健康适宜体重区间。"],
     hr: ["靶心率与黄金燃脂区间计算器 (Tanaka公式 & Karvonen储备心率)", "基于 Tanaka 现代最大心率修正方程与 Karvonen 储备心率法，精准计算 Zone 2 最佳脂肪氧化心率区间，提升有氧心肺耐力。"],
+    bmi: ["BMI 计算器 | 在线身体质量指数测算与健康体重评估 - FitKit", "基于世界卫生组织（WHO）通用标准，输入身高体重快速计算 BMI 数值，提供科学体型分级、解读健康风险及体脂评估建议。"],
   },
 } satisfies Record<Lang, Record<(typeof TOOL_SLUGS)[number], [string, string]>>;
 

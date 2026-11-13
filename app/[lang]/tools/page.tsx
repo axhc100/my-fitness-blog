@@ -22,6 +22,14 @@ export async function generateMetadata({
 
 const toolItems = [
   {
+    slug: "bmi",
+    emoji: "⚖️",
+    zhTitle: "BMI 身体质量指数计算器",
+    enTitle: "BMI Calculator",
+    zhDesc: "基于世界卫生组织（WHO）国际标准，输入身高体重评估身体质量指数、健康分类与理想体重区间。",
+    enDesc: "Calculate your Body Mass Index (BMI), health risk categories, and ideal weight brackets based on WHO standards.",
+  },
+  {
     slug: "bmr",
     emoji: "⚡",
     zhTitle: "BMR 与 TDEE 每日能量计算",

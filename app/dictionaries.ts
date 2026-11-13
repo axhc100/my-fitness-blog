@@ -2,6 +2,8 @@ const dictionaries = {
   en: {
     title: "Fitness & Health Toolkit",
     description: "Welcome to my fitness blog. Use our smart, science-backed tools to track your health.",
+    bmiTool: "BMI Calculator",
+    bmiDesc: "Evaluate Body Mass Index, health risk classification, and optimal weight based on WHO standards.",
     splitsTool: "Splits Tracker",
     splitsDesc: "Track your stretching progress and visualize your flexibility journey.",
     macroTool: "Macro Calculator",
@@ -24,6 +26,8 @@ const dictionaries = {
   zh: {
     title: "健康数据智能工具箱",
     description: "欢迎来到我的健身博客。使用科学的数据工具精确追踪您的身体与健康指标。",
+    bmiTool: "BMI 身体质量指数",
+    bmiDesc: "基于 WHO 国际通用标准，快速评估身体质量指数、体型分级与理想健康体重区间。",
     splitsTool: "一字马进度打卡",
     splitsDesc: "记录每日拉伸进度，量化你的柔韧性蜕变之旅。",
     macroTool: "三大营养素计算器",

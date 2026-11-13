@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits';
+export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi';
 
 interface ToolScientificGuideProps {
   slug: ToolSlug;
@@ -427,6 +427,64 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
       references: [
         "Weppler CH, Magnusson SP. Increasing muscle extensibility: a matter of increasing length or modifying sensation? Phys Ther. 2010;90(3):438-449.",
         "Behm DG, Blazevich AJ, Kay AD, McHugh M. Acute effects of muscle stretching on physical performance, range of motion, and injury incidence in healthy active individuals. Appl Physiol Nutr Metab. 2016;41(1):1-11."
+      ]
+    }
+  },
+  bmi: {
+    en: {
+      title: "Scientific Methodology: Quetelet Index (Body Mass Index)",
+      badge: "WHO Global Standard (E-E-A-T)",
+      formulaLabel: "Mathematical Formulation",
+      formula: "BMI = Weight (kg) / [Height (m)]²\n\nValidation Example (175 cm, 70 kg):\nBMI = 70 / (1.75)² = 70 / 3.0625 = 22.9 kg/m² (Normal Weight)",
+      formulaNote: "Standard World Health Organization (WHO) adult classification: Underweight (<18.5), Normal (18.5–24.9), Overweight (25.0–29.9), Obese (≥30.0).",
+      backgroundTitle: "Historical Background & Epidemiological Validation",
+      background: [
+        "The Body Mass Index (originally the Quetelet Index) was developed in 1832 by Belgian mathematician and statistician Adolphe Quetelet to quantify average human body proportions across demographics.",
+        "In 1972, physiologist Ancel Keys validated the index across 7,426 subjects, confirming it as the premier non-invasive statistical surrogate for relative body fatness in population studies. In 1995, the World Health Organization officially adopted BMI as the global clinical screening benchmark."
+      ],
+      audienceTitle: "Target Population & Clinical Utility",
+      audience: [
+        "Population-Level Health Screening: Cost-effective primary screening tool for public health surveys and epidemiological risk assessments.",
+        "Metabolic Risk Stratification: Serves as a baseline metric associated with relative risks of type 2 diabetes, hypertension, and cardiovascular diseases across large demographics.",
+        "General Fitness Tracking: Provides a quick macroscopic baseline for sedentary or recreational individuals beginning their health and wellness journey."
+      ],
+      limitationsTitle: "Biomechanical Limitations & Muscular Caveats",
+      limitations: [
+        "Inability to Differentiate Tissue Composition: BMI evaluates only total scale mass relative to stature. It cannot distinguish metabolically dense skeletal muscle from adipose tissue. Highly trained athletes, bodybuilders, and powerlifters often register 'overweight' despite single-digit body fat.",
+        "Sarcopenic Obesity ('Skinny Fat') Blindspot: Older adults or sedentary individuals with low lean mass and elevated visceral adiposity may present a deceptively 'normal' BMI despite heightened cardiometabolic danger. Complementing BMI with body fat percentage (US Navy method) is strongly recommended."
+      ],
+      referencesTitle: "Peer-Reviewed Academic Citations",
+      references: [
+        "Keys A, Fidanza F, Karvonen MJ, Kimura N, Taylor HL. Indices of relative weight and obesity. J Chronic Dis. 1972;25(6):329-343.",
+        "World Health Organization. Physical status: the use and interpretation of anthropometry. Report of a WHO Expert Committee. WHO Technical Report Series 854. Geneva: WHO; 1995."
+      ]
+    },
+    zh: {
+      title: "科学依据与推导：凯特勒指数（身体质量指数 BMI）",
+      badge: "WHO 国际公认标准 (E-E-A-T)",
+      formulaLabel: "数学推导公式",
+      formula: "BMI = 体重 (kg) ÷ [身高 (m)]²\n\n验算示例 (175 cm, 70 kg):\nBMI = 70 ÷ (1.75)² = 70 ÷ 3.0625 = 22.9 kg/m² (标准正常)",
+      formulaNote: "世界卫生组织（WHO）成人分级标准：体重偏轻（<18.5）、正常范围（18.5～24.9）、超重区间（25.0～29.9）、肥胖区间（≥30.0）。",
+      backgroundTitle: "历史渊源与循证流行病学验证",
+      background: [
+        "身体质量指数（最初称为“凯特勒指数”）由比利时著名统计学家兼天文学家阿道夫·凯特勒（Adolphe Quetelet）于 1832 年创立，用于定义群体统计学中的平均身体比例。",
+        "1972 年，著名生理学家安塞尔·基斯（Ancel Keys）在对比水下称重法后，证实该指数与人体脂肪总量具备高度统计学相关性，并正式将其命名为“Body Mass Index (BMI)”。1995 年，世界卫生组织（WHO）正式确立 BMI 为全球通用肥胖筛查标准。"
+      ],
+      audienceTitle: "适用人群与日常应用",
+      audience: [
+        "宏观体质健康初筛：作为无需复杂仪器的无创快速指标，适合大众成年人进行长期宏观体重趋势评估。",
+        "代谢性慢病风险分层：流行病学研究证实，BMI 异常与 2 型糖尿病、高血压及动脉粥样硬化风险呈显著相关性，为健康生活方式提供预警基线。",
+        "减重与生活方式干预：为初入健身房或开展体重管理的人士建立基础基准线，辅助衡量生活方式调整效果。"
+      ],
+      limitationsTitle: "身体成分局限性与高肌肉量警示",
+      limitations: [
+        "无法区分肌肉与脂肪：BMI 仅度量身体总重量，不具备体成分解析能力。经常进行大重量抗阻力量训练、肌肉量显著高于常人的健美或力量举训练者，BMI 往往会虚高进入“超重”甚至“肥胖”区间，此时该数值不反映真实肥胖度。",
+        "隐形肥胖（Skinny Fat）漏诊：缺乏力量训练的久坐人群，即便 BMI 处于 18.5~24.9 的完美区间，但若体脂率偏高、内脏脂肪堆积且骨骼肌严重匮乏，依然存在较高的心血管隐患。强烈建议结合体脂率（美军体围法）与腰围综合判断。"
+      ],
+      referencesTitle: "权威学术文献引用",
+      references: [
+        "Keys A, Fidanza F, Karvonen MJ, Kimura N, Taylor HL. Indices of relative weight and obesity. J Chronic Dis. 1972;25(6):329-343.",
+        "World Health Organization. Physical status: the use and interpretation of anthropometry. Report of a WHO Expert Committee. WHO Technical Report Series 854. Geneva: WHO; 1995."
       ]
     }
   }

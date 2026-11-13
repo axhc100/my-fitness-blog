@@ -374,4 +374,57 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
       },
     },
   ],
+
+  bmi: [
+    {
+      question: {
+        zh: "BMI 超标就一定是胖吗？",
+        en: "If my BMI is in the overweight range, does it definitely mean I am overweight?",
+      },
+      answer: {
+        zh: "不一定。BMI（身体质量指数）仅基于身高与体重比例测算，无法区分脂肪组织与去脂骨骼肌。如果经常进行抗阻力量训练、肌肉量充沛且腰围紧致，即使 BMI 达到 25~28 处于超重区间，也属于代谢非常健康的肌肉型体格，无需盲目节食减重。",
+        en: "Not necessarily. BMI evaluates only height-to-weight proportion and cannot distinguish adipose tissue from skeletal muscle. Resistance-trained athletes with high muscle mass and tight waistlines often register in the overweight category (25–28) while maintaining optimal metabolic and cardiovascular health.",
+      },
+    },
+    {
+      question: {
+        zh: "肌肉多或经常力量训练的人，BMI 还适用吗？",
+        en: "Is BMI accurate for bodybuilders and muscular individuals?",
+      },
+      answer: {
+        zh: "适用性受限。对于健美运动员、重竞技力量举选手及高肌肉量人群，BMI 往往会产生“虚假超重或肥胖”的假象。对这部分人群，建议结合体脂率（美国海军体围法）、腰臀比（WHR）与去脂体重指数（FFMI）综合评估。",
+        en: "It has notable limitations for muscular populations. Bodybuilders and strength lifters will frequently register false positive overweight readings. For athletes, body fat percentage (US Navy method), waist-to-hip ratio, and Fat-Free Mass Index (FFMI) provide vastly superior assessments.",
+      },
+    },
+    {
+      question: {
+        zh: "BMI 和体脂率（BFP）有什么本质区别？",
+        en: "What is the fundamental difference between BMI and Body Fat Percentage?",
+      },
+      answer: {
+        zh: "BMI 是一项针对大众人口的宏观流行病学筛查工具，仅反映体重是否过重；而体脂率（BFP）直接量化脂肪组织占总体重的百分比。体脂率能敏锐识别“隐形肥胖”（Skinny Fat，即体重正常但内脏脂肪与体脂过高、肌肉匮乏）。",
+        en: "BMI is an epidemiological population screening metric indicating relative heaviness, whereas Body Fat Percentage directly measures the proportion of adipose tissue. Body fat percentage accurately reveals 'skinny fat' (normal BMI with excess visceral fat and inadequate skeletal muscle).",
+      },
+    },
+    {
+      question: {
+        zh: "多久测一次 BMI 最合适？",
+        en: "How often should I measure my BMI?",
+      },
+      answer: {
+        zh: "对于普通成年人，每 2~4 周固定在清晨空腹、排便后测量一次体重并计算 BMI 即可。BMI 是长期体型趋势指标，短期（日内或隔天）由水分、盐分与肠道充盈引起的 1~2 公斤体重波动不代表真实体质改变，无需频繁天天测算。",
+        en: "Measuring once every 2–4 weeks first thing in the morning (fasted, post-elimination) is ideal for tracking long-term trends. Daily scale fluctuations of 1–2 kg from water retention, sodium, and glycogen do not reflect genuine body composition changes.",
+      },
+    },
+    {
+      question: {
+        zh: "我的身体数据会被保存吗？",
+        en: "Are my personal height and weight measurements saved?",
+      },
+      answer: {
+        zh: "你在 BMI 计算器中输入的身高、体重等数值仅在你的浏览器本地进行即时计算或缓存，绝不上传到任何后端云端服务器，充分保护个人隐私。",
+        en: "All height and weight measurements are processed purely within your client browser tab session and cached locally. No personal biometric data is ever transmitted to backend servers.",
+      },
+    },
+  ],
 };

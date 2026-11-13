@@ -34,6 +34,7 @@ const t = {
 } as const;
 
 const toolLinks = [
+  { href: "/tools/bmi", zh: "BMI 身体质量指数计算", en: "BMI Calculator" },
   { href: "/tools/bmr", zh: "BMR 基础代谢计算", en: "BMR Calculator" },
   { href: "/tools/macro", zh: "三大营养素计算器", en: "Macro Calculator" },
   { href: "/tools/bfp", zh: "体脂率计算器", en: "Body Fat Calculator" },
