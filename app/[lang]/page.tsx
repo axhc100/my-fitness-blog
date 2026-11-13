@@ -149,6 +149,16 @@ export default async function HomePage(props: PageProps) {
             <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
           </Link>
 
+          {/* 每日蛋白质需求计算器 */}
+          <Link href={`/${lang}/tools/protein`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
+            <div>
+              <span className="text-2xl mb-3 block group-hover:scale-110 transition duration-300 transform origin-left">🥩</span>
+              <h3 className="text-base font-bold text-gray-900 mb-1 transition group-hover:text-blue-600">{dict.proteinTool}</h3>
+              <p className="text-xs text-gray-400 leading-relaxed">{dict.proteinDesc}</p>
+            </div>
+            <span className="text-[10px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0 transition-all duration-300 mt-4 block">OPEN TOOL →</span>
+          </Link>
+
           {/* 1. 一字马进度打卡 */}
           <Link href={`/${lang}/tools/splits`} className="flex flex-col justify-between p-6 bg-white rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300 text-left group min-h-[220px]">
             <div>

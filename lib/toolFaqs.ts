@@ -480,4 +480,57 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
       },
     },
   ],
+
+  protein: [
+    {
+      question: {
+        zh: "一天到底吃多少蛋白质最合适？",
+        en: "How much protein do I actually need per day?",
+      },
+      answer: {
+        zh: "蛋白质需求取决于日常活动量与训练目标：久坐普通成年人建议 0.8–1.0g/kg 体重以维持基础氮平衡；耐力运动爱好者建议 1.2–1.6g/kg；抗阻增肌力量训练者建议 1.6–2.2g/kg；减脂期为最大限度防止肌肉分解，建议提高至 1.8–2.4g/kg。",
+        en: "Requirements depend on activity and fitness goals: sedentary adults need 0.8–1.0g/kg to maintain nitrogen balance; endurance athletes need 1.2–1.6g/kg; resistance-trained lifters aiming for hypertrophy need 1.6–2.2g/kg; and those in a caloric deficit require 1.8–2.4g/kg to preserve lean tissue.",
+      },
+    },
+    {
+      question: {
+        zh: "蛋白质一次吃太多吸收得了吗？",
+        en: "Is there a limit to how much protein the body can absorb in one meal?",
+      },
+      answer: {
+        zh: "胃肠道对蛋白质的消化吸收率极高，几乎所有摄入的氨基酸最终都会被完全吸收；但在单餐中，刺激“肌肉蛋白质合成（MPS）”的最大效应窗口通常在 25–45g（富含约 2.5–3g 亮氨酸）。多余部分将作为能量氧化或储存，因此将全天蛋白质分摊至 3–4 餐是最高效的策略。",
+        en: "The digestive tract absorbs nearly 100% of consumed amino acids, but the trigger for maximal Muscle Protein Synthesis (MPS) caps at approximately 25–45g per meal (yielding ~2.5–3g leucine). Distributing daily intake evenly across 3–4 meals is physiologically optimal for muscle growth.",
+      },
+    },
+    {
+      question: {
+        zh: "高蛋白饮食会伤肾或导致钙流失吗？",
+        en: "Does a high-protein diet cause kidney damage or bone loss?",
+      },
+      answer: {
+        zh: "国际运动营养学会（ISSN）与多项大型系统性综述证实：在肾功能健康的成年人中，长期摄入 1.6–2.4g/kg 甚至更高的高蛋白饮食非常安全，不会损害肾小球滤过率；同时高蛋白还能促进胰岛素样生长因子-1（IGF-1）分泌，增加骨密度而非导致骨质疏松。既往有慢性肾病者应遵医嘱。",
+        en: "Extensive clinical trials by the ISSN confirm that high protein intakes (1.6–2.4+ g/kg) do not impair renal filtration or kidney health in individuals with normal kidney function, nor do they induce bone demineralization. Patients with pre-existing renal disease must consult a physician.",
+      },
+    },
+    {
+      question: {
+        zh: "蛋白粉和天然食物（肉蛋奶豆）有什么区别？",
+        en: "What is the difference between protein powder and whole foods?",
+      },
+      answer: {
+        zh: "蛋白粉（乳清蛋白、大豆分离蛋白等）是经过提纯过滤的浓缩食品，核心优势在于便携、吸收快、热量纯净且性价比高；而全营养天然食物（如牛肉、三文鱼、鸡蛋）额外富含铁、锌、B族维生素与健康脂肪。建议日常饮食以天然食物为主，蛋白粉作为便捷加餐补充。",
+        en: "Protein powders (whey, casein, soy isolate) are purified whole-food derivatives offering fast digestion, low non-protein calories, and convenience. Whole food sources (chicken, salmon, eggs, lentils) provide essential micronutrients like iron, zinc, and B-vitamins. A balanced combination works best.",
+      },
+    },
+    {
+      question: {
+        zh: "我的数据会被保存吗？",
+        en: "Are my biometric inputs and goals saved on a server?",
+      },
+      answer: {
+        zh: "你在蛋白质需求计算器中输入的体重与目标选择仅保存在你当前浏览器本地，绝不上传到任何后端服务器，保证个人隐私安全。",
+        en: "All weight parameters and fitness targets are processed purely inside your private browser session and local storage. No health telemetry is uploaded to external servers.",
+      },
+    },
+  ],
 };

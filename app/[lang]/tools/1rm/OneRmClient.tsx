@@ -455,15 +455,15 @@ export default function OneRmClient({ paramsPromise }: OneRmClientProps) {
                   </Link>
 
                   <Link
-                    href={`/${lang}/tools/macro`}
+                    href={`/${lang}/tools/protein`}
                     className="p-4 bg-gray-50 hover:bg-blue-50/60 rounded-2xl border border-gray-100 hover:border-blue-200 transition group text-left"
                   >
-                    <div className="text-xl mb-1 group-hover:scale-110 transition-transform inline-block">🍳</div>
+                    <div className="text-xl mb-1 group-hover:scale-110 transition-transform inline-block">🥩</div>
                     <div className="text-xs font-bold text-gray-900 group-hover:text-blue-600">
-                      {isZh ? '去算宏量配比' : 'Calculate Macros'}
+                      {isZh ? '去看蛋白质需求' : 'Protein Calculator'}
                     </div>
                     <div className="text-[11px] text-gray-500 mt-1 leading-snug">
-                      {isZh ? '根据增肌热量目标科学分配蛋白质、碳水与脂肪' : 'Balance protein, carbs, and fats for hypertrophy'}
+                      {isZh ? '根据体重与增肌目标精准测算每日蛋白质总量' : 'Calculate daily protein targets for muscle growth'}
                     </div>
                   </Link>
                 </div>

@@ -8,7 +8,7 @@ export const SITE_NAME = "FitKit";
 export const LANGUAGES = ["en", "zh"] as const;
 export type Lang = (typeof LANGUAGES)[number];
 
-export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi", "1rm"] as const;
+export const TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi", "1rm", "protein"] as const;
 
 export type Article = {
   slug: string;
@@ -64,6 +64,7 @@ const toolSeo = {
     hr: ["Target Heart Rate Calculator (Tanaka & Karvonen) - Zone 2 Fat Burning", "Calculate your peak fat oxidation zone (Zone 2) and maximal heart rate using the Tanaka equation and Karvonen heart rate reserve method."],
     bmi: ["BMI Calculator | Body Mass Index & Healthy Weight Evaluation - FitKit", "Calculate your Body Mass Index (BMI) using WHO standard formula. Get weight categories, health risks insights, and personalized fitness guidance."],
     "1rm": ["1RM Calculator | One-Rep Max & Training Percentage Chart - FitKit", "Calculate your One-Rep Max (1RM) using the scientifically validated Epley formula. Generates complete training percentage loads (50%–95%) for squat, bench press, and deadlift."],
+    protein: ["Daily Protein Calculator | Evidence-Based Intake by Goal & Weight - FitKit", "Calculate optimal daily protein requirements based on ISSN and ACSM guidelines. Tailored targets for muscle hypertrophy, fat loss, and healthy maintenance with per-meal distribution."],
   },
   zh: {
     splits: ["一字马横叉/竖叉进度打卡 - 髋关节活动度与柔韧性科学训练", "基于运动神经力学与本体感觉神经肌肉易化术（PNF），科学记录横叉与竖叉下落距离与开胯角度，打破牵张反射与韧带僵硬。"],
@@ -75,6 +76,7 @@ const toolSeo = {
     hr: ["靶心率与黄金燃脂区间计算器 (Tanaka公式 & Karvonen储备心率)", "基于 Tanaka 现代最大心率修正方程与 Karvonen 储备心率法，精准计算 Zone 2 最佳脂肪氧化心率区间，提升有氧心肺耐力。"],
     bmi: ["BMI 计算器 | 在线身体质量指数测算与健康体重评估 - FitKit", "基于世界卫生组织（WHO）通用标准，输入身高体重快速计算 BMI 数值，提供科学体型分级、解读健康风险及体脂评估建议。"],
     "1rm": ["1RM 计算器 | 最大力量估算与力量训练百分比对照表 - FitKit", "基于经典 Epley 力量科学公式，输入测试重量与完成次数，精准估算深蹲、卧推、硬拉的 1RM 最大单次重量，并提供 50%~95% 训练强度负荷表。"],
+    protein: ["每日蛋白质需求计算器 | 增肌减脂摄入量与按餐分配 - FitKit", "基于国际运动营养学会（ISSN）循证标准，根据体重与健身目标（维持、增肌、减脂）精准计算每日蛋白质克数、分餐摄入量及常见高蛋白食物换算。"],
   },
 } satisfies Record<Lang, Record<(typeof TOOL_SLUGS)[number], [string, string]>>;
 

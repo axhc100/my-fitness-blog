@@ -38,6 +38,14 @@ const toolItems = [
     enDesc: "Calculate your One-Rep Max (1RM) using the Epley formula and generate a full percentage training load chart.",
   },
   {
+    slug: "protein",
+    emoji: "🥩",
+    zhTitle: "每日蛋白质需求计算器",
+    enTitle: "Protein Intake Calculator",
+    zhDesc: "基于 ISSN 国际循证标准，根据体重与增肌/减脂目标科学计算每日蛋白质总量与分餐摄入建议。",
+    enDesc: "Calculate evidence-based daily protein targets and meal distributions based on ISSN standards.",
+  },
+  {
     slug: "bmr",
     emoji: "⚡",
     zhTitle: "BMR 与 TDEE 每日能量计算",

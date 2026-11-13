@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm';
+export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm' | 'protein';
 
 interface ToolScientificGuideProps {
   slug: ToolSlug;
@@ -543,6 +543,64 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
       references: [
         "Epley B. Poundage chart. Boyd Epley Workout. Lincoln, NE: Body Enterprises; 1985:14-17.",
         "LeSuer DA, McCormick JH, Mayhew JL, Wasserstein RL, Arnold MD. The accuracy of prediction equations for estimating 1-RM performance in the bench press, squat, and deadlift. J Strength Cond Res. 1997;11(4):211-213."
+      ]
+    }
+  },
+  protein: {
+    en: {
+      title: "Scientific Methodology: ISSN Protein Intake & Muscle Protein Synthesis",
+      badge: "ISSN Evidence-Based Standard (E-E-A-T)",
+      formulaLabel: "Mathematical Formulation",
+      formula: "Maintenance: 0.8–1.0 g / kg body weight\nHypertrophy / Muscle Building: 1.6–2.2 g / kg body weight (Baseline: 2.0 g/kg)\nCutting / Fat Loss (Sparing Lean Mass): 1.8–2.4 g / kg body weight (Baseline: 2.0 g/kg)\n\nValidation Example (70 kg Muscle Building @ 2.0 g/kg):\nDaily Target = 70 × 2.0 = 140 g / day\nPer-Meal Target (4 meals) = 140 / 4 = 35 g / meal",
+      formulaNote: "Based on International Society of Sports Nutrition (ISSN) Position Stand on protein and exercise.",
+      backgroundTitle: "Biochemical Background & MPS Leucine Threshold",
+      background: [
+        "Muscle Protein Synthesis (MPS) is the primary physiological driver of muscular hypertrophy. In 2017, the International Society of Sports Nutrition (ISSN) published an exhaustive position stand reviewing hundreds of randomized metabolic ward studies.",
+        "Meta-analyses by Morton et al. (2018) encompassing 49 studies and 1,863 participants demonstrated that protein intakes beyond 1.62 g/kg/day do not significantly enhance resistance training adaptations in caloric balance, with the 95% confidence interval capping at 2.2 g/kg/day. In hypocaloric conditions (cutting), higher intakes (up to 2.4 g/kg) protect against myofibrillar breakdown."
+      ],
+      audienceTitle: "Target Population & Meal Frequency Strategy",
+      audience: [
+        "Resistance Lifters & Bodybuilders: Optimal intake of 1.6–2.2 g/kg optimizes net protein balance and accelerated myofibrillar remodeling.",
+        "Caloric Deficit Cutters: Elevated intake (1.8–2.4 g/kg) blunts gluconeogenic catabolism of skeletal muscle during dieting.",
+        "Meal Spacing Protocol: Distribute protein into doses of 0.40–0.55 g/kg/meal (typically 25–45g) every 3–5 hours to consistently surpass the leucine threshold (~2.5–3g) and maximize MPS peaks."
+      ],
+      limitationsTitle: "Metabolic Ceilings & Clinical Considerations",
+      limitations: [
+        "Protein Ceiling Myth vs MPS Refractory Period: Consuming more than 50g in a single sitting remains digestible, but the fractional synthetic rate (FSR) peaks and enters a refractory 'muscle full' state, oxidizing excess amino acids.",
+        "Clinical Renal Pre-existing Conditions: While healthy kidneys adapt with physiological hyperfiltration, patients with diagnosed chronic kidney disease (CKD) or reduced eGFR must restrict protein intake per medical prescription."
+      ],
+      referencesTitle: "Peer-Reviewed Academic Citations",
+      references: [
+        "Jäger R, Kerksick CM, Campbell BI, et al. International Society of Sports Nutrition Position Stand: protein and exercise. J Int Soc Sports Nutr. 2017;14:20.",
+        "Morton RW, Murphy KT, McKellar SR, et al. A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. Br J Sports Med. 2018;52(6):376-384."
+      ]
+    },
+    zh: {
+      title: "科学依据与推导：ISSN 蛋白质需求与肌蛋白合成（MPS）",
+      badge: "ISSN 国际循证标准 (E-E-A-T)",
+      formulaLabel: "数学推导公式",
+      formula: "维持基础健康：0.8～1.0 g ÷ kg 体重\n力量增肌期：1.6～2.2 g ÷ kg 体重 (基准常用 2.0 g/kg)\n减脂防掉肌：1.8～2.4 g ÷ kg 体重 (基准常用 2.0 g/kg)\n\n验算示例 (70 kg 增肌按 2.0 g/kg):\n每日总量 = 70 × 2.0 = 140 g / 天\n每餐建议 (分4餐) = 140 ÷ 4 = 35 g / 餐",
+      formulaNote: "基于国际运动营养学会（ISSN）《蛋白质与运动专项科学立场声明》权威标准设计。",
+      backgroundTitle: "生化生理机制与亮氨酸阈值",
+      background: [
+        "肌肉蛋白质合成速率（MPS）与分解速率（MPB）的代数和决定了净肌肉量的增减。2017 年，国际运动营养学会（ISSN）发布了基于数千篇临床对照实验的里程碑式共识声明。",
+        "著名运动营养学家 Morton 等人（2018 年《英国运动医学杂志》BJSM）对 49 项高精度实验、1,863 名受试者进行了全面 Meta 分析，证实日常蛋白质摄入量达到 1.62 g/kg/天 时，抗阻增肌效益进入平原期，其 95% 置信区间上限为 2.2 g/kg/天。在热量赤字减脂期，摄入上限可拓展至 2.4 g/kg 以抵消皮质醇造成的肌肉糖异生分解。"
+      ],
+      audienceTitle: "适用人群与分餐吸收策略",
+      audience: [
+        "抗阻力力量训练与肌肥大：每日按 1.6～2.2 g/kg 配给，配合渐进超负荷训练实现最佳瘦体重增长。",
+        "减脂期训练者：将摄入量提升至 1.8～2.4 g/kg，利用蛋白质最高的热效应（TEF 约 20–30%）提升饱腹感并强力锁定瘦体重。",
+        "分餐节律优化：建议全天均分 3~4 餐，单餐摄入 0.40~0.55 g/kg（约 25~45g 优质蛋白），确保每次摄入含 2.5~3g 亮氨酸以触发肌蛋白合成最大化开关。"
+      ],
+      limitationsTitle: "代谢上限认知与特殊人群警示",
+      limitations: [
+        "单餐利用上限辨析：胃肠道能消化任意大剂量的蛋白质，但单次刺激 MPS 的边际递减效应通常在 40~50g 饱和（出现“肌肉饱足”现象），多余氨基酸主要氧化为能量，因此少吃多餐比单餐暴饮暴食更利于肌肥大。",
+        "健康人群与肾病界限：对肾功能正常者，长期摄入 2.0~2.5 g/kg 被证实无肾小球损伤；但已有慢性肾病（CKD）或肾功能不全者必须严格遵循临床限蛋白医嘱。"
+      ],
+      referencesTitle: "权威学术文献引用",
+      references: [
+        "Jäger R, Kerksick CM, Campbell BI, et al. International Society of Sports Nutrition Position Stand: protein and exercise. J Int Soc Sports Nutr. 2017;14:20.",
+        "Morton RW, Murphy KT, McKellar SR, et al. A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. Br J Sports Med. 2018;52(6):376-384."
       ]
     }
   }
