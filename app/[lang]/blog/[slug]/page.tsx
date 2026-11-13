@@ -173,8 +173,15 @@ export default async function BlogPostPage({
     }
   });
 
+  // 4.5 清理标题中残存的 ** 语法（例如 ## 标题** 或 ## **标题**）
+  cleanContent = cleanContent.replace(/^(#{1,6}\s+)\*\*([^*\n\r]+?)\*\*\s*$/gm, '$1$2');
+  cleanContent = cleanContent.replace(/^(#{1,6}\s+.*?)\*\*\s*$/gm, '$1');
+
   // 5. 修复中文标点紧贴导致的 Markdown 加粗失效问题（仅在代码块外执行）
   cleanContent = cleanContent.replace(/\*\*([^*\n\r]+?)\*\*/g, '<strong>$1</strong>');
+
+  // 5.5 清理任何仍孤立遗留的未闭合 ** 字符，防止在前端直接暴露源码
+  cleanContent = cleanContent.replace(/\*\*/g, '');
 
   // 6. 还原受保护的代码块
   cleanContent = cleanContent.replace(/__CODE_BLOCK_STASH_(\d+)__/g, (_, idx) => codeBlockStash[Number(idx)]);
@@ -282,6 +289,28 @@ export default async function BlogPostPage({
               {domToReact(domNode.children as DOMNode[], options)}
             </table>
           </div>
+        );
+      }
+
+      if (domNode instanceof Element && domNode.name === 'th') {
+        const cls = domNode.attribs.class
+          ? `${domNode.attribs.class} px-4 py-3 bg-gray-50 font-bold text-gray-900 border-b border-gray-200 whitespace-nowrap`
+          : 'px-4 py-3 bg-gray-50 font-bold text-gray-900 border-b border-gray-200 whitespace-nowrap';
+        return (
+          <th {...domNode.attribs} className={cls}>
+            {domToReact(domNode.children as DOMNode[], options)}
+          </th>
+        );
+      }
+
+      if (domNode instanceof Element && domNode.name === 'td') {
+        const cls = domNode.attribs.class
+          ? `${domNode.attribs.class} px-4 py-3 border-b border-gray-100 text-gray-700 align-top min-w-[120px]`
+          : 'px-4 py-3 border-b border-gray-100 text-gray-700 align-top min-w-[120px]';
+        return (
+          <td {...domNode.attribs} className={cls}>
+            {domToReact(domNode.children as DOMNode[], options)}
+          </td>
         );
       }
 
