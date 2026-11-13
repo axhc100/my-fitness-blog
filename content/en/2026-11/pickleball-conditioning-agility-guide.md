@@ -32,21 +32,13 @@ One of the most pervasive flaws in recreational racquet sports is the **"arm-dom
 
 Elite ball striking relies on a proximal-to-distal **Kinetic Chain**:
 
-```
-[ Ground Reaction Force ] (Foot Drive & Ankle Stiffening)
-           │
-           ▼
-[ Hip Rotational Torque ] (Pelvic Torsion & Gluteal Drive)
-           │
-           ▼
-[ Thoraco-Lumbar Decoupling ] (Transverse Core & Oblique Sling)
-           │
-           ▼
-[ Scapulothoracic Glide & Shoulder Whip ] (Latissimus & Pectoralis Elastic Recoil)
-           │
-           ▼
-[ Elbow Extension & Wrist Pronation ] (Terminal Paddle Velocity)
-```
+| Kinetic Chain Link | Anatomical Driver | Biomechanical Energy Transfer |
+| :--- | :--- | :--- |
+| **1. Ground Reaction Force (GRF)** | Plantar fascia, subtalar joint & ankle stiffness | Triple-flexion loading converts ground reaction forces into upward propulsion |
+| **2. Hip Rotational Torque** | Posterior gluteus maximus, gluteus medius & adductors | Explosive concentric pelvic pivot generating the foundational rotational torque |
+| **3. Thoraco-Lumbar Decoupling** | Thoracolumbar fascia, internal & external obliques | Differential pelvic-torso rotation stretches the anterior oblique sling like an elastic band |
+| **4. Scapulothoracic Glide & Shoulder Whip** | Serratus anterior, latissimus dorsi, pectoralis major & rotator cuff | Unbroken kinetic energy transfer through elastic recoil and dynamic scapular stabilization |
+| **5. Elbow Extension & Wrist Pronation** | Triceps brachii, pronator teres & flexor digitorum | Terminal linear paddlehead velocity release while locking joints to shield tendons |
 
 ### 1. Ground Reaction Force (GRF) & The Hip Hinge
 Every powerful drive, overhead smash, or reaching roll volley originates in the ground. By loading the rear foot into triple flexion (hip, knee, ankle) during the preparation phase, the athlete stores elastic potential energy within the Achilles tendon, quadriceps, and gluteus medius. Driving through the ground initiates a rotational torque that pivots the hips forward.
@@ -112,12 +104,12 @@ Executing overhead smashes with a rounded thoracic spine (kyphosis) narrows the 
 
 To translate biomechanical theory into court dominance, integrate these four targeted training modules:
 
-```
-[ Module 1: Deceleration & Split-Step ] ──► [ Module 2: Rotational Power & Slings ]
-                   │                                          │
-                   ▼                                          ▼
-[ Module 3: Forearm Armor & Grip ]       ──► [ Module 4: Repeat Sprint Agility ]
-```
+| Training Module | Targeted Physical Quality | Court Performance & Longevity Benefit |
+| :--- | :--- | :--- |
+| **Module 1: Deceleration & Split-Step** | Eccentric braking, knee valgus prevention & reactive pre-hop | Shields ACL/meniscus from shear forces; enables lightning-fast lateral cutbacks |
+| **Module 2: Rotational Kinetic Power** | Cable chops, medicine ball scoop throws & diagonal myofascial slings | Generates blistering baseline drives and overhead smashes without arm compensation |
+| **Module 3: Forearm Armor & Scapular Shield** | Eccentric wrist extension, active grip hangs & rotator cuff endurance | Eradicates tennis elbow (lateral epicondylalgia) and shoulder impingement risks |
+| **Module 4: Kitchen Repeat Sprint Agility (RSA)** | Zone 2 aerobic base combined with high-intensity lactic shuttle repeats | Maintains split-second dink reaction speed deep into the third tiebreak set |
 
 ### 1. The Lateral Deceleration & Split-Step Matrix
 - **Heiden / Skater Bounds with Stick Landing**:

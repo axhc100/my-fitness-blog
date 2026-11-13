@@ -82,24 +82,14 @@ Never squat with shallow chest breathing.
 
 ## Execution: The Kinematics of Descent and Ascent
 
-```
-    [Unrack & 3-Step Walkout] ──> Root "Tripod Foot" & 360° IAP Brace
-               │
-               ▼
-    [Simultaneous Break] ───────> Hips hinge slightly back + Knees track forward
-               │
-               ▼
-    [Eccentric Descent (2-3s)] ─> Bar path vertical over midfoot, chest proud
-               │
-               ▼
-    [The Hole (Depth)] ─────────> Hip crease breaks parallel; maintain lumbar neutrality
-               │
-               ▼
-    [Explosive Ascent] ─────────> Drive floor away, maintain knee tracking (valgus prevention)
-               │
-               ▼
-    [Lockout & Reset] ──────────> Full hip & knee extension without hyperextending lumbar
-```
+| Phase | Core Technical Cue | Biomechanical Checkpoint |
+| :--- | :--- | :--- |
+| **1. Unrack & 3-Step Walkout** | Shoulder-width or slightly wider stance, toes flared 15°–30° | Root the "tripod foot" into the floor, pack 360° intra-abdominal pressure (IAP) |
+| **2. Simultaneous Break** | Hips hinge slightly back while knees track forward in the line of toes | Avoid pure hinge or pure knee drive; create clear clearance for the pelvis |
+| **3. Eccentric Descent (2–3s)** | Controlled tempo, rigid upper back and lats engagement | Keep the barbell vertical path strictly locked over the anatomical midfoot |
+| **4. The Hole (Depth)** | Crease of the hip descends below the top of the patella | Maintain lumbar neutrality and thoracic stiffness; prevent posterior butt wink |
+| **5. Explosive Ascent** | Drive the floor away aggressively through the full foot | Hips and chest rise at equal rates; gluteal torque prevents knee valgus |
+| **6. Lockout & Reset** | Full knee and hip extension into anatomical standing posture | Do not hyperextend the lumbar spine; reset IAP brace before the next repetition |
 
 ### 1. The Simultaneous Break (Hip Hinge + Knee Flexion)
 Initiate the movement by breaking at the hips and knees at the exact same instant. 
