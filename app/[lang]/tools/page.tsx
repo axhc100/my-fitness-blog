@@ -46,6 +46,14 @@ const toolItems = [
     enDesc: "Calculate evidence-based daily protein targets and meal distributions based on ISSN standards.",
   },
   {
+    slug: "fat-loss",
+    emoji: "🎯",
+    zhTitle: "减脂速度预测与目标日期计算器",
+    enTitle: "Fat Loss & Target Date Calculator",
+    zhDesc: "基于 7700 大卡热量缺口模型，测算所需减重天数、预计达标日期与每周健康减重速度，告别盲目节食。",
+    enDesc: "Calculate your estimated fat loss timeline, target completion date, and safe weekly rate based on energy deficit.",
+  },
+  {
     slug: "bmr",
     emoji: "⚡",
     zhTitle: "BMR 与 TDEE 每日能量计算",

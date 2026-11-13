@@ -533,4 +533,57 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
       },
     },
   ],
+
+  "fat-loss": [
+    {
+      question: {
+        zh: "减脂速度多快才健康？",
+        en: "How fast is a healthy rate of fat loss?",
+      },
+      answer: {
+        zh: "国际运动医学与营养学会普遍建议：安全健康的减重速率为每周减轻自身体重的 0.5%~1%（通常约为 0.5~1.0kg）。这个节奏能在最大化燃烧脂肪的同时，最大限度保护瘦体重（骨骼肌）与基础代谢率，避免出现皮肤松弛、免疫力低下与报复性暴食反弹。",
+        en: "Sports science and clinical guidelines consistently recommend a healthy fat loss rate of 0.5% to 1.0% of body weight per week (typically 0.5–1.0 kg/week). This pace maximizes adipose tissue oxidation while sparing skeletal muscle and metabolic rate, mitigating hormonal crashes and rebound binging.",
+      },
+    },
+    {
+      question: {
+        zh: "7700 大卡等于 1kg 脂肪准吗？",
+        en: "Is the 7,700 kcal per kg rule accurate?",
+      },
+      answer: {
+        zh: "7700 大卡规则源自经典 Wishnofsky 模型。人体 1kg 纯体脂组织中含有约 87% 的纯甘油三酯与约 13% 的水分与细胞基质（9000 kcal × 87% ≈ 7700~7800 kcal）。虽然人体存在动态代谢适应（Adaptive Thermogenesis），但 7700 大卡作为宏观减脂周期的热量缺口基准预测，在临床实践中依然极具指导价值。",
+        en: "The 7,700 kcal rule originates from the classic Wishnofsky model. Human adipose tissue contains approximately 87% pure triglycerides and 13% water/cellular proteins (9,000 kcal × 87% ≈ 7,700 kcal). While dynamic metabolic adaptation occurs over time, 7,700 kcal remains an exceptionally reliable clinical baseline for estimating deficit timelines.",
+      },
+    },
+    {
+      question: {
+        zh: "减脂进入平台期怎么办？",
+        en: "How to overcome a fat loss plateau?",
+      },
+      answer: {
+        zh: "减重平台期往往由三方面原因引起：① 体重下降后自身 BMR 与维持热量自然降低，原有的热量缺口缩小；② 饮食记录产生无意识的漏记或酱料超标；③ 长期热量赤字引发皮质醇升高导致身体水分潴留。突破方法：重新测算当前体重下的最新 TDEE、安排 1~2 周的等热量“饮食中断（Diet Break）”降低皮质醇，并配合充足睡眠。",
+        en: "Plateaus are typically driven by three mechanisms: reduced BMR and TDEE due to lower body mass, subconscious calorie tracking creep, or elevated cortisol inducing extracellular water retention. To break through: recalculate your TDEE for your new weight, ensure consistent NEAT activity, and consider a 1–2 week maintenance diet break to normalize hormonal balance.",
+      },
+    },
+    {
+      question: {
+        zh: "热量缺口越大减得越快越好吗？",
+        en: "Is a bigger calorie deficit always better?",
+      },
+      answer: {
+        zh: "绝对不是。当每日热量缺口超过 750~1000 大卡时，身体会启动进化自保机制：下调甲状腺素分泌、分解肌肉糖异生供能、无意识减少日常非运动消耗（NEAT），并强烈分泌饥饿素（Ghrelin）。这种极端缺口不仅导致掉肌肉和代谢损伤，更几乎必然在停止节食后迅速报复性反弹。",
+        en: "Definitely not. Aggressive deficits exceeding 750–1,000 kcal/day trigger severe metabolic downregulation: suppressed thyroid hormones, skeletal muscle catabolism for gluconeogenesis, plummeting spontaneous activity (NEAT), and intense hunger surges. Severe deficits almost always culminate in muscle loss and rapid rebound weight gain.",
+      },
+    },
+    {
+      question: {
+        zh: "我的数据会被保存吗？",
+        en: "Is my personal data saved or tracked?",
+      },
+      answer: {
+        zh: "你在减脂速度预测计算器中输入的当前体重、目标体重与热量缺口数据仅保留在你当前浏览器的本地存储中，FitKit 绝不上传或追踪任何个人健康隐私数据。",
+        en: "All starting weights, target weights, and calorie deficit values are processed and cached strictly inside your local browser. FitKit does not upload, log, or share your personal health metrics.",
+      },
+    },
+  ],
 };

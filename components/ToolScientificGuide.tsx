@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm' | 'protein';
+export type ToolSlug = 'bmr' | 'bfp' | 'macro' | 'hr' | 'ibw' | 'water' | 'splits' | 'bmi' | '1rm' | 'protein' | 'fat-loss';
 
 interface ToolScientificGuideProps {
   slug: ToolSlug;
@@ -601,6 +601,66 @@ const contentData: Record<ToolSlug, { en: GuideContent; zh: GuideContent }> = {
       references: [
         "Jäger R, Kerksick CM, Campbell BI, et al. International Society of Sports Nutrition Position Stand: protein and exercise. J Int Soc Sports Nutr. 2017;14:20.",
         "Morton RW, Murphy KT, McKellar SR, et al. A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. Br J Sports Med. 2018;52(6):376-384."
+      ]
+    }
+  },
+  'fat-loss': {
+    en: {
+      title: "Scientific Methodology: Wishnofsky 7,700 kcal Rule & Energy Deficit Science",
+      badge: "Thermodynamics Standard (E-E-A-T)",
+      formulaLabel: "Mathematical Formulation",
+      formula: "Required Days = (Current Weight − Target Weight) × 7,700 ÷ Daily Calorie Deficit\nWeekly Rate (kg/wk) = Daily Deficit × 7 ÷ 7,700\n\nValidation Example (80kg to 75kg, 500 kcal Deficit):\nWeight Loss = 80 − 75 = 5 kg\nRequired Days = 5 × 7,700 ÷ 500 = 77 Days\nWeekly Loss Rate = 500 × 7 ÷ 7,700 ≈ 0.45 kg/week",
+      formulaNote: "Derived from Wishnofsky's classical energy density model of human adipose tissue (~7,700 kcal per kilogram).",
+      backgroundTitle: "Historical Background & Adipose Thermodynamics",
+      background: [
+        "In 1958, clinical researcher Max Wishnofsky analyzed extensive biochemical caloric data of human fat tissue, establishing that 1 pound of adipose tissue represents approximately 3,500 kcal (equivalent to 7,700 kcal per kilogram of adipose mass). Adipose tissue is composed of roughly 87% pure triglycerides with the remainder consisting of intracellular water, structural proteins, and connective matrix.",
+        "Modern metabolic research published by Dr. Kevin Hall at the NIH (The Lancet, 2011) emphasizes that while dynamic physiological feedback occurs (adaptive thermogenesis), the cumulative energy deficit model remains the most dependable baseline tool for establishing multi-week caloric timelines."
+      ],
+      audienceTitle: "Target Population & Safe Deficit Guidelines",
+      audience: [
+        "Safe Weight Loss Pace: Evidence consistently recommends losing 0.5%–1.0% of total body weight per week (0.5–1.0 kg) to spare fat-free mass (skeletal muscle) and prevent endocrine disruption.",
+        "Calorie Deficit Strategy: Moderate daily deficits between 300 and 500 kcal yield optimal long-term dietary adherence without stimulating excessive ghrelin surges or extreme fatigue.",
+        "Resistance Training Synergy: Combining calorie deficits with progressive resistance training and adequate dietary protein (1.6–2.2 g/kg) ensures that lost weight stems almost exclusively from adipose stores."
+      ],
+      limitationsTitle: "Metabolic Adaptation & Real-World Fluctuations",
+      limitations: [
+        "Initial Glycogen & Water Shifts: During the first 1–2 weeks of a caloric deficit, rapid weight loss (1–2kg) often reflects glycogen depletion and bound water shedding rather than pure adipose loss.",
+        "Adaptive Thermogenesis: Over prolonged periods of dieting, total energy expenditure (TDEE) naturally declines as body weight drops. Periodic reassessments every 4–6 weeks or incorporating 1-week diet breaks are recommended to sustain momentum."
+      ],
+      referencesTitle: "Peer-Reviewed Academic Citations",
+      references: [
+        "Wishnofsky M. Caloric equivalents of gained or lost weight. Am J Clin Nutr. 1958;6(5):542-546.",
+        "Hall KD, Sacks G, Chandramohan D, et al. Quantification of the effect of energy imbalance on bodyweight. Lancet. 2011;378(9793):826-837.",
+        "Helms ER, Aragon AA, Fitschen PJ. Evidence-based recommendations for natural bodybuilding contest preparation: nutrition and supplementation. J Int Soc Sports Nutr. 2014;11:20."
+      ]
+    },
+    zh: {
+      title: "科学依据与推导：Wishnofsky 7700大卡模型与热量赤字规律",
+      badge: "热力学循证标准 (E-E-A-T)",
+      formulaLabel: "数学推导公式",
+      formula: "预计所需天数 = (当前体重 − 目标体重) × 7700 ÷ 每日热量缺口\n预计每周减重 = 每日热量缺口 × 7 ÷ 7700\n\n验算示例 (80kg 减至 75kg，每日缺口 500 大卡):\n需减重量 = 80 − 75 = 5 kg\n预计所需天数 = 5 × 7700 ÷ 500 = 77 天\n每周减重速度 = 500 × 7 ÷ 7700 ≈ 0.45 kg / 周",
+      formulaNote: "基于经典 Wishnofsky 人体脂肪组织能量密度模型（每公斤体脂含约 7700 大卡净热量）。",
+      backgroundTitle: "生化机制与脂肪组织热量等效性",
+      background: [
+        "1958 年，临床内分泌专家 Max Wishnofsky 发表了影响现代减重科学的经典论文，测算出人体 1 磅体脂含有约 3500 大卡能量，换算为公制即 1kg 体脂组织储备约 7700 大卡热量。人体脂肪组织并非 100% 纯脂肪，而是由约 87% 的纯甘油三酯以及约 13% 的水分与细胞基质蛋白构成（9 kcal/g × 870g ≈ 7700~7800 kcal）。",
+        "美国国家卫生研究院（NIH）资深科学家 Kevin Hall 博士在顶级医学期刊《柳叶刀》（The Lancet 2011）上指出，尽管人体在长期热量受限下会发生一定程度的自适应性产热下调（Adaptive Thermogenesis），但 7700 大卡能量守恒模型依然是宏观规划减重进度和评估热量赤字的最坚实基石。"
+      ],
+      audienceTitle: "适用人群与健康减脂节奏建议",
+      audience: [
+        "健康速率标准：权威运动医学界一致推荐每周减重速率控制在自身体重的 0.5%~1.0%（约 0.5~1.0kg）。这一速率能最大化减脂、最小化肌肉流失并保护基础代谢。",
+        "缺口阶梯选择：初学者或微胖人群推荐 300~500 大卡/天的温和缺口；大体重基数者可短期采用 750 大卡/天；切忌长期采取大于 1000 大卡的极端缺口。",
+        "力量训练结合：减脂期必须配合规律抗阻力训练与充足蛋白质摄入（1.6~2.2g/kg），促使身体选择性分解脂肪供能，避免瘦体重流失。"
+      ],
+      limitationsTitle: "短期波动与代谢适应客观规律",
+      limitations: [
+        "初始糖原水分效应：刚开始制造缺口的第 1~2 周，由于肌糖原储备减少（1g 糖原绑定约 3~4g 水），体重秤上的降幅往往较快，其中包含较多水分，随后会逐渐趋于平稳脂肪消耗。",
+        "平台期自然反馈：随着体重下降，维持身体运转所需的 BMR 和活动消耗会自然降低。当减重超过自身体重的 5%~10% 后，建议使用 BMR 计算器重新核定维持热量并适时安排 1 周等热量饮食调整期。"
+      ],
+      referencesTitle: "权威学术文献引用",
+      references: [
+        "Wishnofsky M. Caloric equivalents of gained or lost weight. Am J Clin Nutr. 1958;6(5):542-546.",
+        "Hall KD, Sacks G, Chandramohan D, et al. Quantification of the effect of energy imbalance on bodyweight. Lancet. 2011;378(9793):826-837.",
+        "Helms ER, Aragon AA, Fitschen PJ. Evidence-based recommendations for natural bodybuilding contest preparation: nutrition and supplementation. J Int Soc Sports Nutr. 2014;11:20."
       ]
     }
   }
