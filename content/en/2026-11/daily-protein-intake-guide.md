@@ -8,7 +8,7 @@ tags: ["Protein Intake", "Daily Protein", "Muscle Building", "Cutting Diet", "Ma
 
 > **Quick Answer (Featured Snippet)**: The most accurate method to determine your daily protein requirement is by **body weight (kg)**: sedentary adults need **0.8~1.0g/kg** for general health; resistance-trained lifters in a **hypertrophy phase** need **1.6~2.2g/kg**; and individuals in a caloric deficit **cutting fat** require **1.8~2.4g/kg** to prevent muscle loss. For example, a 70kg lifter aiming to build lean muscle should consume **112~154 grams of protein daily**.
 
-![](/images/daily-protein-intake-guide.jpg)
+![](/images/daily-protein-intake-guide-en.jpg)
 
 Among all dietary macronutrients, protein holds the crown for physique transformation. It supplies the essential amino acids required for myofibrillar protein synthesis, boasts the highest **Thermic Effect of Food (TEF ~20%~30%)**, and promotes powerful satiety during hunger-inducing diets. However, falling short leads to catabolic muscle loss, while excessive intake crowds out vital carbohydrates and healthy fats. Here is the evidence-based guide to pinpointing your daily requirement.
 

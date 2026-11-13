@@ -66,9 +66,9 @@ Paralleling the deep trunk cylinder (diaphragm, transverse abdominis, multifidus
 
 ### 2. The Foot Tripod Mechanical Model
 During upright human movement, optimal plantar load distribution relies upon an engineered, dynamic three-point base of support known as the **Foot Tripod**:
-- **Point A (First Metatarsal Head / 大脚趾球)**: Anchors medial forefoot pressure, acting as the primary fulcrum against pronation collapse;
-- **Point B (Fifth Metatarsal Head / 小脚趾球)**: Bears lateral forefoot pressure, creating lateral stability and cross-foot torsion;
-- **Point C (Calcaneal Tuberosity / 跟骨中心粗隆)**: Anchors axial gravitational compression through the posterior pillar.
+- **Point A (First Metatarsal Head / Ball of the Big Toe)**: Anchors medial forefoot pressure, acting as the primary fulcrum against pronation collapse;
+- **Point B (Fifth Metatarsal Head / Ball of the Little Toe)**: Bears lateral forefoot pressure, creating lateral stability and cross-foot torsion;
+- **Point C (Calcaneal Tuberosity / Center of the Heel)**: Anchors axial gravitational compression through the posterior pillar.
 
 
 | Support Pillar | Plantar Anatomical Location | Biomechanical Weight-Bearing Function | Neuromuscular & Stabilization Mechanism |

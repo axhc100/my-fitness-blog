@@ -83,6 +83,50 @@ const nextConfig: NextConfig = {
         destination: "/en/blog/yin-yoga-fascia-guide",
         statusCode: 301,
       },
+      // 6. 肌肥大疲劳与减量 (26-11-06-1)
+      {
+        source: "/zh/blog/26-11-06-1",
+        destination: "/zh/blog/hypertrophy-fatigue-deload-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-06-1",
+        destination: "/en/blog/hypertrophy-fatigue-deload-guide",
+        statusCode: 301,
+      },
+      // 7. HYROX 备赛指南 (26-10-29-1)
+      {
+        source: "/zh/blog/26-10-29-1",
+        destination: "/zh/blog/hyrox-race-prep-guide",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-10-29-1",
+        destination: "/en/blog/hyrox-race-prep-guide",
+        statusCode: 301,
+      },
+      // 8. 骨盆前倾矫正 (26-11-03-1)
+      {
+        source: "/zh/blog/26-11-03-1",
+        destination: "/zh/blog/anterior-pelvic-tilt-correction",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-03-1",
+        destination: "/en/blog/anterior-pelvic-tilt-correction",
+        statusCode: 301,
+      },
+      // 9. 普拉提与流瑜伽核心对位 (26-11-02-1)
+      {
+        source: "/zh/blog/26-11-02-1",
+        destination: "/zh/blog/pilates-vinyasa-core-alignment",
+        statusCode: 301,
+      },
+      {
+        source: "/en/blog/26-11-02-1",
+        destination: "/en/blog/pilates-vinyasa-core-alignment",
+        statusCode: 301,
+      },
     ];
   },
 };

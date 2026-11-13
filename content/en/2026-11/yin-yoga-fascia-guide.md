@@ -85,8 +85,8 @@ According to Thomas Myers’ Anatomy Trains model, movement dysfunctions are rar
 
 | Fascial Meridian Line | Full Anatomical Span & Continuum | Primary Biomechanical Function | Modern Sedentary Pathology | Restorative Yin Yoga Asana |
 | :--- | :--- | :--- | :--- | :--- |
-| **Deep Front Line (DFL)** | Tibialis post. ➔ Adductors ➔ Psoas ➔ Pelvic floor ➔ Diaphragm ➔ Scalenes | Deep structural core pillar; visceral support | Chronically shortened psoas, anterior pelvic tilt, shallow chest breathing | Low Dragon Pose (飞龙式) |
-| **Superficial Back Line (SBL)** | Plantar fascia ➔ Hamstrings ➔ Sacrotuberous lig. ➔ Thoracolumbar fascia ➔ Erector spinae | Maintains upright stance; resists forward flexion collapse | Fibrotic thoracolumbar thickening, hamstring tension, lower back aches | Caterpillar Pose (毛毛虫式) |
+| **Deep Front Line (DFL)** | Tibialis post. ➔ Adductors ➔ Psoas ➔ Pelvic floor ➔ Diaphragm ➔ Scalenes | Deep structural core pillar; visceral support | Chronically shortened psoas, anterior pelvic tilt, shallow chest breathing | Low Dragon Pose |
+| **Superficial Back Line (SBL)** | Plantar fascia ➔ Hamstrings ➔ Sacrotuberous lig. ➔ Thoracolumbar fascia ➔ Erector spinae | Maintains upright stance; resists forward flexion collapse | Fibrotic thoracolumbar thickening, hamstring tension, lower back aches | Caterpillar Pose |
 
 ### 1. Decompressing the Deep Front Line (DFL): The Dragon Pose
 - **Biomechanical Execution**: With the rear knee cushioned on the mat and hips sinking downward under gravity, hands rest securely on yoga blocks to eliminate upper-body bracing and quad tension.

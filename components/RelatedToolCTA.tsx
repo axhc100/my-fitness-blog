@@ -94,12 +94,14 @@ const TOOLS: Record<string, ToolInfo> = {
 const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   // 1. 肌肥大 -> 宏量 / BMR
   'hypertrophy-split-periodization': 'macro',
+  'hypertrophy-fatigue-deload-guide': 'bmr',
   'daily-protein-intake-guide': 'macro',
   'how-to-calculate-bmr': 'bmr',
   '26-11-13-1': 'macro',
   '26-11-06-1': 'bmr',
   // 2. HYROX / 跑步 / 有氧耐力 -> 燃脂心率 / 补水
   'hyrox-training-guide': 'hr',
+  'hyrox-race-prep-guide': 'hr',
   '26-11-12-1': 'hr',
   '26-10-21-1': 'hr',
   '26-10-29-1': 'hr',
@@ -110,10 +112,12 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   '26-11-04-1': 'splits',
   // 4. 肋骨外翻 / 沙漏细腰 / 体态塑造 -> 体脂率 / 理想体重 (体态相关)
   'rib-flare-correction': 'bfp',
+  'anterior-pelvic-tilt-correction': 'bfp',
   '26-11-10-1': 'bfp',
   '26-11-03-1': 'bfp',
   // 5. 阴瑜伽 / 筋膜健康 -> 每日补水 (水合作用) / 柔韧拉伸
   'yin-yoga-fascia-guide': 'water',
+  'pilates-vinyasa-core-alignment': 'splits',
   '26-11-09-1': 'water',
   '26-11-02-1': 'splits',
   '26-10-31-1': 'water',

@@ -83,6 +83,15 @@ export default function RelatedArticles({
       }
     }
 
+    // 4. 优先推荐已具备描述性语义 slug 的精品长文与指南（+100）
+    const isDescriptiveSlug =
+      !art.slug.startsWith('26-') &&
+      !/^\d+$/.test(art.slug) &&
+      !/^\d{2}-\d{2}/.test(art.slug);
+    if (isDescriptiveSlug) {
+      score += 100;
+    }
+
     return { art, score };
   });
 

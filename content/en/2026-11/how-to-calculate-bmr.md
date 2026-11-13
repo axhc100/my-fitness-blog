@@ -8,7 +8,7 @@ tags: ["BMR", "Basal Metabolic Rate", "TDEE", "Calorie Deficit", "Mifflin-St Jeo
 
 > **Quick Answer (Featured Snippet)**: **Basal Metabolic Rate (BMR)** represents the baseline number of calories your body expends in 24 hours at complete rest, in a thermo-neutral state, to sustain vital functions such as breathing, blood circulation, cellular repair, and internal organ maintenance. The gold-standard clinical formula recommended by sports dietitians is the **Mifflin-St Jeor Equation**: for men, $\text{BMR} = 10 \times \text{weight (kg)} + 6.25 \times \text{height (cm)} - 5 \times \text{age} + 5$; for women, the exact same calculation minus $161$.
 
-![](/images/how-to-calculate-bmr.jpg)
+![](/images/how-to-calculate-bmr-en.jpg)
 
 Whether your goal is cutting body fat, building lean muscle mass, or sustaining peak athletic performance, **your BMR forms the physiological foundation of your daily nutrition plan**. Confusing BMR with Total Daily Energy Expenditure (TDEE) or starving below your baseline is one of the quickest routes to metabolic slowdown and muscle wasting. Here is the step-by-step breakdown using validated clinical science and real numbers.
 

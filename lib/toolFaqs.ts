@@ -11,7 +11,7 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
         en: "What is the difference between BMR and TDEE?",
       },
       answer: {
-        zh: "BMR（基础代谢率）指维持心脏跳动、呼吸和器官运作所需的最低热量；TDEE（每日总消耗）则在 BMR 基础上加上日常活动、工作走动及运动消耗。减脂与增肌的热量目标均应以 TDEE 为基准进行增减。",
+        zh: "BMR 是静止维持生命所需的最低热量；TDEE 则在 BMR 基础上累加了日常活动与运动消耗。制定减脂或增肌饮食计划时，均应以 TDEE 为基准调整热量缺口或盈余。",
         en: "BMR (Basal Metabolic Rate) is the minimum energy required to sustain vital functions like breathing and circulation at rest. TDEE (Total Daily Energy Expenditure) adds physical activity, occupational movement, and exercise on top of BMR.",
       },
     },
@@ -64,7 +64,7 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
         en: "Does a high-protein diet damage healthy kidneys?",
       },
       answer: {
-        zh: "根据国际运动营养学会（ISSN）系统综述，对于肾功能正常的健康训练者，长期每公斤体重摄入 1.6~2.2g 蛋白质已被证实非常安全，并不会损害肾脏。但已有慢性肾脏疾病者需严格遵医嘱控制蛋白质摄入。",
+        zh: "国际运动营养学会（ISSN）研究证实，肾功能正常的健康人群长期按每公斤体重摄入 1.6~2.2g 蛋白质非常安全，不会伤肾。仅慢性肾病患者需遵医嘱限制摄入。",
         en: "According to the International Society of Sports Nutrition (ISSN), daily intakes of 1.6–2.2g of protein per kg of body weight are proven safe for individuals with healthy kidney function. Those with pre-existing renal conditions should consult their physician.",
       },
     },
@@ -117,7 +117,7 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
         en: "What is a healthy body fat percentage range?",
       },
       answer: {
-        zh: "根据美国运动医学会（ACSM）标准，成年男性健康体脂率为 10%~20%（运动员约 6%~13%）；成年女性因必需脂肪需求，健康体脂率为 18%~28%（运动员约 14%~20%）。体脂过高或过低均可能干扰内分泌。",
+        zh: "ACSM 标准指出：成年男性健康体脂率为 10%~20%（运动员 6%~13%）；成年女性为 18%~28%（运动员 14%~20%）。体脂过高或过低均会影响内分泌健康。",
         en: "According to ACSM benchmarks, healthy body fat for adult men is 10%–20% (6%–13% for athletes); for adult women, healthy levels range between 18%–28% (14%–20% for athletes) due to essential reproductive adipose tissue. Extremes in either direction disrupt hormones.",
       },
     },
@@ -276,7 +276,7 @@ export const TOOL_FAQS: Record<string, ToolFaqItem[]> = {
         en: "Does the Ideal Body Weight formula apply to muscular strength lifters?",
       },
       answer: {
-        zh: "局限性较大。传统 Devine 理想体重公式基于统计学普通人群骨架身高构建，无法区分高密度骨骼肌与体脂。健美及力量举运动员体重常超标，但体脂极低，应以体脂率（BFP）和腰围作为核心体态指标。",
+        zh: "适用性有限。Devine 等标准体重公式基于普通人群统计，无法区分肌肉与体脂。肌肉量大的训练者体重常超标但体脂很低，建议以体脂率与腰围作为核心指标。",
         en: "It has recognized limitations for athletes. The Devine formula was established for general physiological reference and cannot differentiate between muscle mass and adipose tissue. Muscular athletes should prioritize body fat percentage over scale weight.",
       },
     },
