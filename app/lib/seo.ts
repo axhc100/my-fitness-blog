@@ -185,7 +185,12 @@ export function buildPageMetadata({
   publishedTime?: string;
 }): Metadata {
   const url = absoluteUrl(`/${lang}${pathname}`);
-  const images = image ? [{ url: image, width: 1200, height: 630, alt: title }] : undefined;
+  const resolvedImage = image
+    ? image.startsWith('http')
+      ? image
+      : absoluteUrl(image)
+    : absoluteUrl('/logo.png');
+  const images = [{ url: resolvedImage, width: 1200, height: 630, alt: title }];
 
   // 🎯 Bing & Google SEO 长度优化：确保 Title 在 45~65 字符，避免“标题太短”
   let optimizedTitle = title.trim();
@@ -228,7 +233,7 @@ export function buildPageMetadata({
       card: "summary_large_image",
       title: optimizedTitle,
       description: optimizedDescription,
-      images: image ? [image] : undefined,
+      images: [resolvedImage],
     },
     robots: {
       index: true,

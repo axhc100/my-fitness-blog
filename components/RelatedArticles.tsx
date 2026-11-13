@@ -5,14 +5,57 @@ import { resolveArticleCategoryKey, CATEGORIES_CONFIG } from '@/lib/categories';
 interface RelatedArticlesProps {
   lang: Lang;
   currentSlug: string;
+  currentCategory?: string;
+  currentTags?: string[];
   articles: Article[];
 }
 
-export default function RelatedArticles({ lang, currentSlug, articles }: RelatedArticlesProps) {
-  // Exclude current article and pick 3 related ones
-  const filtered = articles.filter((a) => a.slug !== currentSlug).slice(0, 3);
+export default function RelatedArticles({
+  lang,
+  currentSlug,
+  currentCategory,
+  currentTags = [],
+  articles,
+}: RelatedArticlesProps) {
+  // 排除当前文章
+  const pool = articles.filter((a) => a.slug !== currentSlug);
 
-  if (filtered.length === 0) return null;
+  if (pool.length === 0) return null;
+
+  // 优先级计算：同分类 + 同标签权重最高，其次按发布时间排序
+  const currentKey = currentCategory || '';
+  const currentTagSet = new Set(currentTags);
+
+  const scoredArticles = pool.map((art) => {
+    let score = 0;
+
+    // 1. 同分类权重
+    const artCatKey = resolveArticleCategoryKey(art);
+    if (artCatKey && artCatKey === currentKey) {
+      score += 10;
+    } else if (art.category && art.category === currentCategory) {
+      score += 10;
+    }
+
+    // 2. 同标签权重（每个重合标签 +3 分）
+    if (Array.isArray(art.tags)) {
+      for (const t of art.tags) {
+        if (currentTagSet.has(t)) {
+          score += 3;
+        }
+      }
+    }
+
+    return { art, score };
+  });
+
+  // 排序：score 从高到低，相同时按时间降序
+  scoredArticles.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return new Date(b.art.date).getTime() - new Date(a.art.date).getTime();
+  });
+
+  const selected = scoredArticles.slice(0, 3).map((item) => item.art);
 
   return (
     <div className="my-12 pt-8 border-t border-gray-100">
@@ -22,7 +65,7 @@ export default function RelatedArticles({ lang, currentSlug, articles }: Related
           <span>{lang === 'zh' ? '推荐阅读' : 'Recommended Reading'}</span>
         </h3>
         <Link
-          href={`/${lang}`}
+          href={`/${lang}/#articles`}
           className="text-xs font-bold text-blue-600 hover:text-blue-700 transition"
         >
           {lang === 'zh' ? '查看全部 →' : 'View All →'}
@@ -30,7 +73,7 @@ export default function RelatedArticles({ lang, currentSlug, articles }: Related
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {filtered.map((art) => {
+        {selected.map((art) => {
           const catKey = resolveArticleCategoryKey(art);
           const catConfig =
             CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];

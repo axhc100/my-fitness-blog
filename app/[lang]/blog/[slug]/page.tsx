@@ -10,6 +10,8 @@ import Image from 'next/image';
 import parse, { Element, HTMLReactParserOptions, domToReact, DOMNode } from 'html-react-parser';
 import RelatedToolCTA from '../../../../components/RelatedToolCTA';
 import RelatedArticles from '../../../../components/RelatedArticles';
+import ArticlePagination from '../../../../components/ArticlePagination';
+import ArticleShare from '../../../../components/ArticleShare';
 import ArticleTOC, { TocItem } from '../../../../components/ArticleTOC';
 import {
   resolveArticleCategoryKey,
@@ -20,6 +22,7 @@ import {
   buildPageMetadata,
   getArticles,
   SITE_NAME,
+  SITE_URL,
   type Lang,
 } from '../../../lib/seo';
 
@@ -95,7 +98,7 @@ export async function generateMetadata({
 
   const fileRaw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(fileRaw);
-  const image = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image;
+  const image = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image ?? `/images/${slug}.jpg`;
 
   return buildPageMetadata({
     lang,
@@ -211,7 +214,10 @@ export default async function BlogPostPage({
   );
 
   const htmlContent = await marked(contentWithHeadingIds);
-  const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image;
+  const heroImage = content.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1] ?? data.image ?? `/images/${slug}.jpg`;
+  const absoluteHeroImage = heroImage.startsWith('http')
+    ? heroImage
+    : absoluteUrl(heroImage);
 
   // 8. 计算阅读时长
   const wordCount = content.replace(/\s+/g, '').length;
@@ -232,24 +238,32 @@ export default async function BlogPostPage({
   const catConfig = CATEGORIES_CONFIG[lang].find((c) => c.key === catKey) || CATEGORIES_CONFIG[lang][1];
   const categoryLabel = catConfig.label;
 
-  // 10. 结构化数据 (Article + BreadcrumbList)
+  // 10. 结构化数据 (Article / BlogPosting + BreadcrumbList)
   const articleJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: data.title,
     description: data.description,
-    image: heroImage ? [heroImage] : undefined,
+    image: [absoluteHeroImage],
     datePublished: data.date,
     dateModified: data.date,
-    inLanguage: isZh ? 'zh-CN' : 'en',
-    mainEntityOfPage: absoluteUrl(`/${lang}/blog/${slug}`),
+    inLanguage: isZh ? 'zh-CN' : 'en-US',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': absoluteUrl(`/${lang}/blog/${slug}`),
+    },
     author: {
       '@type': 'Organization',
       name: isZh ? 'FitKit 科学团队' : 'FitKit Science Team',
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl('/logo.png'),
+      },
     },
   };
 
@@ -283,6 +297,12 @@ export default async function BlogPostPage({
       },
     ],
   };
+
+  // 11. 获取全站文章列表并计算 上一篇 / 下一篇 (按发布时间降序排序)
+  const allArticles = getArticles(lang);
+  const currentIndex = allArticles.findIndex((a) => a.slug === slug);
+  const nextArticle = currentIndex > 0 ? allArticles[currentIndex - 1] : null; // 更新的一篇
+  const prevArticle = currentIndex !== -1 && currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null; // 更早的一篇
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
@@ -333,6 +353,24 @@ export default async function BlogPostPage({
             </pre>
           </div>
         );
+      }
+
+      // 链接安全合规：为外链注入 target="_blank" rel="noopener noreferrer"
+      if (domNode instanceof Element && domNode.name === 'a') {
+        const href = domNode.attribs.href || '';
+        const isExternal = href.startsWith('http://') || href.startsWith('https://');
+        if (isExternal) {
+          return (
+            <a
+              {...domNode.attribs}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700 underline font-medium"
+            >
+              {domToReact(domNode.children as DOMNode[], options)}
+            </a>
+          );
+        }
       }
 
       if (domNode instanceof Element && domNode.name === 'p') {
@@ -438,7 +476,7 @@ export default async function BlogPostPage({
           <main className="w-full lg:max-w-3xl min-w-0">
             <article>
               {/* 文章头部 Header */}
-              <header className="mb-8 border-b pb-6 border-gray-100">
+              <header className="mb-6 border-b pb-6 border-gray-100">
                 <div className="flex items-center gap-2 mb-3">
                   <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${catConfig.badgeClass}`}>
                     {categoryLabel}
@@ -473,6 +511,17 @@ export default async function BlogPostPage({
                       {isZh ? '专注循证健身与健康数据' : 'Evidence-based sports science'}
                     </div>
                   </div>
+                </div>
+
+                {/* 📤 分享按钮组（位置 1：标题下方一排） */}
+                <div className="mt-4 pt-3 border-t border-gray-100/80">
+                  <ArticleShare
+                    lang={lang}
+                    slug={slug}
+                    title={data.title}
+                    description={data.description}
+                    mode="inline"
+                  />
                 </div>
               </header>
 
@@ -510,6 +559,17 @@ export default async function BlogPostPage({
                 </div>
               )}
 
+              {/* 📤 分享按钮组（位置 2：文末一排） */}
+              <div className="my-8 pt-4 border-t border-gray-100">
+                <ArticleShare
+                  lang={lang}
+                  slug={slug}
+                  title={data.title}
+                  description={data.description}
+                  mode="inline"
+                />
+              </div>
+
               {/* 作者详细 Bio 卡片 */}
               <div className="my-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-4">
                 <Image
@@ -545,11 +605,29 @@ export default async function BlogPostPage({
               content={content}
             />
 
-            {/* 📚 相关阅读 (Related Articles) */}
+            {/* 📖 上一篇 / 下一篇 (按发布时间排序，显示完整标题) */}
+            <ArticlePagination
+              lang={lang}
+              prevArticle={prevArticle}
+              nextArticle={nextArticle}
+            />
+
+            {/* 📚 相关阅读 (同分类 + 同标签优先，每张卡片显示分类标签、标题、日期) */}
             <RelatedArticles
               lang={lang}
               currentSlug={slug}
-              articles={getArticles(lang)}
+              currentCategory={data.category}
+              currentTags={data.tags}
+              articles={allArticles}
+            />
+
+            {/* 📱 移动端悬浮分享按钮组（位置 3） */}
+            <ArticleShare
+              lang={lang}
+              slug={slug}
+              title={data.title}
+              description={data.description}
+              mode="floating"
             />
           </main>
 

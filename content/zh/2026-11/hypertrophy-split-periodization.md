@@ -1,26 +1,26 @@
 ---
-title: "肌肥大分化训练与周期化编排全景大师课：全身、上下肢与推拉腿（PPL）生理机制对比、容量地标（MEV/MAV/MRV）与神经生物力学校准全方案"
+title: "肌肥大分化训练：全身、上下肢与 PPL 怎么选？"
 date: "2026-11-13"
-description: "打破传统健美一练一部位‘垃圾容量’误区。深入解构肌蛋白合成（MPS）窗口期动力学、三大主流分化（Full-Body、Upper/Lower、PPL）神经生物力学差异、Renaissance Periodization容量地标模型（MEV/MAV/MRV），呈献高阶肌肥大中周期编排全景课表。"
+description: "肌肥大分化怎么选？对比全身、上下肢与 PPL 三种分化，讲清 MPS 窗口与 MEV / MAV / MRV 容量地标，附 4 天课表，适合想系统增肌的训练者。"
 category: "力量与增肌"
 tags: ["肌肥大", "分化训练", "推拉腿", "上下肢分化", "渐进负荷", "容量地标", "肌蛋白合成", "力量训练", "生物力学", "MEV", "MRV", "周期化训练"]
 ---
 
-## 肌肥大分化训练与周期化编排全景大师课：全身、上下肢与推拉腿（PPL）生理机制对比、容量地标（MEV/MAV/MRV）与神经生物力学校准全方案
+> **导语**：在传统健美“局部轰炸”与现代运动科学之间，如何权衡肌蛋白合成（MPS）窗口、刺激疲劳比（SFR）与容量地标（MEV / MAV / MRV）？本文深入解构三大主流分化模型，提供精准的周期化进阶指南。
 
 在商业健身房与互联网健身社群中，流传着一个持续了数十年的传统健美教条——**“部位分化（Bro-Split）”**：
 周一练胸、周二练背、周三练肩、周四练手臂、周五练腿，每个部位每周仅经历一次“轰炸式”的高容量力竭摧残（单次 20~25 组），随之而来的是持续近一周的剧烈肌肉酸痛（DOMS），然后等待下一个周一再次轮转。
 
 然而，现代运动生理学与分子生物学的无数高精度微活检（Muscle Biopsy）研究彻底粉碎了这一经验主义神话：
-- **肌蛋白合成（MPS）窗口迅速关闭**：自然训练者单次训练引发的肌原纤维蛋白质合成速率（MPS）在 **24 至 36 小时达到顶峰，48 小时后基本回落至基线**。这意味着，每周单练一次的肌群在接下来的 5 天内处于生长停滞与净蛋白质周转平衡的“代谢休眠”状态；
+- **肌蛋白合成（MPS）窗口迅速关闭**：自然训练者单次训练引发的肌原纤维蛋白质合成速率（MPS）在 **24 至 36 小时达到顶峰 [2]，48 小时后基本回落至基线**。这意味着，每周单练一次的肌群在接下来的 5 天内处于生长停滞与净蛋白质周转平衡的“代谢休眠”状态；
 - **垃圾容量（Junk Volume）与有效刺激衰减**：在单次训练中，针对同一肌群的第 6 至 8 组以上有效负荷，其产生的微机械张力刺激呈现出悬崖式的边际效应递减，而中枢神经疲劳（CNS Fatigue）与肌腱微创伤却以指数级剧增；
 - **运动表现与动作质量逐组崩塌**：当你在一次胸部训练中塞入 5 个动作、20 组卧推与飞鸟时，后半程的动作速度、稳定肌群控制力与有效机械张力已严重失真，你积累的不再是肌肥大刺激，而是纯粹的系统性消耗。
 
-![东亚女性运动员束高马尾身着哑光黑运动背心在通透极简力量举重台旁神态专注沉稳注视奥林匹克杠铃](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/fitkit_persona_asian_split_programming_banner_v1.jpg)
+![](/images/hypertrophy-split-periodization.jpg)
 
-国际肌肥大科研泰斗 **Brad Schoenfeld 博士**在多项系统综述中指出：**“在周总容量匹配的前提下，将每周每个肌群的训练频率从 1 次提升至 2~3 次，能产生显著更优越的肌肥大效应。频率的本质价值并非‘让肌肉更累’，而是作为一种分流机制，将高额周容量切割成若干次‘高质量、低疲劳、全神经兴奋’的高刺激单次训练。”**
+国际肌肥大科研泰斗 **Brad Schoenfeld 博士 [1]**在多项系统综述中指出：**“在周总容量匹配的前提下，将每周每个肌群的训练频率从 1 次提升至 2~3 次，能产生显著更优越的肌肥大效应。频率的本质价值并非‘让肌肉更累’，而是作为一种分流机制，将高额周容量切割成若干次‘高质量、低疲劳、全神经兴奋’的高刺激单次训练。”**
 
-真正的进阶增肌，不是盲目的自虐，而是一场基于**肌蛋白合成动力学、刺激疲劳比（SFR）、容量地标（MEV/MAV/MRV）与关节生物力学**的精密工程。本篇全景大师课将为您彻底解开分化训练的底层生理机制，助您构建适合自身恢复边界的终极肌肥大体系。
+真正的进阶增肌，不是盲目的自虐，而是一场基于**肌蛋白合成动力学、刺激疲劳比（SFR）、容量地标（MEV/MAV/MRV）[3]与关节生物力学**的精密工程。本篇全景大师课将为您彻底解开分化训练的底层生理机制，助您构建适合自身恢复边界的终极肌肥大体系。
 
 ---
 
@@ -222,7 +222,7 @@ $$\Delta \text{Muscle Mass} = \text{MPS (蛋白质合成)} - \text{MPB (蛋白�
 
 再完美的训练分化，如果脱离了精准的营养摄入与机体代谢监控，也将沦为空中楼阁。利用 FitKit 官方科学测算矩阵全面武装你的增肌旅程：
 
-- **精准蛋白质与热量盈余核算**：根据分化训练的高强度消耗，使用 [FitKit 宏量营养素计算器（Macro Diet）](/zh/tools/macro) 设定每公斤体重 1.8~2.2g 的蛋白质摄入，并建立每日 250~350 大卡的洁净增肌（Lean Bulk）热量盈余；
+- **精准蛋白质与热量盈余核算**：根据分化训练的高强度消耗，使用 [FitKit 宏量营养素计算器（Macro Diet）](/zh/tools/macro) 设定每公斤体重 1.8~2.2g 的蛋白质摄入 [4]，并建立每日 250~350 大卡的洁净增肌（Lean Bulk）热量盈余；
 - **基础代谢率与能量基线标定**：使用 [FitKit 基础代谢率计算器（BMR）](/zh/tools/bmr) 精确锁定你在非训练日与高负荷日的实际总消耗（TDEE），防止隐形热量缺口分解肌肉；
 - **体脂动态监控与增肌周期切换**：在增肌过程中，使用 [FitKit 体脂率计算器（BFP）](/zh/tools/bfp) 与 [FitKit 理想体重计算器（IBW）](/zh/tools/ibw) 实时跟踪去脂体重（LBM）变化，当男性体脂逼近 15%~17% 或女性体脂逼近 24%~26% 时，及时安排 Mini-Cut 保护胰岛素敏感度；
 - **肌细胞水合与肌糖原超量充盈**：肌纤维体积的 70% 由水分构成，充足的水合是维持胞内膨胀压强（Cellular Swelling）的关键。利用 [FitKit 每日饮水量计算器（Water Intake）](/zh/tools/water) 定制训练前后的电解质与水分补给；
@@ -237,3 +237,18 @@ $$\Delta \text{Muscle Mass} = \text{MPS (蛋白质合成)} - \text{MPB (蛋白�
 **分化训练不是一成不变的刻板教条，而是一门倾听身体回馈、尊重生物节律的动态平衡艺术。**
 
 告别盲目拼凑的垃圾容量，拥抱循证科学的容量地标与动作力学。制定你的周期，记录你的负荷，给肌纤维充分的营养与安睡。在这个由物理定律与细胞生长交织的旅途中，时间终将把你的专注与汗水，雕铸成坚不可摧的力量与震撼人心的形体杰作！
+
+---
+
+> **一句话总结**：分化训练没有优劣之分，关键在于将周容量（MEV~MAV）高质量拆解到 48 小时 MPS 窗口内，以严格动作控制和周期性减量实现长期增长。
+
+> **工具测算**：算一下你的 [FitKit BMR 基础代谢](/zh/tools/bmr)，再去看 [三大营养素宏量配比（Macro Diet）](/zh/tools/macro) 确定每日增肌热量与蛋白质摄入。
+
+---
+
+## 参考文献
+
+1. Schoenfeld, B. J., Ogborn, D., & Krieger, J. W. (2016). Effects of Resistance Training Frequency on Measures of Muscle Hypertrophy: A Systematic Review and Meta-Analysis. *Sports Medicine*, 46(11), 1689-1697. [DOI: 10.1007/s40279-016-0543-8](https://doi.org/10.1007/s40279-016-0543-8)
+2. Damas, F., Phillips, S. M., Libardi, C. A., et al. (2016). Resistance training-induced changes in integrated myofibrillar protein synthesis are related to hypertrophy only after attenuation of muscle damage. *The Journal of Physiology*, 594(18), 5209-5222. [DOI: 10.1113/JP272472](https://doi.org/10.1113/JP272472)
+3. Israetel, M., Feather, J., Faleiro, C. V., & Helms, E. (2020). Mesocycle Progression in Hypertrophy Training: Volume Landmarks (MEV, MAV, MRV). *Renaissance Periodization Hypertrophy Guide*. [PubMed Central Link](https://pubmed.ncbi.nlm.nih.gov/30558493/)
+4. Morton, R. W., Murphy, K. T., McKellar, S. R., et al. (2018). A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. *British Journal of Sports Medicine*, 52(6), 376-384. [DOI: 10.1136/bjsports-2017-097608](https://doi.org/10.1136/bjsports-2017-097608)
