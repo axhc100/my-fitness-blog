@@ -198,11 +198,16 @@ export default async function BlogPostPage({
     ? heroImage
     : absoluteUrl(heroImage);
 
-  // 7. 计算阅读时长
-  const wordCount = content.replace(/\s+/g, '').length;
-  const readingMinutes = isZh
-    ? Math.max(1, Math.ceil(wordCount / 450))
-    : Math.max(1, Math.ceil(content.split(/\s+/).length / 220));
+  // 7. 计算阅读时长（排除 URL、HTML 标签干扰，按中英有效阅读基准精准测算）
+  const strippedText = content.replace(/https?:\/\/\S+/g, '').replace(/<[^>]+>/g, '');
+  let readingMinutes: number;
+  if (isZh) {
+    const cjkChars = (strippedText.match(/[\u4e00-\u9fff]/g) || []).length;
+    const enWords = (strippedText.match(/[a-zA-Z0-9]+/g) || []).length;
+    readingMinutes = Math.max(1, Math.ceil((cjkChars + enWords) / 420));
+  } else {
+    readingMinutes = Math.max(1, Math.ceil(strippedText.trim().split(/\s+/).length / 220));
+  }
   const readingTimeText = isZh ? `阅读约 ${readingMinutes} 分钟` : `${readingMinutes} min read`;
 
   // 8. 标准化文章分类与面包屑

@@ -1,5 +1,5 @@
 ---
-title: "The Science of Myofascial Release: Trigger Point Therapy, Tissue Hydration, and Autonomic Recovery"
+title: "The Science of Myofascial Release & Trigger Point Therapy"
 date: "2026-11-14"
 description: "Master the mechanobiology of self-myofascial release (SMR) and trigger point therapy. Discover hyaluronan thixotropy, fluid-exchange tissue hydration, Ruffini & Pacini neural inhibition, and an evidence-based full-body foam rolling & lacrosse ball protocol for autonomic parasympathetic recovery."
 category: "Recovery & Nutrition"
