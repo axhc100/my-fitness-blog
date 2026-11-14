@@ -130,6 +130,7 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   'pilates-vinyasa-core-alignment': 'splits',
   'athletic-recovery-matrix-guide': 'water',
   'circadian-biology-deep-sleep-guide': 'water',
+  'myofascial-release-trigger-point-guide': 'water',
   '26-11-09-1': 'water',
   '26-07-17-1': 'water',
   '26-11-02-1': 'splits',
