@@ -10,7 +10,7 @@ description: "用最少时间和最少设备，实现最高训练效率的极简
 
 极简主义健身的核心，不是减少训练，而是优化训练结构，让每一次动作都具备明确价值。
 
-![极简主义健身训练场景](/images/minimalist-fitness-efficient-training.jpg)
+![极简主义健身训练场景](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/minimalist-fitness-efficient-training.jpg)
 
 ## 核心理念：少即是多的训练哲学
 

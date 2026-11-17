@@ -10,7 +10,7 @@ Many fitness enthusiasts hit a plateau when practicing the straddle split (middl
 
 Traditional static stretching on cold muscles can backfire. It triggers the "stretch reflex," causing your muscles to contract to protect the joints. To achieve a breakthrough in 14 days, we must utilize a combination of neuromuscular control and Dynamic PNF (Proprioceptive Neuromuscular Facilitation) stretching to safely override this protective mechanism.
 
-![14-day scientific middle split training routine](/images/14-day-straddle-split-guide.jpg)
+![14-day scientific middle split training routine](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/14-day-straddle-split-guide.jpg)
 
 ---
 

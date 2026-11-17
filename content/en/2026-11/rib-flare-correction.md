@@ -16,7 +16,7 @@ Yet inside gyms and in front of mirrors worldwide, millions of disciplined athle
 - Endless repetitions of standard crunches, sit-ups, and weighted side bends fail to narrow the waistline, instead thickening the abdominal wall, flattening sagittal curves, and creating a blocky, rectangular midsection;
 - During barbell squats, overhead presses, or simple arm elevations, the thoracolumbar junction arches violently into hyperextension as the lower ribs aggressively flare toward the sky.
 
-![](/images/rib-flare-correction.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/rib-flare-correction.jpg)
 
 As pioneering spine biomechanist Dr. Stuart McGill [4], PhD, Professor Emeritus at the University of Waterloo, fundamentally asserted: **"Most trainees mistakenly reduce the human core to the superficial 'six-pack' (rectus abdominis), obsessively training it through repetitive lumbar spinal flexion. However, true spinal stiffness, visceral support, and circumferential hoop tension are governed by the deep transverse abdominis and the thoraco-pelvic cylinder. When your deep hydraulic canister fails, superficial compensation widens the waist and corrupts kinetic integrity."**
 

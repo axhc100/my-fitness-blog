@@ -6,7 +6,7 @@ description: "Unlock the kitchen secrets to fat loss and muscle gain. Learn how 
 
 Many people sweat bullets in the gym every day and perform hundreds of crunches, yet their six-pack remains hidden. There is a famous saying in fitness: "Abs are made in the kitchen." No matter how developed your abdominal muscles are, they will never see the light of day if they are buried under a thick layer of body fat. To sculpt defined abs, lowering your body fat percentage is key, and the core of this process lies in the precise balance of macronutrients (carbohydrates, protein, and fat).
 
-![A meticulously balanced fitness meal featuring pan-seared salmon, quinoa rice, and roasted broccoli, with a side of sliced avocado](/images/macro-diet-abs.jpg)
+![A meticulously balanced fitness meal featuring pan-seared salmon, quinoa rice, and roasted broccoli, with a side of sliced avocado](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/macro-diet-abs.jpg)
 
 ## 1. Redefining Macronutrients: How They Shape Your Abs
 

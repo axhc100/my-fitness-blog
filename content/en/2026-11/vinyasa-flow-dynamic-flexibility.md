@@ -13,7 +13,7 @@ Across yoga studios, athletic training facilities, and weight rooms, we routinel
 - Another group of dedicated barbell athletes, powerlifters, and functional fitness enthusiasts possess dense, explosive muscular strength, yet when asked to drop into a deep squat, hinge laterally, or extend the thoracic spine, their joints behave like rusted, locked hinges, forcing compensations that put connective tissues at acute risk;
 - Millions more spend twenty minutes every day enduring uncomfortable static passive stretches, only to discover that taking three days off resets their joint range of motion completely back to square one.
 
-![](/images/vinyasa-flow-dynamic-flexibility.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/vinyasa-flow-dynamic-flexibility.jpg)
 
 As Nobel Laureate and foundational neurophysiologist **Sir Charles Sherrington [1]** established over a century ago: **"The observable range of motion of any human joint is never solely determined by the physical length of tendons and ligaments; it is governed by the level of 'safety clearance' granted by the central nervous system under specific joint angles. Without neuromuscular control and active strength, passive flexibility is merely a breeding ground for joint instability."**
 

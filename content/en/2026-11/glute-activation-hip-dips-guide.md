@@ -16,7 +16,7 @@ Yet, in front of the full-length gym mirror, many dedicated lifters and active w
 - Standard squats, wide-stance sumo squats, or uncontrolled side leg kicks seem to bulk up the front quads and outer thigh tendons (tensor fasciae latae and IT band) while leaving the upper side glutes completely soft and dormant;
 - Unconscious inward knee collapse (**knee valgus**), foot arch pronation, and hip popping or snapping sensations emerge during walking, running, or single-leg support.
 
-![](/images/glute-activation-hip-dips-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/glute-activation-hip-dips-guide.jpg)
 
 As **Dr. Christopher Powers [1]**, Professor of Biomechanics at the University of Southern California, and renowned kinesiology authority **Dr. Donald Neumann [2]** have demonstrated: **"Pelvic stability and functional lower limb alignment do not depend merely on muscle bulk, but on the dynamic force-couple balance resisting internal rotation moments in the frontal and transverse planes. When the gluteus medius is neurologically inhibited and femoral internal rotation dominates, excessive lateral protrusion of the greater trochanter creates the biomechanical illusion of false hip width."**
 

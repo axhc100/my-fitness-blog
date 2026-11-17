@@ -8,7 +8,7 @@ tags: ["BMR", "基础代谢", "TDEE", "减脂", "热量缺口", "能量平衡", 
 
 > **一句话回答（精选摘要）**：**基础代谢率（BMR，Basal Metabolic Rate）** 是指人体在完全静止、常温且未消化食物的状态下，维持心跳、呼吸、细胞修护与体温等最基础生命活动所需的每日最低能量消耗。目前国际运动营养学与临床医学最推荐的算法是 **Mifflin-St Jeor 公式**：男性为 $10 \times \text{体重(kg)} + 6.25 \times \text{身高(cm)} - 5 \times \text{年龄} + 5$，女性则在此基准上减去 $161$。
 
-![](/images/how-to-calculate-bmr.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/how-to-calculate-bmr.jpg)
 
 不论你的健身目标是减脂雕刻线条、还是高效增肌，**BMR 都是决定每日饮食总热量的“底层生理地基”**。很多人把 BMR 和每日总能量消耗（TDEE）混淆，或者盲目节食导致代谢损伤。本文将用最直观的步骤、真实的 70kg 案例与权威文献，带你彻底算清属于你自己的代谢数值。
 

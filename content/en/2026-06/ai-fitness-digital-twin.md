@@ -8,7 +8,7 @@ description: "Explore how AI-driven digital twin technology customizes your fitn
 
 In 2026, the logic of the gym is undergoing a radical shift. With the evolution of wearables and biometric technology, we are entering the stage of "Digital Twin Fitness." We no longer rely on generic training templates; instead, we build a physiological mirror of you through real-time data streams to achieve unprecedented training precision.
 
-![AI fitness data analysis and digital twin visualization](/images/ai-fitness-digital-twin.jpg)
+![AI fitness data analysis and digital twin visualization](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/ai-fitness-digital-twin.jpg)
 
 ## Core Advantages of Digital Twin Fitness
 

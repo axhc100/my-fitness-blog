@@ -8,7 +8,7 @@ description: "探索AI驱动的数字孪生技术如何通过精准的生理数�
 
 在2026年，健身房的逻辑正在发生剧变。随着可穿戴设备和生物识别技术的迭代，我们正迈入“数字孪生健身”的新阶段。不再依赖通用的训练模板，而是通过实时数据流构建你的个人生理镜像，从而实现前所未有的训练精准度。
 
-![AI健身数据分析与身体数字孪生展示](/images/ai-fitness-digital-twin.jpg)
+![AI健身数据分析与身体数字孪生展示](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/ai-fitness-digital-twin.jpg)
 
 ## 数字孪生健身的核心优势
 

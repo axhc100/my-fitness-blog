@@ -14,7 +14,7 @@ In the pursuit of progressive barbell overload, sprint intervals, and high-volum
 - Deep within your gluteals, calves, and thoracic spine, small, intensely tender, pea-sized nodules flare with radiating referral pain upon pressure;
 - Grabbing a high-density textured foam roller, you aggressively knead back and forth across tender spots, only to find the muscles contracting into tighter defensive spasms the following morning.
 
-![](/images/myofascial-release-trigger-point-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/myofascial-release-trigger-point-guide.jpg)
 
 As preeminent connective tissue researcher and Director of the Fascia Research Group at Ulm University, **Dr. Robert Schleip [1]**, highlighted across foundational studies: **"Fascia is not an inert packing wrap around muscles; it is the human body's richest sensory organ, an intricate fluid-transport network, and a dynamic mechanical continuum. The primary objective of self-myofascial release (SMR) is never to violently pulverize collagen fibers with external force, but to trigger fluid shear exchanges (tissue re-hydration) and stimulate specialized mechanoreceptors that instruct the central nervous system to reflexively down-regulate resting basal tone."**
 

@@ -20,7 +20,7 @@ Yet, the moment athletes step onto the turf track, thousands collide with an une
 - Seasoned gym lifters and strength athletes dominate the sleds with sheer explosive power, only to see their heart rate spike above 185 bpm (Zone 5 redline) [2]. With diaphragm spasms and oxygen debt paralyzing their lungs, their cardiovascular engine buckles by kilometer 4;
 - Casual entrants who fail to respect the “Roxzone” transition area bleed 8 to 12 minutes simply wandering between arches, experiencing complete physical and mental collapse during the final gauntlet: 100 meters of heavy Sandbag Lunges followed by 100 Wall Balls.
 
-![](/images/hyrox-training-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/hyrox-training-guide.jpg)
 
 As multi-time HYROX World Champion and hybrid endurance icon Hunter McIntyre famously observed: **“HYROX is neither a running race with lifting breaks nor a CrossFit workout with running intervals. It is a distinct physiological discipline centered on ‘Compromised Running’. You must train your central nervous system and mitochondrial enzymes to run efficiently when your legs are already battered by massive mechanical shear and intracellular acidity.”**
 

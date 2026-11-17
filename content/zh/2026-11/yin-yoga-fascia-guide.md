@@ -18,7 +18,7 @@ tags: ["阴瑜伽", "筋膜健康", "生物力学", "结缔组织", "蠕变效�
 
 这些现象的深层根源，在于我们长期忽视了人体内占比极高、却代谢隐秘的深层网络——**结缔组织与肌筋膜基质（Connective Tissue & Myofascial Matrix）及肌筋膜链（Anatomy Trains）[4]**。
 
-![](/images/yin-yoga-fascia-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/yin-yoga-fascia-guide.jpg)
 
 现代肌筋膜先驱、国际筋膜研究学会创办人 Robert Schleip [1] 博士曾明确指出：**“筋膜绝非肌肉之间被动的填充物，它是人体最大的感觉器官、全身张力一体化传递的液压网络，更是决定终身运动寿命与神经自律平衡的底层构架。”**
 

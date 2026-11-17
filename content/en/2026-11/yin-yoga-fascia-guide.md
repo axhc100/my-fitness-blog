@@ -18,7 +18,7 @@ Yet after years of dedicated training, millions of disciplined athletes and fitn
 
 The foundational culprit behind these systemic bottlenecks is not muscular weakness or insufficient effort. Rather, it stems from the chronic neglect of the human body’s most extensive, metabolic, and sensory framework: the **deep connective tissue network and extracellular myofascial matrix**.
 
-![](/images/yin-yoga-fascia-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/yin-yoga-fascia-guide.jpg)
 
 As pioneering fascia researcher and founding director of the Fascia Research Group, Dr. Robert Schleip [1], fundamentally established: **"Fascia is not merely passive wrapping packaging around our muscles; it is our richest sensory organ, a full-body hydraulic tensegrity network, and the ultimate architectural determinant of athletic longevity and autonomic homeostasis."**
 

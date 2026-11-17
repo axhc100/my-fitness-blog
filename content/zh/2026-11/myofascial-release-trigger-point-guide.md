@@ -14,7 +14,7 @@ tags: ["肌筋膜释放", "泡沫轴", "扳机点", "筋膜水合", "副交感�
 - 背部与臀部深处潜藏着若干如同“坚硬黄豆粒”般的痛觉敏锐结节，按压时甚至沿着神经传导产生放射痛；
 - 许多人抄起狼牙棒泡沫轴在酸痛处咬牙切齿地快速来回碾压，不仅疼痛难忍，翌日肌肉反而更加收紧痉挛。
 
-![](/images/myofascial-release-trigger-point-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/myofascial-release-trigger-point-guide.jpg)
 
 世界著名结缔组织研究先驱、乌尔姆大学筋膜研究项目主任 **Robert Schleip 博士 [1]** 在多篇里程碑级文献中指出：**“筋膜不是包裹肌肉的被动塑料薄膜，而是人体最大、最敏锐的液体动态感知系统与机械力传导网络。自我肌筋膜释放（SMR）的本质，从来不是用外力强行把僵硬的结缔组织‘擀开’或‘压碎’，而是通过精确的机械应力触发间质液置换（Fluid Hydration），刺激深层机械感受器（Mechanoreceptors），向中枢神经系统发出降低肌张力的神经抑制指令。”**
 

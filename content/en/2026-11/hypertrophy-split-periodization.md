@@ -15,7 +15,7 @@ Yet modern exercise physiology and molecular biology—powered by muscle biopsy 
 - **The Junk Volume Precipice**: Beyond the first **6 to 8 hard sets per muscle group in a single training session**, the hypertrophic signaling cascade encounters steep diminishing returns. Meanwhile, intracellular calcium ion leakage, myofibrillar Z-disc microtrauma, and supraspinal central nervous system (CNS) fatigue skyrocket exponentially;
 - **Deterioration of Intra-Session Kinetic Quality**: When you attempt to cram 20 sets of chest work into a single afternoon, the velocity, stability, and tension capability of your prime movers disintegrate by set 10. You are no longer generating hypertrophic mechanical tension; you are simply accumulating systemic systemic exhaustion.
 
-![](/images/hypertrophy-split-periodization.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/hypertrophy-split-periodization.jpg)
 
 As preeminent hypertrophy researcher and exercise scientist **Dr. Brad Schoenfeld [1]** demonstrated across multiple systematic meta-analyses: **"When total weekly volume is equated, training a muscle group with a frequency of two to three times per week produces superior hypertrophic outcomes compared to once per week. The true physiological function of training frequency is not to make you more fatigued, but to serve as a delivery vehicle that fragments high weekly volume into high-quality, high-tension, fatigue-managed sessions."**
 

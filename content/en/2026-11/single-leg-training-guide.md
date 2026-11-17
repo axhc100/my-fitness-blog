@@ -13,7 +13,7 @@ Across modern commercial fitness floors and athletic training domains, an insidi
 - Dedicated lifters and runners who log countless miles on treadmills and perform endless bilateral squats boast developed quadriceps and glutes, yet a sudden lateral sidestep, trail deceleration, or missed stair tread results in recurrent ankle inversion sprains, persistent iliotibial (IT) band friction, or patellofemoral aches;
 - When attempting full-depth bodyweight gymnastic benchmarks—such as the **Cossack Squat** and the **Pistol Squat**—their heels violently lift off the floor, the knee collapses into dynamic valgus, the non-working hip flexors seize in agonizing cramps, and the pelvis tucks under into an uncontrolled posterior lumbar dump.
 
-![](/images/single-leg-training-guide.jpg)
+![](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/single-leg-training-guide.jpg)
 
 As renowned physical therapist and co-creator of the Functional Movement Screen (FMS) Gray Cook, MSPT, OCS, fundamentally asserted: **"The human motor cortex does not recognize isolated muscles; it recognizes movement patterns. No authentic survival task or elite athletic movement in nature takes place in an exclusively bilateral, rigid vertical plane. Unilateral weight-bearing competence and multi-planar rotational resilience represent the true line of demarcation between decorative muscle bulk and bulletproof, lifelong joint sovereignty."**
 

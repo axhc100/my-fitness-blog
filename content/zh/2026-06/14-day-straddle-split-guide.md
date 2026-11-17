@@ -10,7 +10,7 @@ description: "科学高效的下叉柔韧性突破方案，带你用两周时间
 
 传统的静止拉伸（静态拉伸）如果在肌肉没有激活的情况下进行，很容易触发身体的“牵张反射”，导致肌肉反而过度紧张以保护关节。要想在14天内取得突破，我们需要通过“神经肌肉控制”与“动态PNF拉伸”相结合的方式，欺骗大脑的保护机制，安全打开跨根。
 
-![14天横叉一字马科学拉伸训练](/images/14-day-straddle-split-guide.jpg)
+![14天横叉一字马科学拉伸训练](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/14-day-straddle-split-guide.jpg)
 
 ---
 

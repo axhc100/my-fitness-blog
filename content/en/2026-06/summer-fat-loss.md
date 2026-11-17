@@ -6,7 +6,7 @@ description: "Ditch the extreme calorie deficits and hours of mindless cardio. L
 
 As summer rolls in, everyone is searching for the fastest way to lean out for the beach. However, most people fall into the same trap: they lose weight rapidly, but half of it comes from hard-earned muscle. This leaves them looking soft, feeling exhausted, and tanking their metabolic rate.
 
-![Summer Fitness Diet](/images/summer-diet.jpg)
+![Summer Fitness Diet](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/summer-diet.jpg)
 
 Fat loss is not the same as weight loss. True body recomposition requires dropping body fat while forcing your muscles into "absolute defense mode." Here is the scientific framework to shred fat without losing an ounce of muscle.
 

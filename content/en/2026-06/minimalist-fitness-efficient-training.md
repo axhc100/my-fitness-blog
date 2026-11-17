@@ -10,7 +10,7 @@ In a world of fragmented time and increasing workload, fitness is no longer abou
 
 Minimalist fitness is not about doing less—it’s about making every movement count.
 
-![极简主义健身训练场景](/images/minimalist-fitness-efficient-training.jpg)
+![极简主义健身训练场景](https://cdn.jsdelivr.net/gh/axhc100/my-blog-images@main/images/minimalist-fitness-efficient-training.jpg)
 
 ## Core Philosophy: Less Is More Training Logic
 
