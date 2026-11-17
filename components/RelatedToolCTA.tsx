@@ -118,6 +118,7 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   '26-11-04-1': 'splits',
   '26-07-18-1': 'splits',
   // 4. 肋骨外翻 / 沙漏细腰 / 体态塑造 -> 体脂率 / 理想体重 (体态相关)
+  'glute-activation-hip-dips-guide': 'bfp',
   'rib-flare-correction': 'bfp',
   'anterior-pelvic-tilt-correction': 'bfp',
   'womens-full-body-sculpting-guide': 'bfp',
