@@ -114,6 +114,7 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   'single-leg-training-guide': 'splits',
   'mobility-training-guide': 'splits',
   'calisthenics-joint-mobility-flow': 'splits',
+  'calisthenics-core-static-holds-guide': 'splits',
   '26-11-11-1': 'splits',
   '26-11-04-1': 'splits',
   '26-07-18-1': 'splits',
