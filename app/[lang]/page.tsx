@@ -32,25 +32,22 @@ function getMdFilesRecursive(dirPath: string): string[] {
   return results;
 }
 
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'zh' }];
+}
+
 // 🌐 完美的异步 Metadata 拦截处理
 export async function generateMetadata(props: {
   params: Promise<{ lang: Lang }>;
-  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await props.params;
-  const resolvedSearchParams = await props.searchParams;
-
   const lang = resolvedParams.lang;
-  const page = resolvedSearchParams.page;
-
   const seo = getHomeSeo(lang);
-  const pageNumber = Number(page || "1");
-  const pathname = pageNumber > 1 ? `?page=${pageNumber}` : "";
 
   return buildPageMetadata({
     lang,
-    pathname,
-    title: pageNumber > 1 ? `${seo.title} - Page ${pageNumber}` : seo.title,
+    pathname: "",
+    title: seo.title,
     description: seo.description,
   });
 }
@@ -58,60 +55,12 @@ export async function generateMetadata(props: {
 // ⚙️ 规范声明 Next.js 约定的 PageProps 类型接口
 interface PageProps {
   params: Promise<{ lang: 'en' | 'zh' }>;
-  searchParams: Promise<{ page?: string }>;
 }
 
 export default async function HomePage(props: PageProps) {
-  // 🔥 核心修正：100% 在服务端组件第一步解开 Promise，断绝编译期类型死结
   const resolvedParams = await props.params;
-  const resolvedSearchParams = await props.searchParams;
-  
   const lang = resolvedParams.lang;
-  const page = resolvedSearchParams.page;
-  
   const dict = await getDictionary(lang);
-
-  const POSTS_PER_PAGE = 5; 
-  const currentPage = parseInt(page || '1', 10);
-
-  const contentDir = path.join(process.cwd(), 'content', lang);
-  let allArticles: { slug: string; title: string; description: string; date: string }[] = [];
-
-  if (fs.existsSync(contentDir)) {
-    const allFilePaths = getMdFilesRecursive(contentDir);
-    
-    allArticles = allFilePaths.map((filePath) => {
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
-      
-      const slug = path.basename(filePath, '.md');
-      
-      // 容错处理：确保日期在解析阶段不崩塌
-      let finalDate = '';
-      if (data.date instanceof Date) {
-        finalDate = data.date.toISOString().split('T')[0];
-      } else if (typeof data.date === 'string') {
-        finalDate = data.date.split('T')[0];
-      } else {
-        finalDate = String(data.date || '');
-      }
-      
-      return {
-        slug: slug,
-        title: data.title || path.basename(filePath),
-        description: data.description || '',
-        date: finalDate,
-      };
-    });
-
-    // 维持文章按最新日期倒序排列
-    allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }
-
-  const totalPosts = allArticles.length;
-  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const articles = allArticles.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
     <div className="bg-slate-50/50 text-gray-900 pb-24 relative">

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, getArticles, LANGUAGES, localizedAlternates, TOOL_SLUGS } from "./lib/seo";
 
+export const dynamic = "force-static";
+
 export const STATIC_PAGES = ["tools", "about", "contact", "privacy", "terms", "cookies"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

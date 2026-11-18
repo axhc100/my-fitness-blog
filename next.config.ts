@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.OUTPUT_EXPORT !== 'false';
+
 const nextConfig: NextConfig = {
+  ...(isStaticExport ? { output: 'export', trailingSlash: true } : {}),
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -25,7 +29,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async redirects() {
+  ...(!isStaticExport ? {
+    async redirects() {
     return [
       // 5 篇最新文章 301 重定向映射表 (中英各 5 条，共 10 条，永久重定向保留查询参数)
       // 1. 肌肥大
@@ -704,7 +709,8 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
     ];
-  },
+    },
+  } : {}),
 };
 
 export default nextConfig;
