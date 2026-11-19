@@ -109,6 +109,7 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   '26-10-21-1': 'hr',
   '26-10-29-1': 'hr',
   'pickleball-conditioning-agility-guide': 'hr',
+  'jump-rope-conditioning-guide': 'hr',
   '26-11-05-1': 'hr',
   // 3. 单腿动力链 / 下肢灵活性 -> 一字马柔韧度 / BFP
   'single-leg-training-guide': 'splits',
