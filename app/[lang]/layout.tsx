@@ -40,6 +40,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  verification: {
+    other: {
+      "p:domain_verify": "16559c5c0f4f11b3ef30230defca0278",
+    },
+  },
 };
 
 export async function generateStaticParams() {
