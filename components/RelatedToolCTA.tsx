@@ -129,6 +129,7 @@ const SLUG_TOOL_MAP: Record<string, keyof typeof TOOLS> = {
   '26-07-02-1': 'bfp',
   // 5. 阴瑜伽 / 筋膜健康 -> 每日补水 (水合作用) / 柔韧拉伸
   'yin-yoga-fascia-guide': 'water',
+  'pilates-spine-stretch-guide': 'splits',
   'vinyasa-flow-dynamic-flexibility': 'splits',
   'science-of-yoga': 'water',
   'pilates-vinyasa-core-alignment': 'splits',
