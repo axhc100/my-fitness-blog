@@ -5,9 +5,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 # FitKit Blog Visual Identity & Character Guideline
-All article cover/banner images MUST feature one of FitKit's two official brand personas (Persona 1: Western athletic female; Persona 2: East Asian athletic female), alternating between them.
-- **Facial Features**: Keep facial structure, eyes, nose, and facial identity strictly consistent with the 3-view reference sheets in `BRAND_CHARACTERS.md`.
-- **Styling Flexibility**: Hairstyle (ponytail, braids, bun, bob, waves), hair color (blonde, brunette, black, ash), and athletic clothing can be freely matched to suit the specific sport and scene.
+All article cover/banner images MUST feature one of FitKit's two official brand personas, alternating between them and locking facial identity via local reference image (`ImagePaths` requires local files, not URLs):
+- **Facial Features**: Strictly lock facial bone structure, eyes, nose, jawline, and facial identity using the baseline reference images in `BRAND_CHARACTERS.md` (download CDN baseline to `scripts/temp_media/` before invoking `image-generator`, then delete temp file after upload).
+- **Mandatory Hairstyle Rotation (NO Default Ponytails)**: Strictly vary hairstyles by content pillar per `BRAND_CHARACTERS.md` (Mon: Messy Ballet Bun; Tue: Soft Natural Waves / Half-up Knot; Wed: Double Boxer Braids; Thu: Sleek Bob or Sporty Visor; Fri: Sleek Middle-Parted Straight or Low Bun; Sat: Relaxed Low Chignon / Claw-Clip Updo). Never default to a repetitive ponytail.
 
 
 # Publishing Schedule & Content Pillar Rotation (6 Posts / Week)
