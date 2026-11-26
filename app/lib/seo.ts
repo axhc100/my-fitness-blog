@@ -170,10 +170,12 @@ export function getArticle(lang: Lang, slug: string) {
 }
 
 export function localizedAlternates(pathname: string) {
+  const clean = pathname ? (pathname.startsWith("/") ? pathname : `/${pathname}`) : "";
+  const suffix = clean.endsWith("/") ? clean : `${clean}/`;
   return {
-    en: absoluteUrl(`/en${pathname}`),
-    zh: absoluteUrl(`/zh${pathname}`),
-    "x-default": absoluteUrl(`/en${pathname}`),
+    en: absoluteUrl(`/en${suffix}`),
+    zh: absoluteUrl(`/zh${suffix}`),
+    "x-default": absoluteUrl(`/en${suffix}`),
   };
 }
 
@@ -194,7 +196,9 @@ export function buildPageMetadata({
   image?: string;
   publishedTime?: string;
 }): Metadata {
-  const url = absoluteUrl(`/${lang}${pathname}`);
+  const cleanPath = pathname ? (pathname.startsWith("/") ? pathname : `/${pathname}`) : "";
+  const trailingPath = cleanPath.endsWith("/") ? cleanPath : `${cleanPath}/`;
+  const url = absoluteUrl(`/${lang}${trailingPath}`);
   const resolvedImage = image
     ? image.startsWith('http')
       ? image

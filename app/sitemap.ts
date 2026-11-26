@@ -9,14 +9,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const urls: MetadataRoute.Sitemap = [
     {
-      url: absoluteUrl("/en"),
+      url: absoluteUrl("/en/"),
       lastModified: now,
       changeFrequency: "daily",
       priority: 1,
       alternates: { languages: localizedAlternates("") },
     },
     {
-      url: absoluteUrl("/zh"),
+      url: absoluteUrl("/zh/"),
       lastModified: now,
       changeFrequency: "daily",
       priority: 1,
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const page of STATIC_PAGES) {
       const pathname = `/${page}`;
       urls.push({
-        url: absoluteUrl(`/${lang}${pathname}`),
+        url: absoluteUrl(`/${lang}${pathname}/`),
         lastModified: now,
         changeFrequency: page === "tools" ? "weekly" : "monthly",
         priority: page === "tools" ? 0.9 : 0.6,
@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const slug of TOOL_SLUGS) {
       const pathname = `/tools/${slug}`;
       urls.push({
-        url: absoluteUrl(`/${lang}${pathname}`),
+        url: absoluteUrl(`/${lang}${pathname}/`),
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.85,
@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const article of getArticles(lang)) {
       const pathname = `/blog/${article.slug}`;
       urls.push({
-        url: absoluteUrl(`/${lang}${pathname}`),
+        url: absoluteUrl(`/${lang}${pathname}/`),
         lastModified: article.date ? new Date(article.date) : now,
         changeFrequency: "monthly",
         priority: 0.72,

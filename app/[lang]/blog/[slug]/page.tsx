@@ -222,7 +222,7 @@ export default async function BlogPostPage({
     inLanguage: isZh ? 'zh-CN' : 'en-US',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': absoluteUrl(`/${lang}/blog/${slug}`),
+      '@id': absoluteUrl(`/${lang}/blog/${slug}/`),
     },
     author: {
       '@type': 'Organization',
@@ -247,7 +247,7 @@ export default async function BlogPostPage({
         '@type': 'ListItem',
         position: 1,
         name: isZh ? '首页' : 'Home',
-        item: absoluteUrl(`/${lang}`),
+        item: absoluteUrl(`/${lang}/`),
       },
       {
         '@type': 'ListItem',
@@ -265,7 +265,7 @@ export default async function BlogPostPage({
         '@type': 'ListItem',
         position: 4,
         name: data.title,
-        item: absoluteUrl(`/${lang}/blog/${slug}`),
+        item: absoluteUrl(`/${lang}/blog/${slug}/`),
       },
     ],
   };

@@ -20,17 +20,20 @@ INDEXNOW_ENDPOINTS = [
     "https://www.bing.com/indexnow",
 ]
 
-TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr"]
+TOOL_SLUGS = ["splits", "macro", "bfp", "bmr", "water", "ibw", "hr", "bmi", "1rm", "protein", "fat-loss", "volume"]
+STATIC_PAGES = ["tools", "about", "contact", "privacy", "terms", "cookies"]
 
 def get_all_site_urls():
     urls = [
-        f"https://{HOST}/en",
-        f"https://{HOST}/zh",
+        f"https://{HOST}/en/",
+        f"https://{HOST}/zh/",
     ]
-    # Tools
+    # Static pages & Tools
     for lang in ["en", "zh"]:
+        for page in STATIC_PAGES:
+            urls.append(f"https://{HOST}/{lang}/{page}/")
         for tool in TOOL_SLUGS:
-            urls.append(f"https://{HOST}/{lang}/tools/{tool}")
+            urls.append(f"https://{HOST}/{lang}/tools/{tool}/")
 
     # Articles
     base_content_dir = os.path.join(os.path.dirname(__file__), "..", "content")
@@ -41,7 +44,7 @@ def get_all_site_urls():
                 for f in files:
                     if f.endswith(".md"):
                         slug = os.path.splitext(f)[0]
-                        urls.append(f"https://{HOST}/{lang}/blog/{slug}")
+                        urls.append(f"https://{HOST}/{lang}/blog/{slug}/")
 
     return sorted(list(set(urls)))
 
