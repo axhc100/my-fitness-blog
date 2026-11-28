@@ -28,8 +28,8 @@ Roughly 60% of adult body mass is water, and skeletal muscle tissue is approxima
 
 | Fluid Compartment | Share of Total Body Water | Dominant Electrolyte Ions | Physiological Role in Recovery & Performance |
 | :--- | :---: | :--- | :--- |
-| **Intracellular Fluid (ICF)** | ~67% (two-thirds) | Potassium (K+), Magnesium (Mg2+), Phosphate (HPO4 2-) | Sustains myofibrillar turgor, mTORC1 anabolic signaling, enzyme kinetics, and glycogen-water storage |
-| **Extracellular Fluid (ECF)** | ~33% (one-third: interstitial + plasma) | Sodium (Na+), Chloride (Cl-), Bicarbonate (HCO3-) | Maintains blood plasma volume, cardiac stroke volume, thermoregulatory sweating, and nutrient perfusion |
+| **Intracellular Fluid (ICF)** | Approx. 67% (two-thirds) | Potassium (K+), Magnesium (Mg2+), Phosphate (HPO4 2-) | Sustains myofibrillar turgor, mTORC1 anabolic signaling, enzyme kinetics, and glycogen-water storage |
+| **Extracellular Fluid (ECF)** | Approx. 33% (one-third: interstitial + plasma) | Sodium (Na+), Chloride (Cl-), Bicarbonate (HCO3-) | Maintains blood plasma volume, cardiac stroke volume, thermoregulatory sweating, and nutrient perfusion |
 
 ### The Cell-Swelling Anabolic Signal
 When muscle cells achieve optimal **intracellular fluid (ICF)** turgor:
@@ -51,7 +51,7 @@ Water never moves against an osmotic gradient; it follows dissolved solutes acro
 
   Gut Lumen: Water + Sodium (Na+) + Glucose (Low-Osmolarity Solution)
         │
-        ▼  [SGLT1 Co-transporter: 2 Na+ + 1 Glucose pulls ~260 Water Molecules]
+        ▼  [SGLT1 Co-transporter: 2 Na+ + 1 Glucose pulls roughly 260 Water Molecules]
   Intestinal Epithelium ──▶ Rapidly Enters Blood Plasma (Restores Cardiac Output)
         │
         ▼  [Na+/K+-ATPase Pump: Exports 3 Na+ / Imports 2 K+ using ATP + Mg2+]
@@ -156,7 +156,7 @@ While sedentary individuals with hypertension must monitor sodium strictly, athl
 
 ### Q3: Are sports drinks or coconut water better for post-workout rehydration?
 **Answer: Each serves a different mineral profile; neither is complete on its own for heavy sweat loss.**
-Pure coconut water is rich in potassium (~600 mg per 240 mL) and low in sodium (~60–100 mg), whereas traditional sports drinks supply moderate carbohydrates and modest sodium (~450 mg/L). For rapid recovery after heavy sweating, adding a pinch of sea salt (roughly 400–500 mg sodium) into diluted coconut water or pairing a balanced sodium electrolyte mix with a potassium-rich post-workout meal delivers the ideal ICF/ECF ratio.
+Pure coconut water is rich in potassium (roughly 600 mg per 240 mL) and low in sodium (roughly 60–100 mg), whereas traditional sports drinks supply moderate carbohydrates and modest sodium (roughly 450 mg/L). For rapid recovery after heavy sweating, adding a pinch of sea salt (roughly 400–500 mg sodium) into diluted coconut water or pairing a balanced sodium electrolyte mix with a potassium-rich post-workout meal delivers the ideal ICF/ECF ratio.
 
 ### Q4: Why do I still get muscle cramps even though I drink plenty of water?
 **Answer: Cramping stems from neuromuscular hyperexcitability and local electrolyte/fatigue imbalance—not water deficit alone.**
